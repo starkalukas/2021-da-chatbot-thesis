@@ -7,24 +7,163 @@
 \section{Komponenten}
 \setauthor{Lukas Starka}
 
+In der sogenannten Domain werden alle Intents, Entities, Slots, Responses, Forms und Actions angegeben, die der Bot kennt.
+Diese ganzen Informationen befinden sich in der \textbf{domain.yml} Datei.
+\cite{domain}
+
 \subsection{Intents}
 \setauthor{Lukas Starka}
 
+Intents sind die Absichten hinter der Nachricht des Benutzers.
+Als Intents werden also alle möglichen Beispielsätze definiert, die ein Benutzer sagen könnte, um eine bestimmte Absicht auszudrücken.
+\cite{intents}
+
+Intents werden in dem \textbf{nlu.yml} File wie folgt angegeben:
+
+\begin{lstlisting}[label={lst: Intent Example}]
+## intent:<name des intents>
+- <phrase 1>
+- <phrase 2>
+- <phrase 3>
+\end{lstlisting}
 
 \subsection{Responses}
 \setauthor{Lukas Starka}
+
+Responses sind die Antworten, die vom Bot gegeben werden, wenn ein bestimmter Intent erkannt wurde.\cite{responses}
+
+Responses fügt man in seinem \textbf{domain.yml} File wie folgt ein:
+
+\begin{lstlisting}[label={lst: Responses Example}]
+responses:
+  utter_greet:
+  - text: "Hey! How are you?"
+
+  utter_<name der response>:
+  - text: "<text>"
+    image: "<img link>"
+  ...
+\end{lstlisting}
 
 
 \subsection{Stories}
 \setauthor{Lukas Starka}
 
+Stories werden als Trainingsdaten verwendet, die zum Trainieren des Models des Bots verwendet werden.
+Stories können dabei genutzt werden, um Models zu trainieren, bei denen auch unvorhersehbare Konversationspfade behandelt werden und unterscheiden sich in dieser Hinsicht von den Rules.
+\cite{stories}
+
+Bei einer Story wird also die Unterhaltung zwischen einem Benutzer und dem Bot dargestellt.
+Dabei wird die Eingabe des Benutzers als Intent angegeben und die Antwort, mit der der Bot antworten soll, als Name der Action.
+\cite{stories}
+
+Stories können wie folgt aussehen und sind im \textbf{stories.yml} File anzugeben:
+
+\begin{lstlisting}[label={lst: Stories Example}]
+stories:
+- story: name der story
+  steps:
+  - intent: <name des intents>
+  - action: <name der action>
+\end{lstlisting}
+
+\subsubsection{Checkpoints und OR-Statements}
+
+Man kann seine Stories außerdem mit Checkpoints und OR-Statements versehen.
+Bei diesen sollte man aber grundsätzlich aufpassen und sie nur bedacht verwenden, weil in den meisten Fällen die gewünschten Resultate besser mit \textbf{Rules} oder einem \textbf{ResponseSelector} zu erzielen sind.
+\cite{checkpointsor}
+
+Checkpoints können genutzt werden, um seine Trainingsdaten zu vereinfachen, indem man einen Checkpoint in einer Story setzt und auf diesen in einer anderen Story wieder ansetzt.
+Von diesen sollte man allerdings nicht zu viele machen, weil sonst die Stories sehr leicht schwer zu lesen und unübersichtlich sind und außerdem die Trainingszeit dadurch erhöht wird.
+\cite{checkpoints}
+
+Man definiert einen Checkpoint am Ende seiner Story, wenn man diesen Teil der Story auch wieder als Voraussetzung für eine weitere Story setzt.
+In der nächsten Story beginnt man dann mit seinem Checkpoint, also dem Punkt auf den man anknüpfen möchte und die Teile der Konversation, die für diese Story ebenfalls vorausgesetzt werden sollen.
+
+Im folgenden Beispiel werden Checkpoints von Stories verwendet, um an anderen Stories anzuknüpfen
+\cite{checkpoints}
+:
+
+\begin{lstlisting}[label={lst: Checkpoints Example}]
+stories:
+- story: beginning of flow
+  steps:
+  - intent: greet
+  - action: action_ask_user_question
+  - checkpoint: check_asked_question
+
+- story: handle user affirm
+  steps:
+  - checkpoint: check_asked_question
+  - intent: affirm
+  - action: action_handle_affirmation
+  - checkpoint: check_flow_finished
+
+- story: handle user deny
+  steps:
+  - checkpoint: check_asked_question
+  - intent: deny
+  - action: action_handle_denial
+  - checkpoint: check_flow_finished
+
+- story: finish flow
+  steps:
+  - checkpoint: check_flow_finished
+  - intent: goodbye
+  - action: utter_goodbye
+\end{lstlisting}
+
+OR-Statements können dafür verwendet werden, wenn man auf mehrere Intents innerhalb einer Story gleich reagieren möchte.
+\cite{orStatements}
+
+Man schreibt also anstelle von einem Intent in der Story ein \textbf{or} und gibt darunter alle Intents an, von denen einer eintreffen muss, damit die Story zutrifft.
+
+\begin{lstlisting}[label={lst: OR Example}]
+stories:
+- story:
+  steps:
+  # ... vorherige schritte
+  - action: utter_ask_confirm
+  - or:
+    - intent: affirm
+    - intent: thankyou
+  - action: action_handle_affirmation
+\end{lstlisting}
 
 \subsection{Rules}
 \setauthor{Lukas Starka}
 
+Rules werden angegeben, um kleine Teile von Unterhaltungen anzugeben, die immer wieder gleich behandelt werden sollen.
+Diese sollten allerdings nicht allzu häufig verwendet werden, weil man nie alle Konversationen vorhersagen kann.
+Um Rules verwenden zu können, muss man die \textbf{RulePolicy} in der Policy Konfiguration eintragen.
+\cite{rules}
+
+Um eine Rule zu verwenden, schreibt man folgendes in sein \textbf{rules.yml} File:
+
+\begin{lstlisting}[label={lst: Rules Example}]
+rules:
+
+- rule: Say `hello` whenever the user sends a message with intent `greet`
+  steps:
+  - intent: greet
+  - action: utter_greet
+\end{lstlisting}
+
+
 
 \subsection{Slots}
 \setauthor{Lukas Starka}
+
+Slots sind sozusagen das Gedächtnis des Bots.
+Diese sind als key-value Paare dargestellt und können dazu verwendet werden, damit Information die der Benutzer bereitstellt gespeichert werden können, ähnlich zu Entities.
+Diese Informationen können beispielsweise der Name des Benutzers sein oder Informationen, die für den generellen Kontext des Gesprächs wichtig sind.
+\cite{slots}
+
+\begin{lstlisting}[label={lst: Slot Example}]
+slots:
+  slot_name: <slot name>
+    type: <type>
+\end{lstlisting}
 
 
 \subsection{Entities}
