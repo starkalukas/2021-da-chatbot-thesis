@@ -80,8 +80,7 @@ Von diesen sollte man allerdings nicht zu viele machen, weil sonst die Stories s
 Man definiert einen Checkpoint am Ende seiner Story, wenn man diesen Teil der Story auch wieder als Voraussetzung für eine weitere Story setzt.
 In der nächsten Story beginnt man dann mit seinem Checkpoint, also dem Punkt auf den man anknüpfen möchte und die Teile der Konversation, die für diese Story ebenfalls vorausgesetzt werden sollen.
 
-Im folgenden Beispiel werden Checkpoints von Stories verwendet, um an anderen Stories anzuknüpfen
-\cite{checkpoints}
+Im folgenden Beispiel werden Checkpoints von Stories verwendet, um an anderen Stories anzuknüpfen\cite{checkpoints}
 :
 
 \begin{lstlisting}[label={lst: Checkpoints Example}]
@@ -155,7 +154,7 @@ rules:
 \setauthor{Lukas Starka}
 
 Slots sind sozusagen das Gedächtnis des Bots.
-Diese sind als key-value Paare dargestellt und können dazu verwendet werden, damit Information die der Benutzer bereitstellt gespeichert werden können, ähnlich zu Entities.
+Diese sind als key-value Paare dargestellt und können dazu verwendet werden, damit Information, die der Benutzer bereitstellt, gespeichert werden können, ähnlich zu Entities.
 Diese Informationen können beispielsweise der Name des Benutzers sein oder Informationen, die für den generellen Kontext des Gesprächs wichtig sind.
 \cite{slots}
 
@@ -169,21 +168,112 @@ slots:
 \subsection{Entities}
 \setauthor{Lukas Starka}
 
+Entities sind strukturierte Stücke von Informationen, die sich innerhalb der Nachricht eines Benutzers befinden.
+Solche Entities können beispielsweise ein Ort, ein Beruf oder ein Name sein.\cite{entities}
+
+Um Entities zu erstellen schreibt man folgendes in sein \textbf{domain.yml} File:
+
+\begin{lstlisting}[label={lst: Entities Domain Example}]
+entities:
+  - <entity name>
+  - <entity name>
+\end{lstlisting}
+
+Diese Entities müssen dann noch in den Intents angegeben werden, in denen sie vorkommen sollen.
+Dies macht man, indem man folgende Syntax bei den Trainingssätzen im \textbf{nlu.yml} File verwendet und ergänzt:
+
+\begin{lstlisting}[label={lst: Entities NLU Example}]
+Hallo mein Name ist [Lukas](name).
+Ich hätte gerne eine [große](size) [Pizza](meal)
+\end{lstlisting}
+
+\subsubsection{Entity Roles}
+
+Entity Roles können sinnvoll in manchen Szenarien sein.
+Zum Beispiel bei folgendem Satz:
+
+\begin{lstlisting}[label={lst: Entity Roles Example}]
+Buche einen Flug von [Linz](city) nach [London](city).
+\end{lstlisting}
+
+In diesem Fall sind sowohl Linz als auch London zwar richtig gekennzeichnet als city Entity, allerdings reicht diese Information noch nicht aus, damit der Chatbot richtig reagieren kann.
+Hierbei wäre es praktisch, wenn man noch angibt, welche dieser zwei Städte das Ziel und welche der Abflugsort ist.
+Dies macht man mit Entity Roles.\cite{entityRolesGroups}
+
+\subsubsection{Entity Groups}
+
+Entity Groups können genutzt werden, wenn man Entities miteinander gruppieren möchte.\cite{entityRolesGroups}
+
+Dies kann zum Beispiel hier sinnvoll sein:
+
+\begin{lstlisting}[label={lst: Entity Groups Example 1}]
+Ich hätte gerne eine große [Pizza](meal) mit [Pilzen](topping) und eine [Salami](topping) [Pizza](meal).
+\end{lstlisting}
+
+Bei der Gruppe muss hier erkannt werden, welche zwei Entities zusammen gehören\cite{entityRolesGroups}:
+
+\begin{lstlisting}[label={lst: Entity Groups Example 2}]
+Ich hätte gerne eine große [Pizza](meal) mit [Pilzen](topping) und eine [Salami](topping) [Pizza](meal).
+Group 1: [Pizza](meal) [Pilzen](topping)
+Group 2: [Salami](topping) [Pizza](meal)
+\end{lstlisting}
+
+
+\subsubsection{Nutzung von Entity Roles und Entity Groups}
 
 \subsection{Actions}
 \setauthor{Lukas Starka}
 
+Es gibt 2 verschiedene Arten von Messages:
+
+\begin{enumerate}
+  \item \textbf{Static Messages}: Diese sind unabhängig vom User Input und benötigen keinen Action Server\cite{actionsVid}
+  \item \textbf{Dynamic Messages}: Diese sind abhängig vom User Input und benötigen einen Action Server\cite{actionsVid}
+\end{enumerate}
+
+Der Rasa Action Server führt sogenannte Custom Actions für einen Rasa Open Source Conversation assistent aus.
+
+Wenn der Assistant eine gewisse Custom Action vorhersagt, sendet der Rasa Server einen POST request an den Actionserver mit einer JSON Payload mit dem Namen der vorhergesagten Action, der Conversation ID, den Inhalten des Trackers und den Inhalten der Domain.\cite{actions}
 
 \subsection{Forms}
 \setauthor{Lukas Starka}
+
+Um mehrere Informationen von einem Benutzer zu bekommen, eignen sich Forms.
+Um Forms zu verwenden, muss die \textbf{RulePolicy} in der Policy Konfiguration eingetragen sein.\cite{forms}
+
+Wenn man ein Formular hinzuzufügen will, muss man dies in der forms Section in dem \textbf{domain.yml} File angeben.
+
+\begin{lstlisting}[label={lst: Forms Example}]
+forms:
+  restaurant_form:
+    required_slots:
+        cuisine:
+          - type: from_entity
+            entity: cuisine
+        num_people:
+          - type: from_entity
+            entity: number
+\end{lstlisting}
 
 
 \subsection{Synonyms}
 \setauthor{Lukas Starka}
 
+Mithilfe von Synonymen kann man extrahierten Entities einen anderen Wert geben, als sie eigentlich vorher hatten, wenn diese in der Bedeutung gleich sind.
+Wenn man also mit verschiedenen Wörtern dasselbe meint, kann man sich Synonyms zur Hilfe nehmen.\cite{synonyms}
+
+Ein Beispiel dafür wäre folgendes im \textbf{nlu.yml} File:
+
+\begin{lstlisting}[label={lst: Synonym Example}]
+- synonym: Medientechnik
+  examples: |
+    - IT-Medientechnik
+    - IT Medientechnik
+    - Medientechnologie
+\end{lstlisting}
 
 \section{Rasa-NLU}
-\setauthor{Lukas Starka, Felix Dumfarth}
+\setauthor{Lukas Starka}
 \subsection{Pipeline}
 
 
