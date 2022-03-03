@@ -55,14 +55,132 @@ Danach wird die Ähnlichkeit zwischen den System Actions und dem Dialogue Embedd
 \subsection{Rasa NLU}
 \setauthor{Lukas Starka}
 
+Rasa NLU hat grundsätzlich zwei Hauptaufgaben.
+
+Zum einen wäre da die Intent Recognition und die Entity Recognition.\cite{rasanlu}
+
+Die Intent Recognition, ist die Erkennung der Nutzer-Absichten.
+Dazu muss die NLU mit ausreichend Utterances, also Responses trainiert werden.
+Dabei gibt die NLU alle zugehörigen Intents geordnet nach dem Confidence Score zurück.
+Rasa verfügt demnach über ein Multi Intent Matching.\cite{rasanlu}
+
+Außerdem gibt es noch die Entity Recognition, die dafür zuständig ist Entities, also wichtige Informationen, aus natürlicher Sprache zu extrahieren.\cite{rasanlu}
+
+Der Aufbau der NLU ist vollständig konfigurierbar mithilfe der sogenannten Pipeline.\cite{howToChooseAPipeline}
+
+
 \section{Pipeline}
 \setauthor{Lukas Starka}
 
-Rasa Open Source bietet bei der Initialisierung des Projekts eine Standard-NLU-Konfiguration.
+Rasa Open Source bietet bei der Initialisierung des Projekts eine Standard-NLU-Konfiguration.\cite{tuningYourModel}
 
 In Rasa Open Source werden eingehende Nachrichten von einer Reihe von Komponenten verarbeitet.
 Diese Komponenten werden nacheinander in einer sogenannten Processing Pipeline ausgeführt, die im config.yml File definiert ist.
-Wenn man eine NLU-Pipeline auswählt, kann man allerdings sein Model anpassen und an das Dataset verfeinern.
+Wenn man eine NLU-Pipeline auswählt, kann man allerdings sein Model anpassen und an das Dataset verfeinern.\cite{howToChooseAPipeline}
+
+In der Abbildung 3 werden die Komponenten und ihre Lifecycle abgebildet.
+
+\begin{figure}
+  \centering
+  \includegraphics[scale=0.25]{pics/component-lifecycle}
+  \caption{Component Lifecycle~\cite{componentLifecycle}}
+  \label{fig:component_lifecycle}
+\end{figure}
+
+Bevor die erste Komponente mit der Create-Funktion erstellt wird, wird ein sogenannter Kontext erstellt (der nichts anderes als ein Python-dict ist).
+Dieser Kontext wird verwendet, um Informationen zwischen den Komponenten zu übergeben.
+Beispielsweise kann eine Komponente Merkmalsvektoren für die Trainingsdaten berechnen, diese im Kontext speichern und eine andere Komponente kann diese Merkmalsvektoren aus dem Kontext abrufen und eine Intent Klassifikation durchführen.\cite{componentLifecycle, componentLifecycleDoc}
+
+Zunächst wird der Kontext mit allen Konfigurationswerten gefüllt, die Pfeile im Bild zeigen die Aufrufreihenfolge und visualisieren den Pfad des übergebenen Kontexts.
+Nachdem alle Komponenten trainiert und beibehalten wurden, wird das finale context dictionary verwendet, um die Metadaten des Models beizubehalten.\cite{componentLifecycle, componentLifecycleDoc}
+
+Dies ist in der Grafik 4 zu erkennen.
+
+\begin{figure}
+  \centering
+  \includegraphics[scale=0.25]{pics/pipeline}
+  \caption{Component Lifecycle~\cite{pipelineImage}}
+  \label{fig:pipeline_image}
+\end{figure}
+
+\subsection{Arten von NLU Pipelines}
+\setauthor{Lukas Starka}
+
+Es gibt verschiedene bereits konfigurierte Pipelines.\cite{howToChooseAPipeline}
+
+Grundsätzlich ist zwischen Pipelines zu unterscheiden, indem man sich informiert, ob sie pre-trained word vectors verwenden oder nicht.
+
+\subsubsection{Beispiele für Pipelines mit pre-trained word vectors}
+
+Der Vorteil von Pipelines, die pre-trained word vectors verwendet ist, dass diese bereits aus der jeweiligen Sprache word vectors besitzen.
+Somit weiß das Model beispielsweise, dass Äpfel und Birnen ähnlich sind ohne, dass dies in den Intents irgendwo spezifiziert werden muss.\cite{differenceStackOverflow}
+
+Die Vorteile hierbei sind also, dass das Model weniger Trainingsdaten benötigt, um eine gute Performance zu besitzen.
+Außerdem geht der ganze Trainingsprozess in der Regel schneller und die sogenannten Iteration Times sind kürzer als bei Modellen ohne pre-trained word vectors.
+
+\begin{lstlisting}[label={lst: Spacy Sklearn Pipeline}]
+language: "de"
+
+pipeline: "spacy_sklearn"
+\end{lstlisting}
+
+Die SpaCy Pipeline verwendet pre-trained word vectors von GloVe oder fastText.
+
+Es gibt außerdem auch noch Pipelines von MITIE.
+Diese verwendet MITIE als Source für die word vectors.
+Ein Vorteil von MITIE ist, dass man hier auch seine eigenen word vectors trainieren kann, indem man einen Corpus von Wikipedia oder ähnlichen Seiten verwendet.
+Allerdings wird MITIE meistens nicht empfohlen und es könnte auch sein, dass MITIE demnächstet deprecated sein wird.
+
+\begin{lstlisting}[label={lst: MITIE Sklearn Pipeline}]
+language: "de"
+
+pipeline: "mitie_sklearn"
+\end{lstlisting}
+
+\subsubsection{Beispiele für Pipelines ohne pre-trained word vectors}
+
+Der Vorteil von Pipelines ohne pre-trained word vectors ist, dass diese speziell auf den Fachbereich angepasst sind, für den man den Chatbot entwickelt.
+
+Als Beispiel kann man die Wörter "balance" und "symmetry" aus dem Englischen sehen.
+Diese Wörter sind eng miteinander verwandt.
+Allerdings kann im Kontext von Banken das Wort "balance" auch mit "cash" verwandt sein.
+Bei einem pre-trained Model würden diese Wortvektoren nicht nah aneinander liegen, aber wenn man einen Chatbot hat der nur Intents besitzt, die mit Banken und Rechnungswesen zu tun haben, werden diese zwei Wörter "balance" und "cash" ohne pre-trained word vectors als ähnlich erkannt werden.
+
+Außerdem benutzen diese Pipelines kein sprach-spezifisches Model und somit kann man sie in allen Sprachen verwenden, die tokenisiert werden kann.
+
+
+\begin{lstlisting}[label={lst: Tensorflow Embedding Pipeline}]
+language: "de"
+
+pipeline: "tensorflow_embedding"
+\end{lstlisting}
+
+Der Bag-of-word-vectors Ansatz ist zwar sehr gut aber leider auch nicht perfekt.
+Ein Problem davon ist, dass er oftmals keine fachspezifischen Begriffe kennt und außerdem können Typos nicht als Wortvektoren gelernt werden.
+Außerdem ist das Problem bei pre-trained word vectors, dass zehntausende Vektoren gespeichert werden, die vermutlich nie verwendet werden.\cite{tensorFlowEmbedding, choosingPipeline}
+
+Mit dem Tensorflow-Embedding macht man im Grunde genommen genau das Gegenteil.
+Diese Pipeline verwendet keine pre-trained vectors und sollte mit jeder Sprache verwendet werden können.
+Diese Pipeline lernt Embeddings für die Intents und für die Wörter und die Embeddings werden verwendet um die Ähnlichkeit zwischen dem Input und den Intents zu ermitteln.\cite{tensorFlowEmbedding, choosingPipeline}
+
+Eine weitere Pipeline lautet wie folgt:
+
+\begin{lstlisting}[label={lst: Supervised Embedding Pipeline}]
+language: "de"
+
+pipeline: "supervised_embedding"
+\end{lstlisting}
+
+\subsubsection{Supervised Embeddings vs. Pretrained Embeddings}
+
+In der Grafik 5 sieht man ein Flussdiagramm, welches beschreibt, ob man Supervised Embeddings oder Pretrained Embeddings verwenden soll.
+
+\begin{figure}
+  \centering
+  \includegraphics[scale=0.25]{pics/pre-trained-vs-supervised}
+  \caption{Pretrained oder Supervised Embeddings~\cite{pretrainedVsSupervised}}
+  \label{fig:pre_trained_vs_supervised}
+\end{figure}
 
 \subsection{WhitespaceTokenizer}
 \setauthor{Lukas Starka}
