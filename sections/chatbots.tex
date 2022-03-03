@@ -33,10 +33,23 @@ Diese Entscheidung wird nicht durch einfache Regeln getroffen, sondern genauso w
 \setauthor{Lukas Starka}
 
 Policies sind ein Teil von \textbf{Rasa Core} und der Assistent benützt Policies um zu entscheiden, welche Action als nächstes ausgeführt werden soll.
-Es gibt machine-learning und rule-based policies.
+Es gibt machine-learning und rule-based policies.\cite{policies}
 
 Hierbei kann man die Policies beispielsweise ändern.
 Dies macht man in der \textbf{config.yml} Datei.
+
+Bei den Policies gibt es unterschiedliche Priorities, die dann zum Einsatz kommen, wenn mehrere Policies dieselbe Confidence vorhergesagt haben.\cite{policyPriority}
+
+\subsubsection{TED Policy}
+\setauthor{Lukas Starka}
+
+Die TED Policy steht für Transformer Embedding Dialogue Policy und wird meistens standardmäßig verwendet.\cite{tedPolicy}
+
+Bei jedem Dialog bekommt die TED Policy drei Informationen als Input.
+Die Nachricht des Users, die vorherige Action die vorhergesagt wurde und Slots und aktive Forms.
+Dann werden diese in den Dialogue Transformer Encoder gepackt und anschließend werden sogenannte Dense Layer verwendet.
+Danach wird die Ähnlichkeit zwischen den System Actions und dem Dialogue Embedding berechnet und zum Schluss werden noch CRF Algorithmen verwendet, um Entities zu erkennen.\cite{tedPolicy}
+
 
 
 \subsection{Rasa NLU}
