@@ -1,22 +1,128 @@
 \section{Allgemeines}
 \setauthor{Lukas Starka}
 
+\subsection{Rasa Produkte}
+\setauthor{Lukas Starka}
+
+Der Rasa Stack wird in Rasa NLU und Rasa Core aufgeteilt.
+Diese sind so aufgebaut, dass sie unabhängig voneinander eingesetzt werden können.
+So besteht die Möglichkeit, nur einen Teil der Architektur auf Rasa aufzubauen und zusätzlich weitere Services mit einzubinden.
+
+\subsection{Rasa Core}
+\setauthor{Lukas Starka}
+
+Rasa Core ist verantwortlich für den Conversation Flow, Context-Handling, Bot-Responses und Session Management.
+Dabei kann auf der Rasa NLU oder anderen Services aufgebaut werden, die die Intent Recognition und Entity Extraction übernehmen und die Ergebnisse dem Rasa Core zur Verfügung stellen.\cite{rasaCore}
+
+Rasa Core bezieht sich dabei auf die Hauptkomponente, die die Nachrichten erhält und darauf antwortet.\cite{rasaCore}
+
+Der Rasa Core hält für jede Session, also für jeden User, einen Tracker.
+Dieser enthält den momentanen Zustand der Konversationen, der jeweiligen User.
+Bekommt der Bot nun eine Nachricht, wird zuerst der Interpreter durchlaufen, welcher den Originaltext als Eingabe bekommt, und die Eingabe, den Intent und die extrahierten Entities zurückgibt.
+Zusammen mit dem aktuellen Zustand des Trackers entscheidet die Policy Komponente nun, welche Action, also Antwort des Bots, als nächstes ausgeführt werden soll.
+Diese Entscheidung wird nicht durch einfache Regeln getroffen, sondern genauso wie Intents oder Entities, auf der Grundlage von einem, mit Machine Learning, trainierten Model.\cite{rasaCore, rasaCoreBook}
+
+\begin{figure}
+  \centering
+  \includegraphics[scale=0.25]{pics/rasa-core}
+  \caption{Rasa Core Aufbau~\cite{rasaCoreBook}}
+  \label{fig:rasa_core}
+\end{figure}
+
+\subsection{Policies}
+\setauthor{Lukas Starka}
+
+Policies sind ein Teil von \textbf{Rasa Core} und der Assistent benützt Policies um zu entscheiden, welche Action als nächstes ausgeführt werden soll.
+Es gibt machine-learning und rule-based policies.
+
+Hierbei kann man die Policies beispielsweise ändern.
+Dies macht man in der \textbf{config.yml} Datei.
+
+
+\subsection{Rasa NLU}
+\setauthor{Lukas Starka}
+
+\section{Pipeline}
+\setauthor{Lukas Starka}
+
+Rasa Open Source bietet bei der Initialisierung des Projekts eine Standard-NLU-Konfiguration.
+
+In Rasa Open Source werden eingehende Nachrichten von einer Reihe von Komponenten verarbeitet.
+Diese Komponenten werden nacheinander in einer sogenannten Processing Pipeline ausgeführt, die im config.yml File definiert ist.
+Wenn man eine NLU-Pipeline auswählt, kann man allerdings sein Model anpassen und an das Dataset verfeinern.
+
+\subsection{WhitespaceTokenizer}
+\setauthor{Lukas Starka}
+
+\subsection{RegexFeaturizer}
+\setauthor{Lukas Starka}
+
+\subsection{CRFEntityExtractor}
+\setauthor{Lukas Starka}
+
+\subsection{DucklingHttpExtractor}
+\setauthor{Lukas Starka}
+
+\subsection{LexicalSyntacticFeaturizer}
+\setauthor{Lukas Starka}
+
+\subsection{CountVectorsFeaturizer}
+\setauthor{Lukas Starka}
+
+\subsection{DIETClassifier}
+\setauthor{Lukas Starka}
+
+\subsection{EntitySynonymMapper}
+\setauthor{Lukas Starka}
+
+\subsection{ResponseSelector}
+\setauthor{Lukas Starka}
+
+\subsection{FallbackClassifier}
+\setauthor{Lukas Starka}
+
 \section{Welche Rolle spielen neuronale Netze in Rasa}
 \setauthor{Lukas Starka}
+
+Rasa selbst definiert 5 Stufen von AI\@.\cite{ai5Levels}
+
+\begin{figure}
+  \centering
+  \includegraphics[scale=0.25]{pics/5_levels_of_ai}
+  \caption{5 Stufen von AI~\cite{ai5LevelsVideo}}
+  \label{fig:5_levels_of_ai}
+\end{figure}
+
+\textbf{Level 1: Notifications}
+
+Auf Level 1 geht es darum simple Aufgaben zu erfüllen, wie man sie möglicherweise von seinem Smartphone kennt.
+Darunter fällt zum Beispiel das Anlegen von Terminen und anderen Benachrichtigungen, die man dann zu der eingestellten Uhrzeit bekommt.\cite{rasaMasterclass5Levels,ai5Levels,ai5LevelsVideo}
+
+\textbf{Level 2: "Chatbots" \& FAQs}
+
+Auf Level 2 geht es darum, dass der Benutzer einfache Fragen stellen kann und anschließend der Chatbot auf diese antwortet.
+Diese Stufe findet man sehr oft, allerdings sind diese sehr fehleranfällig, weil hier nur eine Menge an Regeln angelegt wird, an die sich der Chatbot hält.
+Dies wird sehr oft in Form von FAQs genutzt und auch ein paar kleine Follow-up Fragen können hierbei schon definiert sein.\cite{rasaMasterclass5Levels,ai5Levels,ai5LevelsVideo}
+
+\textbf{Level 3: Contextual AI Assistants}
+
+Dieses Level wird derzeit von Rasa unterstützt.
+Zusätzlich zu normalen FAQs wird hierbei auch der Kontext beachtet.
+Es macht nämlich einen Unterschied, wann, wie und in welcher Situation ein Benutzer etwas gesagt hat.
+Bei Contextual Assistants wird der Kontext, also was bereits zuvor gesagt wurde, auch beachtet.
+Außerdem lenken sie Konversationen in die gewünschte Richtung und werden mit der Zeit immer besser, wenn man sie trainiert.\cite{rasaMasterclass5Levels,ai5Levels,ai5LevelsVideo}
 
 \section{Komponenten}
 \setauthor{Lukas Starka}
 
 In der sogenannten Domain werden alle Intents, Entities, Slots, Responses, Forms und Actions angegeben, die der Bot kennt.
-Diese ganzen Informationen befinden sich in der \textbf{domain.yml} Datei.
-\cite{domain}
+Diese ganzen Informationen befinden sich in der \textbf{domain.yml} Datei.\cite{domain}
 
 \subsection{Intents}
 \setauthor{Lukas Starka}
 
 Intents sind die Absichten hinter der Nachricht des Benutzers.
-Als Intents werden also alle möglichen Beispielsätze definiert, die ein Benutzer sagen könnte, um eine bestimmte Absicht auszudrücken.
-\cite{intents}
+Als Intents werden also alle möglichen Beispielsätze definiert, die ein Benutzer sagen könnte, um eine bestimmte Absicht auszudrücken.\cite{intents}
 
 Intents werden in dem \textbf{nlu.yml} File wie folgt angegeben:
 
@@ -271,11 +377,6 @@ Ein Beispiel dafür wäre folgendes im \textbf{nlu.yml} File:
     - IT Medientechnik
     - Medientechnologie
 \end{lstlisting}
-
-\section{Rasa-NLU}
-\setauthor{Lukas Starka}
-\subsection{Pipeline}
-
 
 \section{Initialisieren}
 \setauthor{Lukas Starka}
