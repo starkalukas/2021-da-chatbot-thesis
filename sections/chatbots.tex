@@ -182,6 +182,88 @@ In der Grafik 5 sieht man ein Flussdiagramm, welches beschreibt, ob man Supervis
   \label{fig:pre_trained_vs_supervised}
 \end{figure}
 
+\subsection{Konfigurierte Pipelines}
+
+Es gibt also vordefinierte Pipelines von Rasa, die man nutzen kann.
+
+Dabei kann man nun wieder entscheiden, ob man Pretrained Word Embeddings will oder nicht.
+Sollte man sich dafür entscheiden, kann man auf eine Pipeline mit SpaCy zurückgreifen, welche den SpacyFeaturizer verwendet und somit Pretrained Word Embeddings nutzt.\cite{startingPipelines}
+
+\begin{lstlisting}[label={lst: Spacy Starting Pipeline}]
+language: "de"  # Code für die Sprache
+
+pipeline:
+  - name: SpacyNLP
+    model: "de_core_news_lg" # Spezifizierung, welches Modell von SpaCy genommen werden soll
+  - name: SpacyTokenizer
+  - name: SpacyFeaturizer
+  - name: RegexFeaturizer
+  - name: LexicalSyntacticFeaturizer
+  - name: CountVectorsFeaturizer
+  - name: CountVectorsFeaturizer
+    analyzer: "char_wb"
+    min_ngram: 1
+    max_ngram: 4
+  - name: DIETClassifier
+    epochs: 100
+  - name: EntitySynonymMapper
+  - name: ResponseSelector
+    epochs: 100
+
+\end{lstlisting}
+
+Wenn man sich dafür entscheidet keine vortrainierten Word Embeddings zu nutzen und somit sein Modell spezifischer auf den eigenen Anwendungsfall anpassen möchte, verwendet man die Standard Rasa Pipeline.
+Diese verwendet den CountVectorsFeaturizer, bei dem nur die Trainingsdaten, die zur Verfügung gestellt werden, trainiert werden.\cite{startingPipelines}
+
+\begin{lstlisting}[label={lst: Default Starting Pipeline}]
+language: "de"  # Code für die Sprache
+
+pipeline:
+  - name: WhitespaceTokenizer
+  - name: RegexFeaturizer
+  - name: LexicalSyntacticFeaturizer
+  - name: CountVectorsFeaturizer
+  - name: CountVectorsFeaturizer
+    analyzer: "char_wb"
+    min_ngram: 1
+    max_ngram: 4
+  - name: DIETClassifier
+    epochs: 100
+  - name: EntitySynonymMapper
+  - name: ResponseSelector
+    epochs: 100
+
+\end{lstlisting}
+
+Die von uns verwendete Pipeline beruht auf dieser Standard-Pipeline und die jeweiligen Komponenten werden in den folgenden Kapiteln genauer erläutert.
+
+\begin{lstlisting}[label={lst: Our Pipeline}]
+language: de
+
+pipeline:
+   - name: WhitespaceTokenizer
+   - name: RegexFeaturizer
+   - name: LexicalSyntacticFeaturizer
+   - name: CountVectorsFeaturizer
+   - name: CountVectorsFeaturizer
+     analyzer: char_wb
+     min_ngram: 1
+     max_ngram: 4
+   - name: DIETClassifier
+     epochs: 100
+     constrain_similarities: true
+   - name: EntitySynonymMapper
+   - name: ResponseSelector
+     epochs: 100
+     retrieval_intent: faq
+   - name: ResponseSelector
+     epochs: 100
+     retrieval_intent: chitchat
+   - name: FallbackClassifier
+     threshold: 0.3
+     ambiguity_threshold: 0.1
+\end{lstlisting}
+
 \subsection{WhitespaceTokenizer}
 \setauthor{Lukas Starka}
 
