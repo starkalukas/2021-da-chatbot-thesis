@@ -386,6 +386,35 @@ pipeline:
 \subsection{EntitySynonymMapper}
 \setauthor{Lukas Starka}
 
+Der EntitySynonymMapper erwartet als Input einen Extractor von den Entity Extractors und liefert als Ausgabe modifizierte Werte für die Entities, die bereits vorher erkannt wurden.
+Wenn beim EntitySynonymMapper also eine Entity überliefert wird und in den Trainingsdaten Synonyme für diese Entity vorhanden sind, wird der Wert der Entity auf den Wert, der in den Trainingsdaten angegeben ist, gesetzt.
+Wenn also beispielsweise in einem Satz des Benutzers New York City oder NYC vorkommt, werden diese beide auf den selben Wert nyc gesetzt.\cite{entitySynonymMapper}
+
+\begin{lstlisting}[label={lst: EntitySynonymMapper}]
+[
+    {
+      "text": "I moved to New York City",
+      "intent": "inform_relocation",
+      "entities": [{
+        "value": "nyc",
+        "start": 11,
+        "end": 24,
+        "entity": "city",
+      }]
+    },
+    {
+      "text": "I got a new flat in NYC.",
+      "intent": "inform_relocation",
+      "entities": [{
+        "value": "nyc",
+        "start": 20,
+        "end": 23,
+        "entity": "city",
+      }]
+    }
+]
+\end{lstlisting}
+
 \subsection{ResponseSelector}
 \setauthor{Lukas Starka}
 
