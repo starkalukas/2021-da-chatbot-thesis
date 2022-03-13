@@ -339,14 +339,46 @@ Dies wird auch mit den Wörtern davor und danach gemacht.\cite{crfEntityExtracto
 Der CRFEntityExtractor produziert anschließend als Output, welche Wörter in einem Satz Entities sind und welche Entities diese sind, also was ihre Labels sind.
 Außerdem wird noch produziert, wie sicher das Modell war, dass diese Entities korrekt sind, also die sogenannte Confidence wird ausgegeben und welches Modell verwendet wurde.\cite{crfEntityExtractor, pipelineComponentsYoutube, regexFeaturizerCrf}
 
-\subsection{DucklingHttpExtractor}
-\setauthor{Lukas Starka}
-
 \subsection{LexicalSyntacticFeaturizer}
 \setauthor{Lukas Starka}
 
+Ein Featurizer generell wird verwendet, um Features von den Tokens zu extrahieren.
+Diese können dann von dem Intent-Klassifikations-Modell genutzt werden, um Muster zu erkennen und anschließend den korrekten Intent vorherzusagen.\cite{lexicalSyntacticFeaturizer, pipelineComponentsYoutube, pipelineConfigurationVideo}
+
+\begin{figure}
+  \centering
+  \includegraphics[scale=0.25]{pics/featurizer}
+  \caption{5 Stufen von AI~\cite{pipelineConfigurationVideo}}
+  \label{fig:Featurizer}
+\end{figure}
+
+Der LexicalSyntacticFeaturizer bekommt als Input einen Token und erstellt dann Features für die Entity Extraktion.
+Dabei verwendet er ein sogenanntes Sliding Window, welches über jeden Token in der Nachricht des Benutzers verwendet wird.\cite{lexicalSyntacticFeaturizer, pipelineComponentsYoutube, pipelineConfigurationVideo}
+
 \subsection{CountVectorsFeaturizer}
 \setauthor{Lukas Starka}
+
+Der CountVectorsFeaturizer erstellt Bag-of-Words.
+Dabei wird gezählt, wie oft ein bestimmtes Wort aus den Trainingsdaten in der Nachricht des Benutzers vorkommt.
+Dies wird dann als Input dem Intent-Classification-Model übergeben.\cite{countVectorsFeaturizer, pipelineConfigurationVideo, pipelineComponentsYoutube, rasaMasterclassCountVectorsFeaturizer}
+
+\begin{figure}
+  \centering
+  \includegraphics[scale=0.25]{pics/countvectorsfeaturizer}
+  \caption{5 Stufen von AI~\cite{pipelineConfigurationVideo}}
+  \label{fig:CountVectorsFeaturizer}
+\end{figure}
+
+Beim CountVectorsFeaturizer kann man außerdem angeben, dass statt Wörtern sogenannte n-grams verwendet werden sollen.
+Dies macht das Modell in der Regel robuster gegen Typos allerdings erhöht sich damit auch die Zeit, die das Modell zum Trainieren benötigt.\cite{countVectorsFeaturizer, pipelineConfigurationVideo, pipelineComponentsYoutube, rasaMasterclassCountVectorsFeaturizer}
+
+\begin{lstlisting}[label={lst: CountVectorsFeaturizer with n-grams}]
+pipeline:
+    - name: CountVectorsFeaturizer
+    analyzer: char_wb
+    min_ngram: 1
+    max_ngram: 4
+\end{lstlisting}
 
 \subsection{DIETClassifier}
 \setauthor{Lukas Starka}
@@ -439,8 +471,7 @@ Stories können dabei genutzt werden, um Models zu trainieren, bei denen auch un
 \cite{stories}
 
 Bei einer Story wird also die Unterhaltung zwischen einem Benutzer und dem Bot dargestellt.
-Dabei wird die Eingabe des Benutzers als Intent angegeben und die Antwort, mit der der Bot antworten soll, als Name der Action.
-\cite{stories}
+Dabei wird die Eingabe des Benutzers als Intent angegeben und die Antwort, mit der der Bot antworten soll, als Name der Action.\cite{stories}
 
 Stories können wie folgt aussehen und sind im \textbf{stories.yml} File anzugeben:
 
@@ -497,8 +528,7 @@ stories:
   - action: utter_goodbye
 \end{lstlisting}
 
-OR-Statements können dafür verwendet werden, wenn man auf mehrere Intents innerhalb einer Story gleich reagieren möchte.
-\cite{orStatements}
+OR-Statements können dafür verwendet werden, wenn man auf mehrere Intents innerhalb einer Story gleich reagieren möchte.\cite{orStatements}
 
 Man schreibt also anstelle von einem Intent in der Story ein \textbf{or} und gibt darunter alle Intents an, von denen einer eintreffen muss, damit die Story zutrifft.
 
@@ -519,8 +549,7 @@ stories:
 
 Rules werden angegeben, um kleine Teile von Unterhaltungen anzugeben, die immer wieder gleich behandelt werden sollen.
 Diese sollten allerdings nicht allzu häufig verwendet werden, weil man nie alle Konversationen vorhersagen kann.
-Um Rules verwenden zu können, muss man die \textbf{RulePolicy} in der Policy Konfiguration eintragen.
-\cite{rules}
+Um Rules verwenden zu können, muss man die \textbf{RulePolicy} in der Policy Konfiguration eintragen.\cite{rules}
 
 Um eine Rule zu verwenden, schreibt man folgendes in sein \textbf{rules.yml} File:
 
