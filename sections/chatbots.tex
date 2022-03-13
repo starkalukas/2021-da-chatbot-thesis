@@ -183,11 +183,12 @@ In der Grafik 5 sieht man ein Flussdiagramm, welches beschreibt, ob man Supervis
 \end{figure}
 
 \subsection{Konfigurierte Pipelines}
+\setauthor{Lukas Starka}
 
 Es gibt also vordefinierte Pipelines von Rasa, die man nutzen kann.
 
 Dabei kann man nun wieder entscheiden, ob man Pretrained Word Embeddings will oder nicht.
-Sollte man sich dafür entscheiden, kann man auf eine Pipeline mit SpaCy zurückgreifen, welche den SpacyFeaturizer verwendet und somit Pretrained Word Embeddings nutzt.\cite{startingPipelines}
+Sollte man sich dafür entscheiden, kann man auf eine Pipeline mit SpaCy zurückgreifen, welche den SpacyFeaturizer verwendet und somit Pretrained Word Embeddings nutzt.\cite{startingPipelines, allComponents}
 
 \begin{lstlisting}[label={lst: Spacy Starting Pipeline}]
 language: "de"  # Code für die Sprache
@@ -213,7 +214,7 @@ pipeline:
 \end{lstlisting}
 
 Wenn man sich dafür entscheidet keine vortrainierten Word Embeddings zu nutzen und somit sein Modell spezifischer auf den eigenen Anwendungsfall anpassen möchte, verwendet man die Standard Rasa Pipeline.
-Diese verwendet den CountVectorsFeaturizer, bei dem nur die Trainingsdaten, die zur Verfügung gestellt werden, trainiert werden.\cite{startingPipelines}
+Diese verwendet den CountVectorsFeaturizer, bei dem nur die Trainingsdaten, die zur Verfügung gestellt werden, trainiert werden.\cite{startingPipelines, allComponents}
 
 \begin{lstlisting}[label={lst: Default Starting Pipeline}]
 language: "de"  # Code für die Sprache
@@ -267,11 +268,58 @@ pipeline:
 \subsection{WhitespaceTokenizer}
 \setauthor{Lukas Starka}
 
+Ein WhitespaceTokenizer ist eine sehr einfache Art eines Tokenizers.
+Hierbei wird, wie der Name bereits vermuten lässt, der Satz aufgeteilt in verschiedene Tokens.
+Ein Token kann zum Beispiel also ein Wort sein und beim WhitespaceTokenizer wird der Satz pro Whitespace also Leerzeichen aufgeteilt.\cite{whitespaceTokenizer, rasaMasterclassWhitespaceTokenizer, pipelineComponentsYoutube}
+
+\begin{figure}
+  \centering
+  \includegraphics[scale=0.25]{pics/whitespacetokenizer}
+  \caption{5 Stufen von AI~\cite{pipelineComponentsYoutube}}
+  \label{fig:WhitespaceTokenizer}
+\end{figure}
+
+Es gibt auch komplexere Tokenizer und Tokenizer, die speziell an Sprachen angepasst sind und die besonderen Regeln, die in diesen Sprachen gelten, beachten.
+Außerdem kann man natürlich auch selber einen Tokenizer schreiben.\cite{whitespaceTokenizer, rasaMasterclassWhitespaceTokenizer, pipelineComponentsYoutube}
+
+Tokenizer sollten generell weit am Anfang einer Pipeline sein, wenn nicht sogar die erste Komponente.
+
 \subsection{RegexFeaturizer}
 \setauthor{Lukas Starka}
 
+Einen RegexFeaturizer kann man verwenden, um die EntityExtraction zu erleichtern.
+Bei diesem werden Regular Expressions und Lookup Tables verwendet und der RegexFeaturizer gibt an, ob ein Wort von den Regular Expressions oder Lookup Tables erkannt wurde.
+Der EntityExtractor nimmt dann diese Tokens als Input und produziert Named Entity Recognition Ergebnisse.\cite{rasaMasterclassRegexFeaturizer, pipelineComponentsYoutube, regexFeaturizer}
+
+\subsubsection{Regular Expressions}
+
+Regular Expressions können verwendet werden, um Muster eines Strings zu beschreiben und können hier bei dem Beispiel von Chatbots beispielsweise verwendet werden, um Zahlen zu beschreiben.\cite{rasaMasterclassRegexFeaturizer, pipelineComponentsYoutube, regexFeaturizer}
+
+\begin{figure}
+  \centering
+  \includegraphics[scale=0.25]{pics/regular-expression-example}
+  \caption{5 Stufen von AI~\cite{pipelineComponentsYoutube}}
+  \label{fig:Regular Expression Beispiel}
+\end{figure}
+
+\subsubsection{Lookup Tables}
+
+Lookup Tables können verwendet werden, wenn eine Entity vordefinierte Werte haben kann.
+Zum Beispiel kann eine Entity mit dem Namen "country" 194 verschiedene Länder annehmen.\cite{rasaMasterclassRegexFeaturizer, pipelineComponentsYoutube, regexFeaturizer}
+
+\begin{figure}
+  \centering
+  \includegraphics[scale=0.25]{pics/lookup-table-example}
+  \caption{5 Stufen von AI~\cite{pipelineComponentsYoutube}}
+  \label{fig:Lookup Table Beispiel}
+\end{figure}
+
+Der RegexFeaturizer muss vor dem EntityExtractor in der Pipeline platziert werden.\cite{rasaMasterclassRegexFeaturizer, pipelineComponentsYoutube, regexFeaturizer}
+
 \subsection{CRFEntityExtractor}
 \setauthor{Lukas Starka}
+
+
 
 \subsection{DucklingHttpExtractor}
 \setauthor{Lukas Starka}
