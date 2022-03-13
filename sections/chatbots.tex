@@ -418,8 +418,78 @@ Wenn also beispielsweise in einem Satz des Benutzers New York City oder NYC vork
 \subsection{ResponseSelector}
 \setauthor{Lukas Starka}
 
+Ein Selector sagt die korrekte Response voraus aus einer Menge von möglichen Responses.
+Beim ResponseSelector wird als Ausgabe ein Key-Value Paar ausgegeben.
+Als Key wird hierbei der Retrieval Intent ausgegeben und das Value ist die vorhergesagte Response und die Confidence, mit der diese vorhergesagt wurde.\cite{responseSelector}
+
+\begin{lstlisting}[label={lst: ResponseSelector}]
+{
+    "response_selector": {
+      "faq": {
+        "response": {
+          "id": 1388783286124361986,
+          "confidence": 0.7,
+          "intent_response_key": "chitchat/ask_weather",
+          "responses": [
+            {
+              "text": "It's sunny in Berlin today",
+              "image": "https://i.imgur.com/nGF1K8f.jpg"
+            },
+            {
+              "text": "I think it's about to rain."
+            }
+          ],
+          "utter_action": "utter_chitchat/ask_weather"
+         },
+        "ranking": [
+          {
+            "id": 1388783286124361986,
+            "confidence": 0.7,
+            "intent_response_key": "chitchat/ask_weather"
+          },
+          {
+            "id": 1388783286124361986,
+            "confidence": 0.3,
+            "intent_response_key": "chitchat/ask_name"
+          }
+        ]
+      }
+    }
+}
+\end{lstlisting}
+
+Bei einem Retrieval Intent handelt es sich um einen speziellen Intent, der weiter aufgeteilt werden kann in sogenannte Sub-Intents.
+Dies kann man zum Beispiel nutzen, wenn man einen Retrieval Intent für FAQ und für Chitchat hat, bei denen dann jede individuelle Frage einen Sub-Intent darstellt.\cite{retrievalIntent}
+Verwendet wird dies, wenn der Bot zum Beispiel bei FAQ oder Chitchat sowieso immer mit der selben Antwort auf die Frage antworten soll, unabhängig von dem was vorher geschrieben wurde.\cite{chitchatAndFaqs}
+
+Auch wir haben diesen Ansatz in unsere Pipeline gewählt.
+
+\begin{lstlisting}[label={lst: Two ResponseSelectors in our Pipeline}]
+- name: ResponseSelector
+     epochs: 100
+     retrieval_intent: faq
+   - name: ResponseSelector
+     epochs: 100
+     retrieval_intent: chitchat
+\end{lstlisting}
+
 \subsection{FallbackClassifier}
 \setauthor{Lukas Starka}
+
+Der FallbackClassifier ist standardmäßig nicht in der Rasa Pipeline enthalten und wurde von uns hinzugefügt.\cite{startingPipelines}
+
+Diesen verwendet man, um mit Nachrichten umzugehen, bei denen nur eine sehr niedrige Confidence vorhergesagt wurde.
+In diesem Fall wird dann ein Intent mit dem Namen "nlu\_fallback" vorhergesagt, welchen man dann behandeln kann, indem man beispielsweise als Antwort immer definiert, dass der User seine Nachricht neu formulieren soll.
+Die Confidence wird hierbei auf den Wert gesetzt welcher im Threshold angegeben wird.\cite{fallbackClassifier, nluFallback}
+Man kann außerdem einen sogenannten "ambiguity\_threshold" angeben.
+Bei diesem wird der "nlu\_fallback" Intent vorhergesagt, wenn die zwei als wahrscheinlichst empfundenen Intents sich um weniger, als den ambiguity\_threshold in der Confidence unterscheiden.\cite{fallbackClassifier}
+
+\begin{lstlisting}[label={lst: FallbackClassifier}]
+pipeline:
+- name: FallbackClassifier
+  threshold: 0.7
+  ambiguity_threshold
+\end{lstlisting}
 
 \section{Welche Rolle spielen neuronale Netze in Rasa}
 \setauthor{Lukas Starka}
