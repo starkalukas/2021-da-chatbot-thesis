@@ -28,7 +28,7 @@ Jedoch begann der Chatbot sehr anders, zu beginn wurde der Bot zuerst als ganze 
     \centering
     \includegraphics[scale=0.2]{pics/fullPageBot.png}
     \caption{Chatbot auf einer ganzen Seite}
-    \label{fig:impl:conceptBotOpen}
+    \label{fig:impl:conceptBotFullPage}
 \end{figure}
 
 Natürlich war dies nicht das entgültige Ziel so wurde der Bot schnell zur Chatblase umgewandelt.
@@ -48,12 +48,39 @@ Um Bewertungen von echten Benutzern zu holen wurde außerdem eine Feedback Seite
 
 \subsection{Dashboard}
 
-Um alle Gespräche und die Bewertungen der Benutzer anzuzeigen wurde ein Dashboard eingeführt wo nur dies möglich war.
-Im Laufe der Diplomarbeit wurde dieses dann erweitert um für den Leobot Conversation Cycle als Seite zu dienen.
+Um alle Gespräche und die Bewertungen der Benutzer anzuzeigen wurde ein Dashboard eingeführt, wo nur dies möglich war.
+Im Laufe der Diplomarbeit wurde dieses dann erweitert, um für den Leobot Conversation Cycle als Seite zu dienen.
+
+Einerseits kann man sich die vergangenen Unterhaltungen ansehen, so wie die nlu.yml, stories.yml, rules.yml, domain.yml direkt im Monaco Editor bearbeiten und speichern.
+
+\begin{figure}[hbt!]
+    \centering
+    \includegraphics[scale=0.2]{pics/dashboardConvo}
+    \caption{Dashboard}
+    \label{fig:impl:dashConv}
+\end{figure}
+
+Im Editor wurden auch Code Vorschläge benutzt um etwas an Tipparbeit sparen zu können.
+
+\begin{figure}[hbt!]
+    \centering
+    \includegraphics[scale=0.2]{pics/dashboardCodeSuggestion}
+    \caption{Vorschläge}
+    \label{fig:impl:dashboardCodeSuggestion}
+\end{figure}
+\begin{figure}[hbt!]
+    \centering
+    \includegraphics[scale=0.2]{pics/dashboardSuggestionMade}
+    \caption{Vorschlag benutzt}
+    \label{fig:impl:dashboardCodeSuggestionMade}
+\end{figure}
+
 
 
 \subsection{Einbindung in Wordpress}
 \subsubsection{Angular Elements}
+''Webkomponenten sind eine Gruppe von Web-Technologien, die es ermöglichen, benutzerdefinierte, wiederverwendbare HTML Elemente zu erstellen, deren Funktionalität gekapselt ist und damit vollständig getrennt von anderem Code.''\cite{webcomponents}
+
 
 \section{Schwierigkeiten}
 \setauthor{Felix Dumfarth}
