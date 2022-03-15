@@ -22,7 +22,7 @@ Bekommt der Bot nun eine Nachricht, wird zuerst der Interpreter durchlaufen, wel
 Zusammen mit dem aktuellen Zustand des Trackers entscheidet die Policy Komponente nun, welche Action, also Antwort des Bots, als nächstes ausgeführt werden soll.
 Diese Entscheidung wird nicht durch einfache Regeln getroffen, sondern genauso wie Intents oder Entities, auf der Grundlage von einem, mit Machine Learning, trainierten Model.\cite{rasaCore, rasaCoreBook}
 
-\begin{figure}
+\begin{figure}[hbt!]
   \centering
   \includegraphics[scale=0.25]{pics/rasa-core}
   \caption{Rasa Core Aufbau~\cite{rasaCoreBook}}
@@ -80,7 +80,7 @@ Wenn man eine NLU-Pipeline auswählt, kann man allerdings sein Model anpassen un
 
 In der Abbildung 3 werden die Komponenten und ihre Lifecycle abgebildet.
 
-\begin{figure}
+\begin{figure}[hbt!]
   \centering
   \includegraphics[scale=0.25]{pics/component-lifecycle}
   \caption{Component Lifecycle~\cite{componentLifecycle}}
@@ -96,7 +96,7 @@ Nachdem alle Komponenten trainiert und beibehalten wurden, wird das finale conte
 
 Dies ist in der Grafik 4 zu erkennen.
 
-\begin{figure}
+\begin{figure}[hbt!]
   \centering
   \includegraphics[scale=0.25]{pics/pipeline}
   \caption{Component Lifecycle~\cite{pipelineImage}}
@@ -175,7 +175,7 @@ pipeline: "supervised_embedding"
 
 In der Grafik 5 sieht man ein Flussdiagramm, welches beschreibt, ob man Supervised Embeddings oder Pretrained Embeddings verwenden soll.
 
-\begin{figure}
+\begin{figure}[hbt!]
   \centering
   \includegraphics[scale=0.25]{pics/pre-trained-vs-supervised}
   \caption{Pretrained oder Supervised Embeddings~\cite{pretrainedVsSupervised, rasaMasterclassPreConfiguredPipelines}}
@@ -272,7 +272,7 @@ Ein WhitespaceTokenizer ist eine sehr einfache Art eines Tokenizers.
 Hierbei wird, wie der Name bereits vermuten lässt, der Satz aufgeteilt in verschiedene Tokens.
 Ein Token kann zum Beispiel also ein Wort sein und beim WhitespaceTokenizer wird der Satz pro Whitespace also Leerzeichen aufgeteilt.\cite{whitespaceTokenizer, rasaMasterclassWhitespaceTokenizer, pipelineComponentsYoutube}
 
-\begin{figure}
+\begin{figure}[hbt!]
   \centering
   \includegraphics[scale=0.25]{pics/whitespacetokenizer}
   \caption{5 Stufen von AI~\cite{pipelineComponentsYoutube}}
@@ -295,7 +295,7 @@ Der EntityExtractor nimmt dann diese Tokens als Input und produziert Named Entit
 
 Regular Expressions können verwendet werden, um Muster eines Strings zu beschreiben und können hier bei dem Beispiel von Chatbots beispielsweise verwendet werden, um Zahlen zu beschreiben.\cite{rasaMasterclassRegexFeaturizer, pipelineComponentsYoutube, regexFeaturizerCrf}
 
-\begin{figure}
+\begin{figure}[hbt!]
   \centering
   \includegraphics[scale=0.25]{pics/regular-expression-example}
   \caption{5 Stufen von AI~\cite{pipelineComponentsYoutube}}
@@ -307,7 +307,7 @@ Regular Expressions können verwendet werden, um Muster eines Strings zu beschre
 Lookup Tables können verwendet werden, wenn eine Entity vordefinierte Werte haben kann.
 Zum Beispiel kann eine Entity mit dem Namen "country" 194 verschiedene Länder annehmen.\cite{rasaMasterclassRegexFeaturizer, pipelineComponentsYoutube, regexFeaturizerCrf}
 
-\begin{figure}
+\begin{figure}[hbt!]
   \centering
   \includegraphics[scale=0.25]{pics/lookup-table-example}
   \caption{5 Stufen von AI~\cite{pipelineComponentsYoutube}}
@@ -329,7 +329,7 @@ Es wird also ein Token aus dem Satz herausgepickt, und anschließend wird gescha
 Dabei schaut der Extractor auf Eigenschaften, wie beispielsweise, ob das Wort groß- oder kleingeschrieben ist, ob es einen Prefix hat, ob es eine Zahl ist oder ob es ein speziell definiertes Wort für die Entities ist.
 Dies wird auch mit den Wörtern davor und danach gemacht.\cite{crfEntityExtractor, pipelineComponentsYoutube, regexFeaturizerCrf}
 
-\begin{figure}
+\begin{figure}[hbt!]
   \centering
   \includegraphics[scale=0.25]{pics/crf-entity-extractor}
   \caption{5 Stufen von AI~\cite{pipelineComponentsYoutube}}
@@ -345,7 +345,7 @@ Außerdem wird noch produziert, wie sicher das Modell war, dass diese Entities k
 Ein Featurizer generell wird verwendet, um Features von den Tokens zu extrahieren.
 Diese können dann von dem Intent-Klassifikations-Modell genutzt werden, um Muster zu erkennen und anschließend den korrekten Intent vorherzusagen.\cite{lexicalSyntacticFeaturizer, pipelineComponentsYoutube, pipelineConfigurationVideo}
 
-\begin{figure}
+\begin{figure}[hbt!]
   \centering
   \includegraphics[scale=0.25]{pics/featurizer}
   \caption{5 Stufen von AI~\cite{pipelineConfigurationVideo}}
@@ -362,7 +362,7 @@ Der CountVectorsFeaturizer erstellt Bag-of-Words.
 Dabei wird gezählt, wie oft ein bestimmtes Wort aus den Trainingsdaten in der Nachricht des Benutzers vorkommt.
 Dies wird dann als Input dem Intent-Classification-Model übergeben.\cite{countVectorsFeaturizer, pipelineConfigurationVideo, pipelineComponentsYoutube, rasaMasterclassCountVectorsFeaturizer}
 
-\begin{figure}
+\begin{figure}[hbt!]
   \centering
   \includegraphics[scale=0.25]{pics/countvectorsfeaturizer}
   \caption{5 Stufen von AI~\cite{pipelineConfigurationVideo}}
@@ -496,7 +496,7 @@ pipeline:
 
 Rasa selbst definiert 5 Stufen von AI\@.\cite{ai5Levels}
 
-\begin{figure}
+\begin{figure}[hbt!]
   \centering
   \includegraphics[scale=0.25]{pics/5_levels_of_ai}
   \caption{5 Stufen von AI~\cite{ai5LevelsVideo}}
