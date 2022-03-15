@@ -697,7 +697,7 @@ Dies macht man, indem man folgende Syntax bei den Trainingssätzen im \textbf{nl
 
 \begin{lstlisting}[label={lst: Entities NLU Example}]
 Hallo mein Name ist [Lukas](name).
-Ich hätte gerne eine [große](size) [Pizza](meal)
+Ich hätte gerne eine [kleine](size) [Pizza](meal)
 \end{lstlisting}
 
 \subsubsection{Entity Roles}
@@ -720,13 +720,13 @@ Entity Groups können genutzt werden, wenn man Entities miteinander gruppieren m
 Dies kann zum Beispiel hier sinnvoll sein:
 
 \begin{lstlisting}[label={lst: Entity Groups Example 1}]
-Ich hätte gerne eine große [Pizza](meal) mit [Pilzen](topping) und eine [Salami](topping) [Pizza](meal).
+Ich hätte gerne eine kleine [Pizza](meal) mit [Pilzen](topping) und eine [Salami](topping) [Pizza](meal).
 \end{lstlisting}
 
 Bei der Gruppe muss hier erkannt werden, welche zwei Entities zusammen gehören\cite{entityRolesGroups}:
 
 \begin{lstlisting}[label={lst: Entity Groups Example 2}]
-Ich hätte gerne eine große [Pizza](meal) mit [Pilzen](topping) und eine [Salami](topping) [Pizza](meal).
+Ich hätte gerne eine kleine [Pizza](meal) mit [Pilzen](topping) und eine [Salami](topping) [Pizza](meal).
 Group 1: [Pizza](meal) [Pilzen](topping)
 Group 2: [Salami](topping) [Pizza](meal)
 \end{lstlisting}
