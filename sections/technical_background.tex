@@ -62,7 +62,7 @@ Grob kann man behaupten, dass ein Text Analysis Tool aus drei verschiedenen Schr
     Diesen kann man entweder komplett selber implementieren oder man nimmt sich Libraries zur Hilfe.\cite{machineLearningTextAnalysis}
 \end{enumerate}
 
-\section{Natural Language Processing}
+\section{Natural Language Processing (NLP)}
 \setauthor{Lukas Starka}
 
 Natural Language Processing, oft auch als Akronym \textbf{NLP} abgekürzt, sorgt dafür, dass Computer Text auf dieselbe Art und Weise verstehen, wie wir es als Menschen tun.
@@ -72,10 +72,46 @@ Dies ermöglicht der Maschine im Endeffekt, dass diese menschliche Sprache in Fo
 \subsection{Corpus}
 \setauthor{Lukas Starka}
 
+Unter dem Corpus werden die Daten bezeichnet, die verwendet werden, um das NLP Modell zu trainieren, damit dieses menschliche Sprache versteht und damit arbeiten kann.
+Der Textkorpus ist also eine Menge von strukturierten Texten, die für den Computer lesbar sind.\cite{corpus}
+
 
 \subsection{Tokenization}
 \setauthor{Lukas Starka}
 
+Bei der Tokenization repräsentiert jeder Token eine sinnvolle Einheit.
+Darunter versteht man Wörter, Zeichen oder Sonderzeichen, die alle einen eigenen Token darstellen, lediglich Leerzeichen in einem Satz stellen keine eigenen Token dar.\cite{machineLearningTextAnalysis, naturalLanguageProcessing}
+
+Die verschiedenen Token, die dabei entstehen, können dabei wie folgt aussehen:
+
+\begin{lstlisting}[label={lst: Tokenization}]
+Let us go to the park.
+
+0: Let
+1: us
+2: go
+3: to
+4: the
+5: park
+6: .
+\end{lstlisting}
+
+Die Tokenization ist dabei besonders für verschiedene Sprachen von Vorteil, da es in diesen immer andere Regeln gibt, wie die Wörter aufgeteilt werden können.
+In dem obigen Beispiel wirkt es womöglich no so, als könnte man mit einer \textbf{split()} Methode das selbe Resultat erzielen, aber es gibt auch Besonderheiten einer Sprache, die vom Tokenizer bedacht werden müssen, wie folgendes Beispiel aufzeigt.\cite{machineLearningTextAnalysis, naturalLanguageProcessing}
+
+\begin{lstlisting}[label={lst: Tokenization Ausnahme}]
+"Let's go to the U.K.!"
+
+0: "
+1: Let
+2: 's
+3: go
+4: to
+5: the
+6: U.K.
+7: !
+8: "
+\end{lstlisting}
 
 \subsection{Part-of-speech Tagging}
 \setauthor{Lukas Starka}
