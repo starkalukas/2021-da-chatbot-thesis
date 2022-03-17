@@ -113,8 +113,28 @@ In dem obigen Beispiel wirkt es womöglich no so, als könnte man mit einer \tex
 8: "
 \end{lstlisting}
 
-\subsection{Part-of-speech Tagging}
+\subsection{Part-of-speech-Tagging (POS-Tagging)}
 \setauthor{Lukas Starka}
+
+Beim Part-of-speech-Tagging geht es um das Taggen von Wörtern und deren zugehörigen Teil der Sprache.
+Als Teil einer Sprache, also dem Part-of-speech, werden grundsätzlich Wörter bezeichnet, die ähnliche grammatikalische Eigenschaften oder Nutzungen besitzen.
+Im deutschen sind hierbei also die verschiedenen Wortarten gemeint.
+
+Beim Tagging werden entweder Statistiken angewendet, wie beispielsweise, dass es sehr wahrscheinlich ist, dass nach einem Artikel ein Nomen folgt.
+Außerdem gibt es sogenannte Rule-Based POS-Taggers, deren Aufgabe es ist, vordefinierte Regeln zu verwenden, um das Tagging zu vollziehen.\cite{machineLearningTextAnalysis, naturalLanguageProcessing}
+
+Ein Beispiel für POS-Tagging könnte also folgendermaßen aussehen:
+
+\begin{lstlisting}[label={lst: POS-Tagging}]
+I am going to the U.K.
+
+I: Pronoun
+am: Verb
+going: Verb
+to: Part
+the: Article
+U.K.: Noun
+\end{lstlisting}
 
 
 \subsection{Named Entity Recognition Tagging}
