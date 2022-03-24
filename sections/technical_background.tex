@@ -157,10 +157,43 @@ LANGUAGE    Sprachen
 \subsection{Stemming}
 \setauthor{Lukas Starka}
 
+Beim Preprocessing von Texten sind außerdem das Stemming und die Lemmatization Schritte, die häufig durchgeführt werden.
+
+Beim Stemming wird der Wortstamm eines Tokens von den Präfixen und Suffixen gelöst.
+Unter einem Präfix versteht man eine Vorsilbe, die dem Wortstamm vorangestellt wird und bei dem Suffix, handelt es sich im Gegenzug dazu um Worterweiterungen, die dem Stamm folgen.
+Hierbei gibt es wieder die Möglichkeit selber einen Stemmer zu implementieren oder bereits vorgefertigte Stemmer zu verwenden.\cite{textAnalysisMonkeylearn, machineLearningTextAnalysis}
+
+Ein Beispiel für Stemming wäre also wie folgt:
+
+\begin{lstlisting}[label={lst: Stemming}]
+Buying ---> buy
+
+unpredictability ---> un + predict + able + ity
+un          prefix
+predict     base word
+able        suffix
+ity         suffix
+\end{lstlisting}
 
 \subsection{Lemmatization}
 \setauthor{Lukas Starka}
 
+Unter der Lemmatization oder auch Lemmatisierung wird der Prozess verstanden, bei dem alle verschiedenen Arten von einem Wort zu ihrem Wortstamm umgeformt werden.
+
+Die Lemmatisierung ist sozusagen eine Weiterentwicklung des Stemming und versucht im Gegensatz zum Stemming den Kontext zu den Wörtern zu bringen.
+Je nachdem in welchem Kontext die Verben gebraucht werden können sie sich dabei von ihrer Wortart unterscheiden und so eine andere Bedeutung haben.
+Generell lässt sich sagen, dass Stemmer meist einfacher zu implementieren sind und für schnellere Laufzeiten sorgen, allerdings wird von vielen auch die Lemmatization dem Stemming vorgezogen, aufgrund der Vorteile die das Einbeziehen des Kontextes mit sich bringt.\cite{machineLearningTextAnalysis, textAnalysisMonkeylearn, stemmingLemmatization, }
+
+
+Beispiele für die Lemmatisierung sind:
+
+\begin{lstlisting}[label={lst: Lemmatization}]
+better ---> good
+walking ---> walk
+walked ---> walk
+walks ---> walk
+meeting ---> meet (wenn es als Verb gebraucht wird)
+\end{lstlisting}
 
 \subsection{Parsing}
 \setauthor{Lukas Starka}
