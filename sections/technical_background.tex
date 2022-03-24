@@ -136,10 +136,23 @@ the: Article
 U.K.: Noun
 \end{lstlisting}
 
-
-\subsection{Named Entity Recognition Tagging}
+\subsection{Named-entity recognition (NER)}
 \setauthor{Lukas Starka}
 
+Named-entity recognition ist eine der wichtigsten Säulen von Natural Language Processing.
+Entities sind strukturierte Stücke von Informationen, die sich innerhalb der Nachricht einer Benutzerin oder eines Benutzers befinden.
+Dabei werden Entities aus Texten erkannt und anschließend mit einem Tag der zugehörigen Kategorie versehen.\cite{namedEntityRecognition}
+
+Beispiele für Entities wären also:
+
+\begin{lstlisting}[label={lst: NER-Tagging}]
+PERSON      Personen (inklusive fiktionalen Personen)
+NORP        Nationalitäten oder religiöse oder politische Gruppen
+FACILITY    Gebäude, Flughäfen, Brücken, Straßen
+LOC         Orte
+PRODUCT     Objekte, Fahrzeuge, Essen
+LANGUAGE    Sprachen
+\end{lstlisting}
 
 \subsection{Stemming}
 \setauthor{Lukas Starka}
