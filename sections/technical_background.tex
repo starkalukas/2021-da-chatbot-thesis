@@ -198,10 +198,42 @@ meeting ---> meet (wenn es als Verb gebraucht wird)
 \subsection{Parsing}
 \setauthor{Lukas Starka}
 
+Parsing könnte man so beschreiben, dass es eine Art ist um einen Satz auseinanderzuteilen, um die Struktur des Satzes besser zu verstehen.
+Beim Parsing wird also die syntaktische Struktur eines Textes bestimmt.
+Um dies zu erreichen, nimmt der Parsing Algorithmus die Eigenheiten der Grammatik, von der jeweiligen Sprache, in der der Text geschrieben ist, her.\cite{textAnalysisMonkeylearn}
+
+Es gibt zwei verschiedene Arten von Parsing.
+Diese sind das sogenannte "Dependency Parsing" und das sogenannte "Constituency Parsing".
 
 \subsubsection{Dependency Parsing}
 \setauthor{Lukas Starka}
 
+Beim Dependency Parsing wird die grammatische Struktur eines Satzes bestimmt.
+Außerdem kann man mithilfe des Dependency Parsing herausfinden, welche Wörter zusammenhängen und welche Beziehung diese zueinander aufweisen.
+Dies bedeutet beispielsweise, dass man bei den Wörtern "blauer Ball", "nette Frau" oder ähnlichem erkennen kann, dass sich die Wörter "blau" oder "nett" auf das nachfolgende Wort bezieht.
+Ein anderes Beispiel könnten die Wörter "black" und "car" sein.
+
+\begin{figure}[hbt!]
+    \centering
+    \includegraphics[scale=1]{pics/dependency_parsing}
+    \caption{Beispiel für die Beziehung zweier Wörter beim Dependency Parsing~\cite{dependencyParsing}}
+    \label{fig:dependency_parsing_relation}
+\end{figure}
+
+Wie man dieser Grafik entnehmen kann, bezieht sich die Farbe Schwarz in diesem Fall auf das Auto.
+Im Englischen wird das Wort "car" deswegen auch als "Head" bezeichnet und "black" ist ein "child", also ein Wort, dass abhängig von diesem "Head" ist.
+Die Beziehung, die zwischen diesen Wörtern vorliegt, wird mit "amod" bezeichnet.
+Dies ist eine Abkürzung für "Adjectival Modifier", also ein Adjektiv, welches ein Nomen modifiziert und zu der Bedeutung des Nomens beiträgt.
+In diesem Fall gibt dieses eine genaue Beschreibung der Farbe des Autos.\cite{dependencyParsing}
+
+Diese Beziehungen kann man auch in einem Tree darstellen.
+
+\begin{figure}[hbt!]
+    \centering
+    \includegraphics[scale=1]{pics/dependency_parsing_tree}
+    \caption{Darstellung des Dependency Parsing~\cite{dependencyParsing}}
+    \label{fig:dependency_parsing_tree}
+\end{figure}
 
 \subsubsection{Constituency Parsing}
 \setauthor{Lukas Starka}
