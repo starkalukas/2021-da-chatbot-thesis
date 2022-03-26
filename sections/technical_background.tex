@@ -230,7 +230,7 @@ Diese Beziehungen kann man auch in einem Tree darstellen.
 
 \begin{figure}[hbt!]
     \centering
-    \includegraphics[scale=1]{pics/dependency_parsing_tree}
+    \includegraphics[scale=0.5]{pics/dependency_parsing_tree}
     \caption{Darstellung des Dependency Parsing~\cite{dependencyParsing}}
     \label{fig:dependency_parsing_tree}
 \end{figure}
@@ -280,6 +280,26 @@ Diese Beziehungen kann man auch in einem Tree darstellen.
 
 \subsection{NLP und NLU Tools}
 \setauthor{Lukas Starka}
+
+Ein paar Beispiele für berühmte Tools, die man nützen kann für Natural Language Understanding (NLU) und Natural Language Processing (NLP) sind:
+
+\begin{itemize}
+    \item \href{https://www.nltk.org/}{NLTK}: Das Natural Language Toolkit (kurz NLTK) ist wahrscheinlich die berühmteste Python Library für NLP. NLTK besitzt über 50 Ressourcen für das Bearbeiten von Corpora.
+    Außerdem gibt es viele eingebaute Libraries für das Analysieren eines Textes, wie die Klassifikation, Tokenization, Stemming, Tagging, Parsing und Semantic Reasoning.
+    \item \href{https://spacy.io/}{SpaCy}: SpaCy ist ebenfalls eine sehr berühmte Bibliothek für Python.
+    SpaCy beschreibt sich selbst als "Industrial-Strength Natural Language Processing" und unterstützt über 64 Sprachen.
+    SpaCy hat nur einen POS-Tagging-Algorithmus und pro Sprache nur einen Named-Entity-Recognizer, was den Vorteil hat, dass es nicht voller unnötiger Features ist und sich nur auf ein paar wichtige Funktionalitäten konzentriert.
+    \item \href{https://www.tensorflow.org/}{TensorFlow}: TensorFlow wird von Google betrieben und ist bei weitem die meist verwendete Library für Deep Learning.
+    Außerdem ist die Plattform Open-Source.
+    \item \href{https://keras.io/}{Keras}: Keras ist eine Deep Learning Plattform, die in Python geschrieben ist.
+    Sie wurde entworfen um schnelle Iterationen und schnelles Ausprobieren mit deep neural networks zu ermöglichen.
+    Außerdem bietet Keras ein Interface zu deep neural networks an, welche dann beispielsweise auf TensorFlow, Theano oder anderen Backends laufen können.
+    \item \href{https://stanfordnlp.github.io/CoreNLP/}{CoreNLP}: Das CoreNLP Projekt von Stanford ist ein NLP toolkit, welches zwar in Java geschrieben wurde aber auch in anderen Sprachen verwendet werden kann, die auf der JVM Plattform sind.
+    \item \href{https://radimrehurek.com/gensim/}{Gensim}: Gensim ist eine Open-Source Library für Python, mit der man semantische NLP Modelle trainieren kann.
+    Außerdem ist Gensim Plattform unabhängig und läuft auf jedem Betriebssystem.
+    \item \href{https://textblob.readthedocs.io/en/dev/}{TextBlob}: TextBlob ist eine Python Library für das Bearbeiten von Texten.
+    \item \href{https://fasttext.cc/}{FastText}: FastText ist eine Open-Source Library, die es Benutzern erlaubt text representations und text classifier zu verwenden.
+\end{itemize}
 
 
 \subsection{NLP in Rasa}
