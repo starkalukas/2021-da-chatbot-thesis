@@ -291,25 +291,73 @@ Deutsche Stoppwörter sind zum Beispiel:\cite{germanStopwords}
 \subsection{Vectorization}
 \setauthor{Lukas Starka}
 
+Durch Machine Learning können Systeme basierend auf vorherigen Eingaben und Mustern Dinge voraussagen.
+Diese Systeme benötigen allerdings Trainingsdaten, um ihre Präzision dabei zu steigern.
+Wenn man nun also ein System trainieren möchte benötigt man eine Darstellungsform, die auch von Maschinen verstanden werden kann.
+Hierbei kommen nun Vektoren zum Einsatz, weil das System dadurch die wichtigsten Informationen extrahieren und daraus lernen kann.
 
 \subsection{Skalarprodukt}
 \setauthor{Lukas Starka}
 
-\subsection{Kreuzprodukt}
-\setauthor{Lukas Starka}
+Beim Natural Language Processing benötigt man sehr oft das sogenannte Skalarprodukt. Dieses kann auch als inneres Produkt oder Punktprodukt bezeichnet werden.
+Das Skalarprodukt ordnet zwei Vektoren eine Zahl zu.
+Ein Skalarprodukt berechnet man wie folgt:
 
+\begin{figure}[hbt!]
+    \centering
+    \includegraphics[scale=0.5]{pics/dot-product}
+    \caption{Skalarprodukt von zwei Vektoren~\cite{dotProduct}}
+    \label{fig:dot-product}
+\end{figure}
 
 \subsection{Bag of Words}
 \setauthor{Lukas Starka}
+
+Eine der einfachsten Techniken um einen Text nummerisch zu repräsentieren, ist mithilfe der sogenannten Bag of Words Vectorization.
+Dabei wird zunächst jedes Wort, welches im Corpus vorkommt als sogenanntes Vokabular gespeichert.
+Danach wird in jedem Satz die Anzahl dargestellt, wie oft ein bestimmtes Wort vorkommt.\cite{textAnalysisMonkeylearn}
+
+\begin{lstlisting}[label={lst: Bag of Words Beispiel}]
+Dies ist ein Bag of Words Beispiel.
+
+Das         0
+Dies        1
+ist         1
+ein         1
+eine        0
+Bag         1
+of          1
+Words       1
+Beispiel    1
+Example     0
+\end{lstlisting}
+
+Um die Überlappungen von Bag of Words zu berechnen, nutzt man das Skalarprodukt der beiden Vektoren von Sätzen, die man vergleichen will.
+Bei diesem Skalarprodukt kommt dann immer ein Wert (Skalar) als Ergebnis heraus.
 
 
 \subsection{Bag of n-grams}
 \setauthor{Lukas Starka}
 
+Ein Bag of n-grams ist ziemlich ähnlich zu einem Bag of Words.
+Allerdings wird bei einem Bag of n-grams ein Text als eine unsortierte Collection von n-grams dargestellt.
+In dem Bag of n-grams wird dann die Anzahl, wie oft ein n-gram vorkommt gespeichert.
+Ein n-gram ist eine Sammlung von n aufeinander folgender Wörter.
+Wenn das n = 2 ist, spricht man von einem bigram, wenn n = 3 ist von einem trigram und so weiter.
+Somit würde unser vorheriges Beispiel als bigram folgendermaßen aussehen:
 
-\subsection{Vector Spaces}
-\setauthor{Lukas Starka}
+\begin{lstlisting}[label={lst: Bag of n-grams Beispiel}]
+Dies ist ein Bag of Words Beispiel.
 
+1: <start> Dies
+2: Dies ist
+3: ist ein
+4: ein Bag
+5: Bag of
+6: of Words
+7: Words Beispiel
+8: Beispiel <end>
+\end{lstlisting}
 
 \subsection{Term Frequency times Inverse Document Frequency (TF-IDF)}
 \setauthor{Lukas Starka}
