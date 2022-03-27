@@ -230,18 +230,63 @@ Diese Beziehungen kann man auch in einem Tree darstellen.
 
 \begin{figure}[hbt!]
     \centering
-    \includegraphics[scale=0.5]{pics/dependency_parsing_tree}
-    \caption{Darstellung des Dependency Parsing~\cite{dependencyParsing}}
+    \includegraphics[scale=0.5]{pics/dependency_parse_tree}
+    \caption{Darstellung des Dependency Parsing~\cite{dependencyVsConstituencyParsing}}
     \label{fig:dependency_parsing_tree}
 \end{figure}
 
 \subsubsection{Constituency Parsing}
 \setauthor{Lukas Starka}
 
+Beim Constituency Parsing wird ein Satz in mehrere Teilphrasen zerteilt, die auch "Constituents" genannt werden.
+Im Gegensatz zum Dependency Parsing, bei dem man Beziehungen zwischen den Wörtern innerhalb eines Satzes bekommt, kann man hierbei also die Sätze gruppieren.
+Dies kann helfen, um die Struktur von Sätzen aufzuzeigen.
+Der Nachteil hierbei ist, dass man nun keinen Context in den Sätzen mehr hat, dafür kann man aber beispielsweise gut überprüfen, ob ein Satz grammatikalisch korrekt oder inkorrekt ist.\cite{machineLearningTextAnalysis}
+
+Die berühmtesten Tags um Constituents zu bezeichnen sind:
+
+\begin{itemize}
+    \item VP für Verbalphrasen (Verb Phrases)
+    \item NP für Nominalphrasen (Noun Phrases)
+\end{itemize}
+
+Der Satz "I saw a fox" wird hierbei als Tree des Constituency Parsings dargestellt.
+
+\begin{figure}[hbt!]
+    \centering
+    \includegraphics[scale=0.5]{pics/constituency_parse_tree}
+    \caption{Darstellung des Constituency Parsing~\cite{dependencyVsConstituencyParsing}}
+    \label{fig:constituency_parsing_tree}
+\end{figure}
+
+In diesem Beispiel kann man sehen, dass der Satz in zwei Teile aufgeteilt wurde.
+Der Textbaustein "I" wurde als Substantiv (NP) erkannt und "saw a fox" ist hierbei die Phrase des Verbs (VP).
+Darunter sieht man die Regeln, die dazu führten, dass hierbei erkannt wurde, dass es sich um eine Nominalphrase und eine Verbalphrase handelt.
+Diese Regeln werden durch die Grammatik der Sprache erstellt und so sagt beispielsweise die Regel "S -> NPVP" aus, dass ein ganzer Satz (S) durch eine Nominalphrase (NP) und eine Verbalphrase (VP) entsteht.\cite{dependencyVsConstituencyParsing}
 
 \subsection{Stopwords}
 \setauthor{Lukas Starka}
 
+Unter Stopwords oder Stoppwörtern werden Wörter verstanden, die häufig in einem Satz vorkommen, aber nicht wirklich zum Informationsgehalt des Textes beitragen.
+Deswegen werden diese oft nicht beachtet, da sie keine Relevanz für die Bedeutung des Satzes haben.
+
+Bei den Stoppwörtern handelt es sich meistens um die am häufigsten vorkommenden Wörter einer Sprache.
+Deutsche Stoppwörter sind zum Beispiel:\cite{germanStopwords}
+
+\begin{itemize}
+    \item was
+    \item aber
+    \item auch
+    \item der
+    \item die
+    \item das
+    \item du
+    \item wir
+    \item ihr
+    \item können
+    \item müssen
+    \item dürfen
+\end{itemize}
 
 \subsection{Vectorization}
 \setauthor{Lukas Starka}
