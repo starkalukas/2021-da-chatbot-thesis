@@ -362,14 +362,64 @@ Dies ist ein Bag of Words Beispiel.
 \subsection{Term Frequency times Inverse Document Frequency (TF-IDF)}
 \setauthor{Lukas Starka}
 
+TF-IDF steht für Term Frequency times Inverse Document Frequency und dies ist die meist verwendete Technik um die Vorkommen von Wörtern innerhalb eines Satzes zu zählen.
+Mithilfe von TF-IDF kann man ermitteln, wie wichtig ein Wort in einem Satz ist.
+Bei TF-IDF werden zwei verschiedene Metriken miteinander multipliziert.\cite{tfIdf}
 
-\subsection{Zipfsches Gesetz}
-\setauthor{Lukas Starka}
+\begin{enumerate}
+    \item \textbf{Term Frequency TF}: Die Term Frequency kann man sich ausrechnen, indem man die Anzahl eines Terms, der in einem Dokument vorkommt, durch die Anzahl der Terme insgesamt rechnet.
+    \item \textbf{Inverse Document Frequency IDF}: Diese gibt an wie selten ein Wort im ganzen Dokument ist.
+    Dabei wird die Anzahl der Dokumente (N) durch die Anzahl des Terms (n) gerechnet und davon wird der Logarithmus berechnet.
+\end{enumerate}
 
+\begin{figure}[hbt!]
+    \centering
+    \includegraphics[scale=0.35]{pics/tf_idf}
+    \caption{Berechnung von TF-IDF~\cite{tfIdfImage}}
+    \label{fig:tf-idf}
+\end{figure}
+
+Wenn man diese zwei Werte nun also miteinander multipliziert, erhält man so einen Wert, der indiziert, ob ein Wort relevant für die Bedeutung in dem Dokument ist, oder nicht.
+Je höher der Wert ist, desto relevanter ist das Wort sozusagen.
+
+\begin{lstlisting}[label={lst: TF-IDF Beispiel}]
+Heute ist ein warmer Tag
+
+Term        Count
+Heute       2
+ist         1
+ein         1
+warmer      2
+Tag         5
+\end{lstlisting}
+
+Bei diesem Beispiel wird gezeigt, dass die Wörter, die häufig in einem deutschen Satz vorkommen, wie "ist" oder "ein", einen niedrigen Score erhalten und das Wort "Tag" einen hohen Score aufweist, was bedeutet, dass dieses Wort vermutlich wichtig für die Bedeutung des Satzes ist.
+
+Bei der Text Analysis mit Machine Learning werden solche TF-IDF Algorithmen verwendet, um Daten in Kategorien einzuordnen und wichtige Schlüsselwörter zu extrahieren.
+Auch Suchmaschinen wie Google verwenden diese Technologien, um aus dem Suchbegriff des Users die zentrale Aussage herauszufinden und die Suchergebnisse nach ihrer Relevanz zu sortieren.\cite{tfIdf}
 
 \subsection{Word2Vec}
 \setauthor{Lukas Starka}
 
+Word2Vec ist das berühmteste Model für Word Embedding.
+Unter Word Embedding wird verstanden, dass Texte in denen Wörter dieselbe Bedeutung haben, zusammen repräsentiert werden.
+Es werden also sozusagen alle Wörter in einem Koordinatensystem dargestellt, wobei Wörter, die zusammen gehören, nah beieinander sind.
+Word2Vec nimmt dabei einen großen Corpus an Text und produziert daraus einen Vektor mit den einzigartigen Wörtern, die ähnlich zueinander sind.
+Es ist sehr berühmt dafür, dass demonstriert werden kann, wie Wörter miteinander verbunden sind.
+
+Rasa hat als kleines Nebenprojekt mit "WhatLies" eine Library geschaffen, die versuchen soll, dass man Word Embeddings besser versteht.
+Hierbei kann man Grafiken erstellen, die die Wörter in einem Koordinatensystem repräsentieren.\cite{whatlies}
+
+\begin{figure}[hbt!]
+    \centering
+    \includegraphics[scale=0.50]{pics/whatlies_demo}
+    \caption{Whatlies Illustration~\cite{whatlies}}
+    \label{fig:whatlies-demo}
+\end{figure}
+
+Daraus kann man nun erkennen, dass die Wörter "brother" und "sister" oder "woman" und "man" nahe beieinander im Raum dargestellt werden.
+Außerdem kann man daraus lesen, dass sich "man" zu "brother" ähnlich wie "woman" zu "sister" oder "puppy" zu "dog" sich ähnlich wie "kitten" zu "cat" verhält.
+Dies findet man dadurch heraus, dass man ein ähnliches Ergebnis bekommt, wenn man die zwei Unterschiede der Vektoren miteinander vergleicht.
 
 \subsection{NLP und NLU Tools}
 \setauthor{Lukas Starka}
