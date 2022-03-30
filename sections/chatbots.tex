@@ -119,7 +119,7 @@ Somit weiß das Model beispielsweise, dass Äpfel und Birnen ähnlich sind ohne,
 Die Vorteile hierbei sind also, dass das Model weniger Trainingsdaten benötigt, um eine gute Performance zu besitzen.
 Außerdem geht der ganze Trainingsprozess in der Regel schneller und die sogenannten Iteration Times sind kürzer als bei Modellen ohne pre-trained word vectors.\cite{differenceStackOverflow, pretrainedVsSupervised, rasaMasterclassPreConfiguredPipelines}
 
-\begin{lstlisting}[label={lst: Spacy Sklearn Pipeline}]
+\begin{lstlisting}[label={lst:spacy-sklearn-pipeline},caption={SpaCy Sklearn Pipeline}]{SpaCy Sklearn Pipeline}
 language: "de"
 
 pipeline: "spacy_sklearn"
@@ -132,7 +132,7 @@ Diese verwendet MITIE als Source für die word vectors.
 Ein Vorteil von MITIE ist, dass man hier auch seine eigenen word vectors trainieren kann, indem man einen Corpus von Wikipedia oder ähnlichen Seiten verwendet.
 Allerdings wird MITIE meistens nicht empfohlen und es könnte auch sein, dass MITIE demnächstet deprecated sein wird.\cite{mitieNLP, mitieDeprecated}
 
-\begin{lstlisting}[label={lst: MITIE Sklearn Pipeline}]
+\begin{lstlisting}[label={lst:mitie-sklearn-pipeline},caption={MITIE Sklearn Pipeline}]{MITIE Sklearn Pipeline}
 language: "de"
 
 pipeline: "mitie_sklearn"
@@ -150,7 +150,7 @@ Bei einem pre-trained Model würden diese Wortvektoren nicht nah aneinander lieg
 Außerdem benutzen diese Pipelines kein sprach-spezifisches Model und somit kann man sie in allen Sprachen verwenden, die tokenisiert werden kann.\cite{tensorFlowEmbedding}
 
 
-\begin{lstlisting}[label={lst: Tensorflow Embedding Pipeline}]
+\begin{lstlisting}[label={lst:tensorflow-embedding-pipeline},caption={Tensorflow Embedding Pipeline}]{Tensorflow Embedding Pipeline}
 language: "de"
 
 pipeline: "tensorflow_embedding"
@@ -166,7 +166,7 @@ Diese Pipeline lernt Embeddings für die Intents und für die Wörter und die Em
 
 Eine weitere Pipeline lautet wie folgt:
 
-\begin{lstlisting}[label={lst: Supervised Embedding Pipeline}]
+\begin{lstlisting}[label={lst:supervised-embedding},caption={Supervised Embedding Pipeline}]{Supervised Embedding Pipeline}
 language: "de"
 
 pipeline: "supervised_embedding"
@@ -191,7 +191,7 @@ Es gibt also vordefinierte Pipelines von Rasa, die man nutzen kann.
 Dabei kann man nun wieder entscheiden, ob man Pretrained Word Embeddings will oder nicht.
 Sollte man sich dafür entscheiden, kann man auf eine Pipeline mit SpaCy zurückgreifen, welche den SpacyFeaturizer verwendet und somit Pretrained Word Embeddings nutzt.\cite{startingPipelines, allComponents}
 
-\begin{lstlisting}[label={lst: Spacy Starting Pipeline}]
+\begin{lstlisting}[label={lst:spacy-pipeline},caption={Spacy Startpipeline}]{Spacy Startpipeline}
 language: "de"  # Code für die Sprache
 
 pipeline:
@@ -217,7 +217,7 @@ pipeline:
 Wenn man sich dafür entscheidet keine vortrainierten Word Embeddings zu nutzen und somit sein Modell spezifischer auf den eigenen Anwendungsfall anpassen möchte, verwendet man die Standard Rasa Pipeline.
 Diese verwendet den CountVectorsFeaturizer, bei dem nur die Trainingsdaten, die zur Verfügung gestellt werden, trainiert werden.\cite{startingPipelines, allComponents, nluExamples}
 
-\begin{lstlisting}[label={lst: Default Starting Pipeline}]
+\begin{lstlisting}[label={lst:default-pipeline},caption={Default Pipeline}]{Default Pipeline}
 language: "de"  # Code für die Sprache
 
 pipeline:
@@ -239,7 +239,7 @@ pipeline:
 
 Die von uns verwendete Pipeline beruht auf dieser Standard-Pipeline und die jeweiligen Komponenten werden in den folgenden Kapiteln genauer erläutert.
 
-\begin{lstlisting}[label={lst: Our Pipeline}]
+\begin{lstlisting}[label={lst:our-pipeline},caption={Unsere Pipeline}]{Unsere Pipeline}
 language: de
 
 pipeline:
@@ -373,7 +373,7 @@ Dies wird dann als Input dem Intent-Classification-Model übergeben.\cite{countV
 Beim CountVectorsFeaturizer kann man außerdem angeben, dass statt Wörtern sogenannte n-grams verwendet werden sollen.
 Dies macht das Modell in der Regel robuster gegen Typos allerdings erhöht sich damit auch die Zeit, die das Modell zum Trainieren benötigt.\cite{countVectorsFeaturizer, pipelineConfigurationVideo, pipelineComponentsYoutube, rasaMasterclassCountVectorsFeaturizer}
 
-\begin{lstlisting}[label={lst: CountVectorsFeaturizer with n-grams}]
+\begin{lstlisting}[label={lst:count-vectors-featurizer},caption={CountVectorsFeaturizer}]{CountVectorsFeaturizer}
 pipeline:
     - name: CountVectorsFeaturizer
     analyzer: char_wb
@@ -391,7 +391,7 @@ Der EntitySynonymMapper erwartet als Input einen Extractor von den Entity Extrac
 Wenn beim EntitySynonymMapper also eine Entity überliefert wird und in den Trainingsdaten Synonyme für diese Entity vorhanden sind, wird der Wert der Entity auf den Wert, der in den Trainingsdaten angegeben ist, gesetzt.
 Wenn also beispielsweise in einem Satz des Benutzers New York City oder NYC vorkommt, werden diese beide auf den selben Wert nyc gesetzt.\cite{entitySynonymMapper}
 
-\begin{lstlisting}[label={lst: EntitySynonymMapper}]
+\begin{lstlisting}[label={lst:entity-synonym-mapper},caption={Entity Synonym Mapper}]{Entity Synonym Mapper}
 [
     {
       "text": "I moved to New York City",
@@ -423,7 +423,7 @@ Ein Selector sagt die korrekte Response voraus aus einer Menge von möglichen Re
 Beim ResponseSelector wird als Ausgabe ein Key-Value Paar ausgegeben.
 Als Key wird hierbei der Retrieval Intent ausgegeben und das Value ist die vorhergesagte Response und die Confidence, mit der diese vorhergesagt wurde.\cite{responseSelector}
 
-\begin{lstlisting}[label={lst: ResponseSelector}]
+\begin{lstlisting}[label={lst:response-selector},caption={Response Classifier}]{Response Selector}
 {
     "response_selector": {
       "faq": {
@@ -465,7 +465,7 @@ Verwendet wird dies, wenn der Bot zum Beispiel bei FAQ oder Chitchat sowieso imm
 
 Auch wir haben diesen Ansatz in unsere Pipeline gewählt.
 
-\begin{lstlisting}[label={lst: Two ResponseSelectors in our Pipeline}]
+\begin{lstlisting}[label={lst:response-selector-2},caption={Response Selector für Chitchat und FAQ}]{Response Selector}
 - name: ResponseSelector
      epochs: 100
      retrieval_intent: faq
@@ -485,7 +485,7 @@ Die Confidence wird hierbei auf den Wert gesetzt welcher im Threshold angegeben 
 Man kann außerdem einen sogenannten "ambiguity\_threshold" angeben.
 Bei diesem wird der "nlu\_fallback" Intent vorhergesagt, wenn die zwei als wahrscheinlichst empfundenen Intents sich um weniger, als den ambiguity\_threshold in der Confidence unterscheiden.\cite{fallbackClassifier}
 
-\begin{lstlisting}[label={lst: FallbackClassifier}]
+\begin{lstlisting}[label={lst:fallback-classifier},caption={Fallback Classifier}]{Fallback Classifier}
 pipeline:
 - name: FallbackClassifier
   threshold: 0.7
@@ -537,7 +537,7 @@ Als Intents werden also alle möglichen Beispielsätze definiert, die ein Benutz
 
 Intents werden in dem \textbf{nlu.yml} File wie folgt angegeben:
 
-\begin{lstlisting}[label={lst: Intent Example}]
+\begin{lstlisting}[label={lst:intent-example},caption={Intents Beispiel}]{Intents Beispiel}
 ## intent:<name des intents>
 - <phrase 1>
 - <phrase 2>
@@ -551,7 +551,7 @@ Responses sind die Antworten, die vom Bot gegeben werden, wenn ein bestimmter In
 
 Responses fügt man in seinem \textbf{domain.yml} File wie folgt ein:
 
-\begin{lstlisting}[label={lst: Responses Example}]
+\begin{lstlisting}[label={lst:responses-example},caption={Responses Beispiel}]{Responses Beispiel}
 responses:
   utter_greet:
   - text: "Hey! How are you?"
@@ -575,7 +575,7 @@ Dabei wird die Eingabe des Benutzers als Intent angegeben und die Antwort, mit d
 
 Stories können wie folgt aussehen und sind im \textbf{stories.yml} File anzugeben:
 
-\begin{lstlisting}[label={lst: Stories Example}]
+\begin{lstlisting}[label={lst:stories-example},caption={Stories Beispiel}]{Stories Beispiel}
 stories:
 - story: name der story
   steps:
@@ -599,7 +599,7 @@ In der nächsten Story beginnt man dann mit seinem Checkpoint, also dem Punkt au
 Im folgenden Beispiel werden Checkpoints von Stories verwendet, um an anderen Stories anzuknüpfen\cite{checkpoints}
 :
 
-\begin{lstlisting}[label={lst: Checkpoints Example}]
+\begin{lstlisting}[label={lst:checkpoints-example},caption={Checkpoints Beispiel}]{Checkpoint Beispiel}
 stories:
 - story: beginning of flow
   steps:
@@ -632,7 +632,7 @@ OR-Statements können dafür verwendet werden, wenn man auf mehrere Intents inne
 
 Man schreibt also anstelle von einem Intent in der Story ein \textbf{or} und gibt darunter alle Intents an, von denen einer eintreffen muss, damit die Story zutrifft.
 
-\begin{lstlisting}[label={lst: OR Example}]
+\begin{lstlisting}[label={lst:or-example},caption={OR Beispiel}]{OR Beispiel}
 stories:
 - story:
   steps:
@@ -653,7 +653,7 @@ Um Rules verwenden zu können, muss man die \textbf{RulePolicy} in der Policy Ko
 
 Um eine Rule zu verwenden, schreibt man folgendes in sein \textbf{rules.yml} File:
 
-\begin{lstlisting}[label={lst: Rules Example}]
+\begin{lstlisting}[label={lst:rules-example},caption={Rules Beispiel}]{Rules Beispiel}
 rules:
 
 - rule: Say `hello` whenever the user sends a message with intent `greet`
@@ -670,7 +670,7 @@ Diese sind als key-value Paare dargestellt und können dazu verwendet werden, da
 Diese Informationen können beispielsweise der Name des Benutzers sein oder Informationen, die für den generellen Kontext des Gesprächs wichtig sind.
 \cite{slots}
 
-\begin{lstlisting}[label={lst: Slot Example}]
+\begin{lstlisting}[label={lst:slots-example},caption={Slots Beispiel}]{Slots Beispiel}
 slots:
   slot_name: <slot name>
     type: <type>
@@ -685,7 +685,7 @@ Solche Entities können beispielsweise ein Ort, ein Beruf oder ein Name sein.\ci
 
 Um Entities zu erstellen schreibt man folgendes in sein \textbf{domain.yml} File:
 
-\begin{lstlisting}[label={lst: Entities Domain Example}]
+\begin{lstlisting}[label={lst:entities-domain-example},caption={Entities in der Domain}]{Entities in der Domain}
 entities:
   - <entity name>
   - <entity name>
@@ -694,7 +694,7 @@ entities:
 Diese Entities müssen dann noch in den Intents angegeben werden, in denen sie vorkommen sollen.
 Dies macht man, indem man folgende Syntax bei den Trainingssätzen im \textbf{nlu.yml} File verwendet und ergänzt:
 
-\begin{lstlisting}[label={lst: Entities NLU Example}]
+\begin{lstlisting}[label={lst:entities-nlu-example},caption={Entities Beispiel}]{Entities Beispiel}
 Hallo mein Name ist [Lukas](name).
 Ich hätte gerne eine [kleine](size) [Pizza](meal)
 \end{lstlisting}
@@ -704,7 +704,7 @@ Ich hätte gerne eine [kleine](size) [Pizza](meal)
 Entity Roles können sinnvoll in manchen Szenarien sein.
 Zum Beispiel bei folgendem Satz:
 
-\begin{lstlisting}[label={lst: Entity Roles Example}]
+\begin{lstlisting}[label={lst:entity-roles-example},caption={Entity Roles Beispiel}]{Entity Roles Beispiel}
 Buche einen Flug von [Linz](city) nach [London](city).
 \end{lstlisting}
 
@@ -718,13 +718,13 @@ Entity Groups können genutzt werden, wenn man Entities miteinander gruppieren m
 
 Dies kann zum Beispiel hier sinnvoll sein:
 
-\begin{lstlisting}[label={lst: Entity Groups Example 1}]
+\begin{lstlisting}[label={lst:entity-groups-example},caption={Entity Groups Beispiel}]{Entity Groups Beispiel}
 Ich hätte gerne eine kleine [Pizza](meal) mit [Pilzen](topping) und eine [Salami](topping) [Pizza](meal).
 \end{lstlisting}
 
 Bei der Gruppe muss hier erkannt werden, welche zwei Entities zusammen gehören\cite{entityRolesGroups}:
 
-\begin{lstlisting}[label={lst: Entity Groups Example 2}]
+\begin{lstlisting}[label={lst:entity-groups-example-2},caption={Entity Groups Beispiel 2}]{Entity Groups Beispiel 2}
 Ich hätte gerne eine kleine [Pizza](meal) mit [Pilzen](topping) und eine [Salami](topping) [Pizza](meal).
 Group 1: [Pizza](meal) [Pilzen](topping)
 Group 2: [Salami](topping) [Pizza](meal)
@@ -755,7 +755,7 @@ Um Forms zu verwenden, muss die \textbf{RulePolicy} in der Policy Konfiguration 
 
 Wenn man ein Formular hinzuzufügen will, muss man dies in der forms Section in dem \textbf{domain.yml} File angeben.
 
-\begin{lstlisting}[label={lst: Forms Example}]
+\begin{lstlisting}[label={lst:forms-example},caption={Forms Beispiel}]{Forms Beispiel}
 forms:
   restaurant_form:
     required_slots:
@@ -776,7 +776,7 @@ Wenn man also mit verschiedenen Wörtern dasselbe meint, kann man sich Synonyms 
 
 Ein Beispiel dafür wäre folgendes im \textbf{nlu.yml} File:
 
-\begin{lstlisting}[label={lst: Synonym Example}]{nlu.yml}
+\begin{lstlisting}[label={lst:synonym-example},caption={Synonym Beispiel}]{Synonym Beispiel}
 - synonym: Medientechnik
   examples: |
     - IT-Medientechnik
@@ -790,10 +790,13 @@ Ein Beispiel dafür wäre folgendes im \textbf{nlu.yml} File:
 \section{Initialisieren}
 \setauthor{Lukas Starka}
 
+\subsection{Rasa Init}
+\setauthor{Lukas Starka}
+
 Einen neuen Rasa Assistant kann man mithilfe des Init-Befehls in der Konsole anlegen.
 Der Befehl dafür lautet wie folgt:
 
-\begin{lstlisting}[label={lst: Rasa Train}]
+\begin{lstlisting}[language=bash,label={lst:init-example},caption={Befehl fürs Initialisieren}]{Rasa Init Befehl}
 rasa init
 \end{lstlisting}
 
@@ -802,7 +805,7 @@ Dieses Modell wird basierend auf den Demodaten, die von jedem neu erstellten Ras
 
 \begin{figure}[hbt!]
   \centering
-  \includegraphics[scale=0.25]{pics/rasa_init}
+  \includegraphics[scale=0.5]{pics/rasa_init}
   \caption{Rasa Init Konsolenausgabe}
   \label{fig:rasa_init}
 \end{figure}
@@ -811,13 +814,65 @@ Nachdem dieser Befehl ausgeführt wurde, bekommt man folgende Files, die für ei
 
 \begin{figure}[hbt!]
   \centering
-  \includegraphics[scale=0.25]{pics/rasa_file_tree}
+  \includegraphics[scale=0.75]{pics/rasa_file_tree}
   \caption{File Tree nach dem Initialisieren}
   \label{fig:file_tree}
 \end{figure}
 
+\section{Trainieren}
+\setauthor{Lukas Starka}
+
+\subsection{Rasa Train}
+\setauthor{Lukas Starka}
+
+Um das Modell nun zu trainieren nützt man den \texttt{Rasa train} Befehl.
+
 \section{Interagieren}
 \setauthor{Lukas Starka}
 
-\section{Trainieren}
+\subsection{Rasa Shell}
 \setauthor{Lukas Starka}
+
+Wenn man sich nun mit seinem Bot unterhalten möchte, kann man eine Chat Session über die Konsole mit dem \texttt{rasa train} Befehl.
+Normalerweise wird dabei das aktuellste Modell genommen.
+Sollte man dies allerdings nicht wollen, kann man mit \texttt{--model} auch den Pfad zum richtigen Modell angeben.
+
+\begin{lstlisting}[language=bash,label={lst:shell-command},caption={Rasa Shell Befehle}]{Rasa Shell}
+rasa shell
+rasa shell --model models/20220211-094939.tar.gz
+rasa shell --debug
+\end{lstlisting}
+
+Für detailliertere Ausgaben kann man außerdem das \texttt{--debug} Flag verwenden.
+Die Ausgabe dabei sieht wie in Abbildung~\ref{fig:rasa_shell} aus:
+
+\begin{figure}[hbt!]
+  \centering
+  \includegraphics[scale=0.40]{pics/rasa_shell}
+  \caption{Rasa Shell Ausgabe mit Debug Flag}
+  \label{fig:rasa_shell}
+\end{figure}
+
+\subsection{Rasa Interactive}
+\setauthor{Lukas Starka}
+
+Um eine interaktive Session mit dem Bot zu starten, kann man den Befehl \texttt{rasa interactive} nutzen.
+Dabei wird zunächst ein Modell trainiert und anschließend startet eine interaktive Shell Session.
+Dabei kann man dann alle vorhergesagten Aktionen vom Assistant korrigieren.
+Wenn man nur das Core Model testen möchte, kann man dies spezifizieren.
+
+\begin{lstlisting}[language=bash,label={lst:interactive-command},caption={Interaktive Trainingssession starten}]{Rasa Interactive}
+rasa interactive
+rasa interactive --model models/20220211-094939.tar.gz
+rasa interactive core
+\end{lstlisting}
+
+Bei dieser Trainingssession hat man die Möglichkeit jedes Mal anzugeben, ob der vorhergesagte Intent und die daraus resultierende Antwort die richtige sind.
+Außerdem wird die gesamte Chat History visualisiert und ausgegeben, wie in Abbildung ~\ref{fig:rasa_interactive} zu sehen ist.
+
+\begin{figure}[hbt!]
+  \centering
+  \includegraphics[scale=0.80]{pics/rasa_interactive}
+  \caption{Ausgabe beim Interactive Befehl}
+  \label{fig:rasa_interactive}
+\end{figure}
