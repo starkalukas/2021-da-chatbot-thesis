@@ -830,6 +830,38 @@ Ein Beispiel dafür wäre folgendes im \textbf{nlu.yml} File:
 \subsection{Custom Actions}
 \setauthor{Lukas Starka}
 
+Neben normalen Responses kann man auch Custom Actions definieren.
+Diese sind in Python zu schreiben und dabei kann man seinen eigenen Code für Berechnungen oder dergleichen verwenden.
+Hierbei muss man eine Klasse implementieren, die Kind der Klasse \texttt{Action} ist und eine Methode \texttt{name} und \texttt{run} besitzt.
+Eine Custom Action wird bei unserem Chatbot beispielsweise für die Ausgabe des aktuellen Datums genutzt, wie bei Listing ~\ref{lst:custom-date-action} zu sehen ist.
+
+\begin{lstlisting}[label={lst:custom-date-action},caption={Custom Action für die Ausgabe des aktuellen Datums}]{Custom Action}
+class ActionWhatDateIsIt(Action):
+    def name(self) -> Text:
+            return "action_what_date_is_it"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+
+        now = datetime.now()
+        weekday = datetime.today().weekday()
+        weekday_string = ("Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag", "Sonntag")[weekday]
+
+        current_date = now.strftime("%d.%m.%Y")
+        print("Current Date =", current_date)
+
+        dispatcher.utter_message(text=f"Heute ist {weekday_string} der {current_date}!")
+
+        return []
+\end{lstlisting}
+
+Nun muss man die Custom Actions in seiner \textbf{domain.yml} Datei definieren, wie in ~\ref{lst:domain-custom-action}.
+
+\begin{lstlisting}[label={lst:domain-custom-action},caption={Custom Actions in Domain definiert}]{Custom Action Domain}
+actions:
+  - action_what_date_is_it
+\end{lstlisting}
 
 \section{Initialisieren}
 \setauthor{Lukas Starka}
