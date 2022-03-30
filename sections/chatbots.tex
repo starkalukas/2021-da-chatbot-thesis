@@ -825,7 +825,25 @@ Nachdem dieser Befehl ausgeführt wurde, bekommt man folgende Files, die für ei
 \subsection{Rasa Train}
 \setauthor{Lukas Starka}
 
-Um das Modell nun zu trainieren nützt man den \texttt{Rasa train} Befehl.
+Um das Modell nun zu trainieren, nützt man den \texttt{Rasa train} Befehl.
+Dabei werden nur die Komponenten (Core oder NLU) trainiert, die sich auch geändert haben im Vergleich zu dem letzten Modell.
+Man kann aber auch selbstständig angeben, dass man nur \texttt{core} oder \texttt{nlu} trainieren möchte.
+Nach dem Trainieren wird das Modell in den Pfad gespeichert, der beim \texttt{--out} definiert wurde und standardmäßig \texttt{/models} ist.
+Dabei wird als Modellname der aktuelle Zeitstempel gewählt, außer man verwendet die \texttt{--fixed-model-name} Flag.
+Wenn man andere Pipelines oder Policies verwenden möchte, kann man auch ein anderes config-File, in dem diese gespeichert sind, angeben, indem man \texttt{-c} schreibt.
+Ab Rasa 2.2 hat man außerdem die Möglichkeit eine Feinabstimmung an einem bereits bestehenden Modell vorzunehmen.
+Dies macht man, wenn man neue Trainingsdaten bei bereits bestehenden Intents hinzugefügt hat.
+Hierbei ergibt sich eine viel kürzere Trainingszeit, als wenn das Modell nochmal von vorne trainiert würde und man gibt dabei den Pfad zum Modell an, wenn man nicht, wie standardmäßig definiert, das neueste trainieren möchte.\cite{rasaTrain}
+
+\begin{lstlisting}[language=bash,label={lst:rasa-train},caption={Rasa Train Befehle}]{Rasa Train}
+rasa train
+rasa train -c config.yml #Das verwendete Config File (default: config.yml)
+rasa train --out trained-models/ #Der Pfad, in dem das Modell gespeichert wird (default: models/)
+rasa train --fixed-model-name leobot-model #Der Name des Modells (default: <timestamp>.tar.gz)
+rasa train core #Rasa Core mit den Stories trainieren
+rasa train nlu #Rasa NLU mit den NLU-Daten trainieren
+rasa train --finetune models/20220211-094939.tar.gz #Finetune eines bestehenden Modells
+\end{lstlisting}
 
 \section{Interagieren}
 \setauthor{Lukas Starka}
@@ -839,8 +857,8 @@ Sollte man dies allerdings nicht wollen, kann man mit \texttt{--model} auch den 
 
 \begin{lstlisting}[language=bash,label={lst:shell-command},caption={Rasa Shell Befehle}]{Rasa Shell}
 rasa shell
-rasa shell --model models/20220211-094939.tar.gz
-rasa shell --debug
+rasa shell --model models/20220211-094939.tar.gz #Das Modell, das verwendet werden soll
+rasa shell --debug #Debug-Modus aktivieren
 \end{lstlisting}
 
 Für detailliertere Ausgaben kann man außerdem das \texttt{--debug} Flag verwenden.
@@ -863,8 +881,8 @@ Wenn man nur das Core Model testen möchte, kann man dies spezifizieren.
 
 \begin{lstlisting}[language=bash,label={lst:interactive-command},caption={Interaktive Trainingssession starten}]{Rasa Interactive}
 rasa interactive
-rasa interactive --model models/20220211-094939.tar.gz
-rasa interactive core
+rasa interactive --model models/20220211-094939.tar.gz #Das Modell, das verwendet werden soll
+rasa interactive core #Interaktive Session für das Core Modell starten
 \end{lstlisting}
 
 Bei dieser Trainingssession hat man die Möglichkeit jedes Mal anzugeben, ob der vorhergesagte Intent und die daraus resultierende Antwort die richtige sind.
