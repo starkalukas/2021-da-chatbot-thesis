@@ -23,10 +23,10 @@ Zusammen mit dem aktuellen Zustand des Trackers entscheidet die Policy Komponent
 Diese Entscheidung wird nicht durch einfache Regeln getroffen, sondern genauso wie Intents oder Entities, auf der Grundlage von einem, mit Machine Learning, trainierten Model.\cite{rasaCore, rasaCoreBook}
 
 \begin{figure}[hbt!]
-  \centering
-  \includegraphics[scale=0.5]{pics/rasa-core}
-  \caption{Rasa Core Aufbau~\cite{rasaCoreBook}}
-  \label{fig:rasa_core}
+    \centering
+    \includegraphics[scale=0.5]{pics/rasa-core}
+    \caption{Rasa Core Aufbau~\cite{rasaCoreBook}}
+    \label{fig:rasa_core}
 \end{figure}
 
 \subsection{Policies}
@@ -49,8 +49,6 @@ Bei jedem Dialog bekommt die TED Policy drei Informationen als Input.
 Die Nachricht des Users, die vorherige Action die vorhergesagt wurde und Slots und aktive Forms.
 Dann werden diese in den Dialogue Transformer Encoder gepackt und anschließend werden sogenannte Dense Layer verwendet.
 Danach wird die Ähnlichkeit zwischen den System Actions und dem Dialogue Embedding berechnet und zum Schluss werden noch CRF Algorithmen verwendet, um Entities zu erkennen.\cite{tedPolicy}
-
-
 
 \subsection{Rasa NLU}
 \setauthor{Lukas Starka}
@@ -82,10 +80,10 @@ Wenn man eine NLU-Pipeline auswählt, kann man allerdings sein Model anpassen un
 In der Abbildung 3 werden die Komponenten und ihre Lifecycle abgebildet.
 
 \begin{figure}[hbt!]
-  \centering
-  \includegraphics[scale=0.25]{pics/component-lifecycle}
-  \caption{Component Lifecycle~\cite{componentLifecycle}}
-  \label{fig:component_lifecycle}
+    \centering
+    \includegraphics[scale=0.25]{pics/component-lifecycle}
+    \caption{Component Lifecycle~\cite{componentLifecycle}}
+    \label{fig:component_lifecycle}
 \end{figure}
 
 Bevor die erste Komponente mit der Create-Funktion erstellt wird, wird ein sogenannter Kontext erstellt (der nichts anderes als ein Python-dict ist).
@@ -98,10 +96,10 @@ Nachdem alle Komponenten trainiert und beibehalten wurden, wird das finale conte
 Dies ist in der Grafik 4 zu erkennen.
 
 \begin{figure}[hbt!]
-  \centering
-  \includegraphics[scale=0.5]{pics/pipeline}
-  \caption{Component Lifecycle~\cite{pipelineImage}}
-  \label{fig:pipeline_image}
+    \centering
+    \includegraphics[scale=0.5]{pics/pipeline}
+    \caption{Component Lifecycle~\cite{pipelineImage}}
+    \label{fig:pipeline_image}
 \end{figure}
 
 \subsection{Arten von NLU Pipelines}
@@ -177,10 +175,10 @@ pipeline: "supervised_embedding"
 In der Grafik 5 sieht man ein Flussdiagramm, welches beschreibt, ob man Supervised Embeddings oder Pretrained Embeddings verwenden soll.
 
 \begin{figure}[hbt!]
-  \centering
-  \includegraphics[scale=0.5]{pics/pre-trained-vs-supervised}
-  \caption{Pretrained oder Supervised Embeddings~\cite{pretrainedVsSupervised, rasaMasterclassPreConfiguredPipelines}}
-  \label{fig:pre_trained_vs_supervised}
+    \centering
+    \includegraphics[scale=0.5]{pics/pre-trained-vs-supervised}
+    \caption{Pretrained oder Supervised Embeddings~\cite{pretrainedVsSupervised, rasaMasterclassPreConfiguredPipelines}}
+    \label{fig:pre_trained_vs_supervised}
 \end{figure}
 
 \subsection{Konfigurierte Pipelines}
@@ -274,10 +272,10 @@ Hierbei wird, wie der Name bereits vermuten lässt, der Satz aufgeteilt in versc
 Ein Token kann zum Beispiel also ein Wort sein und beim WhitespaceTokenizer wird der Satz pro Whitespace also Leerzeichen aufgeteilt.\cite{whitespaceTokenizer, rasaMasterclassWhitespaceTokenizer, pipelineComponentsYoutube}
 
 \begin{figure}[hbt!]
-  \centering
-  \includegraphics[scale=0.25]{pics/whitespacetokenizer}
-  \caption{Tokens durch einen WhitespaceTokenizer~\cite{pipelineComponentsYoutube}}
-  \label{fig:WhitespaceTokenizer}
+    \centering
+    \includegraphics[scale=0.25]{pics/whitespacetokenizer}
+    \caption{Tokens durch einen WhitespaceTokenizer~\cite{pipelineComponentsYoutube}}
+    \label{fig:WhitespaceTokenizer}
 \end{figure}
 
 Es gibt auch komplexere Tokenizer und Tokenizer, die speziell an Sprachen angepasst sind und die besonderen Regeln, die in diesen Sprachen gelten, beachten.
@@ -297,10 +295,10 @@ Der EntityExtractor nimmt dann diese Tokens als Input und produziert Named Entit
 Regular Expressions können verwendet werden, um Muster eines Strings zu beschreiben und können hier bei dem Beispiel von Chatbots beispielsweise verwendet werden, um Zahlen zu beschreiben.\cite{rasaMasterclassRegexFeaturizer, pipelineComponentsYoutube, regexFeaturizerCrf}
 
 \begin{figure}[hbt!]
-  \centering
-  \includegraphics[scale=0.5]{pics/regular-expression-example}
-  \caption{Regular Expression Beispiel~\cite{pipelineComponentsYoutube}}
-  \label{fig:Regular Expression Beispiel}
+    \centering
+    \includegraphics[scale=0.5]{pics/regular-expression-example}
+    \caption{Regular Expression Beispiel~\cite{pipelineComponentsYoutube}}
+    \label{fig:Regular Expression Beispiel}
 \end{figure}
 
 \subsubsection{Lookup Tables}
@@ -309,10 +307,10 @@ Lookup Tables können verwendet werden, wenn eine Entity vordefinierte Werte hab
 Zum Beispiel kann eine Entity mit dem Namen "country" 194 verschiedene Länder annehmen.\cite{rasaMasterclassRegexFeaturizer, pipelineComponentsYoutube, regexFeaturizerCrf}
 
 \begin{figure}[hbt!]
-  \centering
-  \includegraphics[scale=0.25]{pics/lookup-table-example}
-  \caption{Lookup Table Beispiel~\cite{pipelineComponentsYoutube}}
-  \label{fig:Lookup Table Beispiel}
+    \centering
+    \includegraphics[scale=0.25]{pics/lookup-table-example}
+    \caption{Lookup Table Beispiel~\cite{pipelineComponentsYoutube}}
+    \label{fig:Lookup Table Beispiel}
 \end{figure}
 
 Der RegexFeaturizer muss vor dem EntityExtractor in der Pipeline platziert werden.\cite{rasaMasterclassRegexFeaturizer, pipelineComponentsYoutube, regexFeaturizerCrf}
@@ -331,10 +329,10 @@ Dabei schaut der Extractor auf Eigenschaften, wie beispielsweise, ob das Wort gr
 Dies wird auch mit den Wörtern davor und danach gemacht.\cite{crfEntityExtractor, pipelineComponentsYoutube, regexFeaturizerCrf}
 
 \begin{figure}[hbt!]
-  \centering
-  \includegraphics[scale=0.4]{pics/crf-entity-extractor}
-  \caption{Funktionsweise vom CRFEntityExtractor~\cite{pipelineComponentsYoutube}}
-  \label{fig:CRFEntityExtractor}
+    \centering
+    \includegraphics[scale=0.4]{pics/crf-entity-extractor}
+    \caption{Funktionsweise vom CRFEntityExtractor~\cite{pipelineComponentsYoutube}}
+    \label{fig:CRFEntityExtractor}
 \end{figure}
 
 Der CRFEntityExtractor produziert anschließend als Output, welche Wörter in einem Satz Entities sind und welche Entities diese sind, also was ihre Labels sind.
@@ -347,10 +345,10 @@ Ein Featurizer generell wird verwendet, um Features von den Tokens zu extrahiere
 Diese können dann von dem Intent-Klassifikations-Modell genutzt werden, um Muster zu erkennen und anschließend den korrekten Intent vorherzusagen.\cite{lexicalSyntacticFeaturizer, pipelineComponentsYoutube, pipelineConfigurationVideo}
 
 \begin{figure}[hbt!]
-  \centering
-  \includegraphics[scale=0.5]{pics/featurizer}
-  \caption{Funktionsweise von einem Featurizer~\cite{pipelineConfigurationVideo}}
-  \label{fig:Featurizer}
+    \centering
+    \includegraphics[scale=0.5]{pics/featurizer}
+    \caption{Funktionsweise von einem Featurizer~\cite{pipelineConfigurationVideo}}
+    \label{fig:Featurizer}
 \end{figure}
 
 Der LexicalSyntacticFeaturizer bekommt als Input einen Token und erstellt dann Features für die Entity Extraktion.
@@ -364,10 +362,10 @@ Dabei wird gezählt, wie oft ein bestimmtes Wort aus den Trainingsdaten in der N
 Dies wird dann als Input dem Intent-Classification-Model übergeben.\cite{countVectorsFeaturizer, pipelineConfigurationVideo, pipelineComponentsYoutube, rasaMasterclassCountVectorsFeaturizer}
 
 \begin{figure}[hbt!]
-  \centering
-  \includegraphics[scale=0.25]{pics/countvectorsfeaturizer}
-  \caption{CountVectorsFeaturizer Beispiel~\cite{pipelineConfigurationVideo}}
-  \label{fig:CountVectorsFeaturizer}
+    \centering
+    \includegraphics[scale=0.25]{pics/countvectorsfeaturizer}
+    \caption{CountVectorsFeaturizer Beispiel~\cite{pipelineConfigurationVideo}}
+    \label{fig:CountVectorsFeaturizer}
 \end{figure}
 
 Beim CountVectorsFeaturizer kann man außerdem angeben, dass statt Wörtern sogenannte n-grams verwendet werden sollen.
@@ -492,16 +490,17 @@ pipeline:
   ambiguity_threshold
 \end{lstlisting}
 
+
 \section{Welche Rolle spielen neuronale Netze in Rasa}
 \setauthor{Lukas Starka}
 
 Rasa selbst definiert 5 Stufen von AI\@.\cite{ai5Levels}
 
 \begin{figure}[hbt!]
-  \centering
-  \includegraphics[scale=0.25]{pics/5_levels_of_ai}
-  \caption{5 Stufen von AI~\cite{ai5LevelsVideo}}
-  \label{fig:5_levels_of_ai}
+    \centering
+    \includegraphics[scale=0.25]{pics/5_levels_of_ai}
+    \caption{5 Stufen von AI~\cite{ai5LevelsVideo}}
+    \label{fig:5_levels_of_ai}
 \end{figure}
 
 \textbf{Level 1: Notifications}
@@ -522,6 +521,7 @@ Zusätzlich zu normalen FAQs wird hierbei auch der Kontext beachtet.
 Es macht nämlich einen Unterschied, wann, wie und in welcher Situation ein Benutzer etwas gesagt hat.
 Bei Contextual Assistants wird der Kontext, also was bereits zuvor gesagt wurde, auch beachtet.
 Außerdem lenken sie Konversationen in die gewünschte Richtung und werden mit der Zeit immer besser, wenn man sie trainiert.\cite{rasaMasterclass5Levels,ai5Levels,ai5LevelsVideo}
+
 
 \section{Komponenten}
 \setauthor{Lukas Starka}
@@ -553,15 +553,30 @@ Responses fügt man in seinem \textbf{domain.yml} File wie folgt ein:
 
 \begin{lstlisting}[label={lst:responses-example},caption={Responses Beispiel}]{Responses Beispiel}
 responses:
-  utter_greet:
-  - text: "Hey! How are you?"
-
   utter_<name der response>:
   - text: "<text>"
     image: "<img link>"
+    buttons:
+    - title: "<button title>"
+      payload: "<payload>"
   ...
-\end{lstlisting}
 
+z.B.
+
+utter_chitchat/what_are_you_doing:
+    - text: Ach nichts besonderes, nur ein wenig chatten!
+    - text: Ich entspanne gerade ein wenig aber durchlöcher mich ruhig mit Fragen ich muss sowieso wieder an die Arbeit.
+    - text: Frag mich ruhig etwas ich brauche sowieso eine Ablenkung von all dem was ich eigentlich machen sollte!
+      buttons:
+        - title: "Wie geht es dir?"
+          payload: "Wie geht es dir?"
+        - title: "Willst du mich heiraten?"
+          payload: "Willst du mich heiraten?"
+        - title: "Welche Technologien wurden für dich verwendet?"
+          payload: "Welche Technologien wurden für dich verwendet?"
+        - title: "Wie spät ist es?"
+          payload: "Wie spät ist es?"
+\end{lstlisting}
 
 \subsection{Stories}
 \setauthor{Lukas Starka}
@@ -581,6 +596,18 @@ stories:
   steps:
   - intent: <name des intents>
   - action: <name der action>
+
+z.B.
+stories:
+  - story: sad path 1
+    steps:
+      - intent: greet
+      - action: utter_greet
+      - intent: mood_unhappy
+      - action: utter_cheer_up
+      - action: utter_did_that_help
+      - intent: affirm
+      - action: utter_happy
 \end{lstlisting}
 
 \subsubsection{Checkpoints und OR-Statements}
@@ -674,8 +701,16 @@ Diese Informationen können beispielsweise der Name des Benutzers sein oder Info
 slots:
   slot_name: <slot name>
     type: <type>
-\end{lstlisting}
 
+z.B.
+
+slots:
+  name:
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: false
+\end{lstlisting}
 
 \subsection{Entities}
 \setauthor{Lukas Starka}
@@ -689,6 +724,16 @@ Um Entities zu erstellen schreibt man folgendes in sein \textbf{domain.yml} File
 entities:
   - <entity name>
   - <entity name>
+
+z.B.
+
+entities:
+  - name
+  - branch
+  - teacher
+  - class
+  - grade
+  - subject
 \end{lstlisting}
 
 Diese Entities müssen dann noch in den Intents angegeben werden, in denen sie vorkommen sollen.
@@ -730,7 +775,6 @@ Group 1: [Pizza](meal) [Pilzen](topping)
 Group 2: [Salami](topping) [Pizza](meal)
 \end{lstlisting}
 
-
 \subsubsection{Nutzung von Entity Roles und Entity Groups}
 
 \subsection{Actions}
@@ -739,8 +783,8 @@ Group 2: [Salami](topping) [Pizza](meal)
 Es gibt 2 verschiedene Arten von Messages:
 
 \begin{enumerate}
-  \item \textbf{Static Messages}: Diese sind unabhängig vom User Input und benötigen keinen Action Server\cite{actionsVid}
-  \item \textbf{Dynamic Messages}: Diese sind abhängig vom User Input und benötigen einen Action Server\cite{actionsVid}
+    \item \textbf{Static Messages}: Diese sind unabhängig vom User Input und benötigen keinen Action Server\cite{actionsVid}
+    \item \textbf{Dynamic Messages}: Diese sind abhängig vom User Input und benötigen einen Action Server\cite{actionsVid}
 \end{enumerate}
 
 Der Rasa Action Server führt sogenannte Custom Actions für einen Rasa Open Source Conversation assistent aus.
@@ -767,7 +811,6 @@ forms:
             entity: number
 \end{lstlisting}
 
-
 \subsection{Synonyms}
 \setauthor{Lukas Starka}
 
@@ -787,6 +830,7 @@ Ein Beispiel dafür wäre folgendes im \textbf{nlu.yml} File:
 \subsection{Custom Actions}
 \setauthor{Lukas Starka}
 
+
 \section{Initialisieren}
 \setauthor{Lukas Starka}
 
@@ -804,20 +848,21 @@ Bei diesem Befehl wird man gefragt, ob man direkt ein voreingestelltes Model tra
 Dieses Modell wird basierend auf den Demodaten, die von jedem neu erstellten Rasa Projekt zur Verfügung gestellt werden, trainiert.
 
 \begin{figure}[hbt!]
-  \centering
-  \includegraphics[scale=0.5]{pics/rasa_init}
-  \caption{Rasa Init Konsolenausgabe}
-  \label{fig:rasa_init}
+    \centering
+    \includegraphics[scale=0.5]{pics/rasa_init}
+    \caption{Rasa Init Konsolenausgabe}
+    \label{fig:rasa_init}
 \end{figure}
 
 Nachdem dieser Befehl ausgeführt wurde, bekommt man folgende Files, die für einen Chatbot benötigt werden.
 
 \begin{figure}[hbt!]
-  \centering
-  \includegraphics[scale=0.75]{pics/rasa_file_tree}
-  \caption{File Tree nach dem Initialisieren}
-  \label{fig:file_tree}
+    \centering
+    \includegraphics[scale=0.75]{pics/rasa_file_tree}
+    \caption{File Tree nach dem Initialisieren}
+    \label{fig:file_tree}
 \end{figure}
+
 
 \section{Trainieren}
 \setauthor{Lukas Starka}
@@ -845,6 +890,7 @@ rasa train nlu #Rasa NLU mit den NLU-Daten trainieren
 rasa train --finetune models/20220211-094939.tar.gz #Finetune eines bestehenden Modells
 \end{lstlisting}
 
+
 \section{Interagieren}
 \setauthor{Lukas Starka}
 
@@ -865,10 +911,10 @@ Für detailliertere Ausgaben kann man außerdem das \texttt{--debug} Flag verwen
 Die Ausgabe dabei sieht wie in Abbildung~\ref{fig:rasa_shell} aus:
 
 \begin{figure}[hbt!]
-  \centering
-  \includegraphics[scale=0.40]{pics/rasa_shell}
-  \caption{Rasa Shell Ausgabe mit Debug Flag}
-  \label{fig:rasa_shell}
+    \centering
+    \includegraphics[scale=0.40]{pics/rasa_shell}
+    \caption{Rasa Shell Ausgabe mit Debug Flag}
+    \label{fig:rasa_shell}
 \end{figure}
 
 \subsection{Rasa Interactive}
@@ -889,8 +935,8 @@ Bei dieser Trainingssession hat man die Möglichkeit jedes Mal anzugeben, ob der
 Außerdem wird die gesamte Chat History visualisiert und ausgegeben, wie in Abbildung ~\ref{fig:rasa_interactive} zu sehen ist.
 
 \begin{figure}[hbt!]
-  \centering
-  \includegraphics[scale=0.80]{pics/rasa_interactive}
-  \caption{Ausgabe beim Interactive Befehl}
-  \label{fig:rasa_interactive}
+    \centering
+    \includegraphics[scale=0.80]{pics/rasa_interactive}
+    \caption{Ausgabe beim Interactive Befehl}
+    \label{fig:rasa_interactive}
 \end{figure}
