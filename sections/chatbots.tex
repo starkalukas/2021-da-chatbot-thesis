@@ -662,8 +662,6 @@ rules:
   - action: utter_greet
 \end{lstlisting}
 
-
-
 \subsection{Slots}
 \setauthor{Lukas Starka}
 
@@ -778,7 +776,7 @@ Wenn man also mit verschiedenen Wörtern dasselbe meint, kann man sich Synonyms 
 
 Ein Beispiel dafür wäre folgendes im \textbf{nlu.yml} File:
 
-\begin{lstlisting}[label={lst: Synonym Example}]
+\begin{lstlisting}[label={lst: Synonym Example}]{nlu.yml}
 - synonym: Medientechnik
   examples: |
     - IT-Medientechnik
@@ -786,9 +784,40 @@ Ein Beispiel dafür wäre folgendes im \textbf{nlu.yml} File:
     - Medientechnologie
 \end{lstlisting}
 
+\subsection{Custom Actions}
+\setauthor{Lukas Starka}
+
 \section{Initialisieren}
 \setauthor{Lukas Starka}
 
+Einen neuen Rasa Assistant kann man mithilfe des Init-Befehls in der Konsole anlegen.
+Der Befehl dafür lautet wie folgt:
+
+\begin{lstlisting}[label={lst: Rasa Train}]
+rasa init
+\end{lstlisting}
+
+Bei diesem Befehl wird man gefragt, ob man direkt ein voreingestelltes Model trainieren möchte.
+Dieses Modell wird basierend auf den Demodaten, die von jedem neu erstellten Rasa Projekt zur Verfügung gestellt werden, trainiert.
+
+\begin{figure}[hbt!]
+  \centering
+  \includegraphics[scale=0.25]{pics/rasa_init}
+  \caption{Rasa Init Konsolenausgabe}
+  \label{fig:rasa_init}
+\end{figure}
+
+Nachdem dieser Befehl ausgeführt wurde, bekommt man folgende Files, die für einen Chatbot benötigt werden.
+
+\begin{figure}[hbt!]
+  \centering
+  \includegraphics[scale=0.25]{pics/rasa_file_tree}
+  \caption{File Tree nach dem Initialisieren}
+  \label{fig:file_tree}
+\end{figure}
+
+\section{Interagieren}
+\setauthor{Lukas Starka}
 
 \section{Trainieren}
 \setauthor{Lukas Starka}
