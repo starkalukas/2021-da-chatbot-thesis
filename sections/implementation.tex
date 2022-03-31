@@ -15,12 +15,12 @@ Wir haben 2 Ubuntu VM's, eine für den Chat und eine für Rasa und das Backend, 
 Unser Chat wird gerade mit NGINX gehostet, dieser kommuniziert mit Rasa direkt über REST, wenn der Benutzer eine Nachricht sendet, wird diese an Rasa gesendet und Rasa antwortet mit der passenden Antwort.
 Das Dashboard wird auf GH Pages gehostet, dieses kommuniziert mit dem Backend über REST, das Backend authentisiert sich bei Rasa X und holt sich alle Konversationen und bereitet diese auf und sendet sie an das Dashboard.
 
-\section{Backend}
+\section{Backend}\label{sec:backend}
 \setauthor{Felix Dumfarth}
 
-Unser Quarkus\ref{quarkus} Backend hat die Aufgabe mit Rasa X\ref{rasax} zu kommunizieren und die Konversationsdaten für das Dashboard aufzubereiten und zu senden.
+Unser Quarkus\ref{quarkus} Backend hat die Aufgabe mit Rasa X zu kommunizieren und die Konversationsdaten für das Dashboard aufzubereiten und zu senden.
 
-Unser Backend besitzt folgende Enpoints:
+Unser Backend besitzt folgende Endpoints:
 
 \begin{itemize}
     \item GET /api/conversations
@@ -66,8 +66,8 @@ Die möglichen Dateinamen sind:
 \subsection{PUT /api/file/{filename}}
 Der Endpoint /api/file/{filename} erhält den Inhalt aus dem File welches auch im URL angegeben wurde und überschreibt dieses dann im Filesystem.
 
-\section{Chat Widget}
-Der Chatbot der HTL Leonding sollte auf der Schulhompage als Chatblase angezeigt werden, und verschiedene Elemente wie Buttons und Links unterstzützen.
+\section{Chat Widget}\label{sec:chat-widget}
+Der Chatbot der HTL Leonding sollte auf der Schulhomepage als Chatblase angezeigt werden, und verschiedene Elemente wie Buttons und Links unterstzützen.
 
 \subsection{Konzept}
 Während den Anfängen der vorliegenden Arbeit wurde ein Konzept erstellt, um das mögliche Aussehen festzulegen. Lange Zeit wurde der Chatbot unter den Namen Leon geführt.
@@ -98,7 +98,7 @@ Jedoch begann der Chatbot sehr anders, zu begin wurde der Bot zuerst als ganze S
 \end{figure}
 
 Natürlich war dies nicht das endgültige Ziel so wurde der Bot schnell zur Chatblase umgewandelt.
-Zum Testen war die HTL Leonding Seite mithilfe eines IFrames eingebunden und zusätzlich Chatblase.
+Zum Testen war die HTL Leonding Seite mithilfe eines IFrames eingebunden und zusätzlich die Chatblasen Komponente.
 
 Um das Gespräch in eine Richtung zu lenken wurden Buttons eingeführt, die nach fast jeder Antwort mögliche folge Fragen vorschlagen.
 
@@ -111,11 +111,35 @@ Um das Gespräch in eine Richtung zu lenken wurden Buttons eingeführt, die nach
 
 Um Bewertungen von echten Benutzern zu holen wurde außerdem eine Feedback Seite eingeführt, in dieser kann der Benutzer eine 1 bis 5 Sterne bewertung und einen Text absenden.
 
+%TODO: Bilder zum Feedback
 
-\section{Dashboard}
+
+Die Chatblase wurde in einem eigenen Modul entwickelt, um die Komponenten zu verstecken und zu verbergen.
+
+Das Chatfenster wurde in 3 Bereiche geteilt.
+
+\begin{figure}[hbt!]
+    \centering
+    \includegraphics[scale=0.2]{pics/chatWidgetStructure}
+    \caption{Aufbau vom Chat Fenster}
+    \label{fig:impl:chatWidget}
+\end{figure}
+
+
+\section{Dashboard}\label{sec:dashboard}
 
 Um alle Gespräche und die Bewertungen der Benutzer anzuzeigen wurde ein Dashboard eingeführt, wo nur dies möglich war.
 Im Laufe der Arbeit wurde dieses dann erweitert, um für den Leobot Conversation Cycle als Seite zu dienen.
+
+\subsection{Conversation-Driven Development}\label{cdd}
+Rasa empfiehlt für die Entwicklung von Chatbots ``Conversation-Driven Development'', kurz CCD.\cite{ccd}
+Aber was ist CCD?
+
+CCD beschreibt eine Entwicklungsstrategie, in der du deinen Chatbot nach Konversationen mit echten Usern verbesserst.
+
+Bei CCD wird empfohlen das man seinen Chatbot möglichst früh echten Benutzern zur verfügung stehlt und so beobachten kann was die echten Benutzer alles für Intents erwarten und wie sie ihre Anfragen formulieren und kann diese bei Bedarf hinzufügen.
+
+
 
 \subsection{Leobot Conversation Cycle}
 
@@ -126,9 +150,9 @@ Im Laufe der Arbeit wurde dieses dann erweitert, um für den Leobot Conversation
     \label{fig:impl:ConversationCycle}
 \end{figure}
 
-Der Leobot Conversation Cycle ist ein Worflow der dazu dient, den Leobot zu überprüfen und zu erweitern.
+Wir setzen CCD\ref{ccd} mithilfe unsres Leobot Conversation Cycle um, der Leobot Conversation Cycle ist ein Workflow der dazu dient, den Leobot zu überprüfen und zu erweitern.
 
-Der Worflow besteht aus folgenden Schritten:
+Der Workflow besteht aus folgenden Schritten:
 
 \begin{itemize}
     \item Unterhalten
@@ -137,7 +161,7 @@ Der Worflow besteht aus folgenden Schritten:
     \item Trainieren
 \end{itemize}
 
-Diese 4 Schritte werden immer wieder durchgeführt.
+Diese 4 Schritte werden immer wieder durchgeführt um den Chatbot dauerhaft zu verbessern.
 
 \subsubsection{Unterhalten}
 Unterhalten ist der erste Schritt des Leobot Conversation Cycles, in diesem Schritt werden dem Bot Fragen gestellt, die er beantworten muss, dies passiert natürlich während Unterhaltungen im Chat auf der Schulhompage.
@@ -191,15 +215,19 @@ Im Editor wurden auch Code Vorschläge benutzt um etwas an Tipparbeit sparen zu 
 \subsection{Angular Elements}
 ''Webkomponenten sind eine Gruppe von Web-Technologien, die es ermöglichen, benutzerdefinierte, wiederverwendbare HTML Elemente zu erstellen, deren Funktionalität gekapselt ist und damit vollständig getrennt von anderem Code.''\cite{webcomponents}
 
-Um unsre Chatkomponente auf die Wordpress Seite zu bringen, entschieden wir uns dazu die Komponente mithilfe von Angular Elements als WebKomponente zu exportieren um somit eine einfache einbindung auf die Schulhompage zu ermöglichen.
+Um unsre Chatkomponente auf die Wordpress Seite zu bringen, entschieden wir uns dazu die Komponente mithilfe von Angular Elements als WebKomponente zu exportieren um somit eine einfache einbindung auf die Schulhomepage zu ermöglichen.
 
-\section{GH Actions}
+\section{GitHub Actions}
 
-Die Praxische Arbeit besteht aus sehr vielen einzelen Projekten, mit verschiedenen Funktionen, doch bei vielen der Github Projekte haben wir mithilfe von Github Actions unser Deployment automatisiert.
+Die Praxische Arbeit besteht aus sehr vielen einzelen Projekten, mit verschiedenen Funktionen, doch bei vielen der GitHub Projekte haben wir mithilfe von GitHub Actions unser Deployment automatisiert.
 
-\subsubsection{Backend}
+% TODO
+\subsection{Backend}
 
-Unser Backend wird mithilfe von Github Actions automatisiert gebaut und das .jar file wird über SSH auf unsre VM geladen.
+Unser Backend wird mithilfe von GitHub Actions automatisiert gebaut der Workflow baut das .jar file und dieses wird dann über SSH auf unsre VM geladen.
+
+\subsection{Fronteend}
+Die Chat Seite sowie das Dashboard werden mithilfe von GitHub Actions automatisiert gebaut und auf GH Pages gepublished.
 
 \section{Schwierigkeiten}
 \setauthor{Felix Dumfarth}
@@ -210,3 +238,4 @@ Beim Backend war eine sehr große Schwierigkeit das die Rasa X API nicht sehr gu
 
 \subsection{Frontend}
 Beim Frontend war die größte Schwierigkeit der export der Chatkomponente da Angular Materials nicht mit exportiert werden konnten, diese jedoch für die Feedback ansicht benutzt worden sind.
+%TODO Lösung wenn i eine find
