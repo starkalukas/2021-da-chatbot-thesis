@@ -182,7 +182,7 @@ In der Grafik 5 sieht man ein Flussdiagramm, welches beschreibt, ob man Supervis
     \label{fig:pre_trained_vs_supervised}
 \end{figure}
 
-\subsection{Konfigurierte Pipelines}
+\subsection{Konfigurierte Pipelines}\label{subsec:configured-pipelines}
 \setauthor{Lukas Starka}
 
 Es gibt also vordefinierte Pipelines von Rasa, die man nutzen kann.
@@ -237,6 +237,9 @@ pipeline:
 
 \end{lstlisting}
 
+\subsection{Unsere Pipeline}\label{subsec:our-pipeline}
+\setauthor{Lukas Starka}
+
 Die von uns verwendete Pipeline aus Listing ~\ref{lst:our-pipeline} beruht auf dieser Standard-Pipeline und die jeweiligen Komponenten werden in den folgenden Kapiteln genauer erläutert.
 
 \begin{lstlisting}[label={lst:our-pipeline},caption={Unsere Pipeline}]{Unsere Pipeline}
@@ -265,6 +268,91 @@ pipeline:
      threshold: 0.3
      ambiguity_threshold: 0.1
 \end{lstlisting}
+
+\subsection{Pipelines vergleichen}\label{subsec:comparing-pipelines}
+\setauthor{Lukas Starka}
+
+Um die beste Leistung für seine definierte Trainingsdaten zu erzielen, kann man beispielsweise zwei verschieden Pipelines miteinander vergleichen.
+Dafür nutzt man den \texttt{rasa test} Befehl, der dabei eine Reihe von verschiedenen Schritten ausführt, wie in Listing ~\ref{lst:comparing-pipelines} zu sehen ist.
+
+\begin{enumerate}
+    \item Zunächst werden 80\% der Daten vom \texttt{data/nlu.yml} trainiert und 20\% getestet.
+    \item Danach wird eine gewisse Prozentzahl von Daten ausgelassen.
+    \item Die Modelle werden basierend auf den überbleibenden Daten trainiert.
+    \item Eine Evaluation über das Modell mit den reduzierten Trainingsdaten wird erstellt.\cite{comparingNLUPipelines}
+\end{enumerate}
+
+Der 2\. Schritt wird dabei standardmäßig dreimal für jede übergebene Pipeline-Konfiguration ausgeführt.
+Dabei werden immer wieder neue Prozentzahlen gewählt.
+Wenn man diese selbst bestimmen möchte, kann man dies wie in Listing ~\ref{lst:comparing-pipelines-custom} machen.\cite{comparingNLUPipelines}
+
+\begin{lstlisting}[label={lst:comparing-pipelines},caption={Unsere Pipeline}]{Unsere Pipeline}
+rasa test nlu --nlu data/nlu.yml
+   --config config_1.yml config_2.yml
+\end{lstlisting}
+
+\begin{lstlisting}[label={lst:comparing-pipelines-custom},caption={Unsere Pipeline}]{Unsere Pipeline}
+rasa test nlu --nlu data/nlu.yml
+  --config config_1.yml config_2.yml
+  --runs 4 --percentages 0 25 50 70 90
+\end{lstlisting}
+
+\subsubsection{Evaluation der Ergebnisse}\label{subsubsec:evaluation-results}
+\setauthor{Lukas Starka}
+
+Nachdem nun ein ausführlicher Test aller NLU Daten durchgeführt wurde, bekommt man das Ergebnis in einem \texttt{results/} Ordner.\cite{interpretingTheOutput}
+
+Dort bekommt man nun direkt im Ordner ein File mit dem Titel \texttt{nlu\_model\_comparision\_graph.pdf}.
+In der Abbildung ~\ref{fig:comparision_graph} kann man erkennen, dass hierbei nur 1 Konfigurationsfile genutzt wurde, bei dem es sich um unsere verwendete Pipeline handelt.
+Auf der x-Achse befindet sich die Anzahl der Trainingsphrasen, die beim Training dabei waren.
+Hier ist zu sehen, dass je höher die Anzahl ist, desto genauer auch der F1-Score ~\ref{F-Score} ist.
+Vor allem aber sind die Abweichungen bei diesem Score viel kleiner, wenn mehr Trainingsphrasen gegeben sind.
+Dies beweist wie wichtig es ist viele Trainingsphrasen zu verwenden.
+
+\begin{figure}[hbt!]
+    \centering
+    \includegraphics[scale=0.4]{pics/comparision_graph}
+    \caption{Comparision Graph bei unserer Pipeline}
+    \label{fig:comparision_graph}
+\end{figure}
+
+Außerdem bekommt man noch ein \texttt{.json} File und Bilder für die jeweiligen Ergebnisse.
+Für jeden Lauf wird dabei ein Ordner angelegt, in dem es Unterordner für die jeweilige Prozentzahl gibt, die von den Trainingsphrasen ausgeschlossen wurde.
+Dabei bekommt man eine sogenannte Konfusionsmatrix und ein Histogramm der Ergebnisse.
+
+Beim Histogramm wird die Anzahl der korrekt vorhergesagten Intents mit der der falsch vorhergesagten Intents verglichen.
+Dabei wird auch die Confidence, also die Sicherheit des Modells, angegeben, mit der sie vorhergesagt wurden.
+Im Optimalfall sind die Balken also bei den korrekten Intents weit oben mit einer hohen Confidence versehen und die Falschen mit einer niedrigen.
+Außerdem soll die Anzahl, die auf der x-Achse eingetragen ist, von den richtigen Intents höher sein, als die Anzahl der falschen Intents.
+In Abbildung ~\ref{fig:histogram_0} ist ein Histogramm für 0\% Exklusion zu sehen und bei Abbildung ~\ref{fig:histogram_75} wurde 75\% Exklusion genutzt.
+Man kann erkennen, dass bei mehr Exklusion auch mehr Intents falsch vorhergesagt werden und die Zuversichtlichkeit des Modells dabei immer höher wird.
+
+\begin{figure}[hbt!]
+    \centering
+    \includegraphics[scale=0.5]{pics/intent_histogram_0}
+    \caption{Histogramm für 0\% Exklusion}
+    \label{fig:histogram_0}
+\end{figure}
+
+\begin{figure}[hbt!]
+    \centering
+    \includegraphics[scale=0.5]{pics/intent_histogram_75}
+    \caption{Histogramm für 75\% Exklusion}
+    \label{fig:histogram_75}
+\end{figure}
+
+Die Konfusionsmatrix hilft dabei festzustellen, wie viele Intents richtig und falsch erkannt wurden.
+Dabei wird auf einer Achse aufgetragen, welcher Intent vorhergesagt wurde, und welcher Intent tatsächlich erkannt hätte werden sollen.
+Im Optimalfall liegt bei der Konfusionsmatrix also eine Diagonale durch die Matrix vor.
+Bei der Konfusionsmatrix kann man nun anschaulich erkennen, welche Intents noch überarbeitet werden sollten, weil zu viele Intents falsch als dieser vorhergesagt wurden.\ref{analyzing-results}
+In Abbildung ~\ref{fig:confusion_matrix} kann man beispielsweise ablesen, dass zwei Intents, die eigentlich \texttt{chitchat/insult} sein sollten fälschlicherweise als \texttt{chitchat/ask\_creator} erkannt wurden.
+
+\begin{figure}[hbt!]
+    \centering
+    \includegraphics[scale=0.3]{pics/confusion_matrix}
+    \caption{Konfusionsmatrix für chitchat Intents}
+    \label{fig:confusion_matrix}
+\end{figure}
 
 \subsection{WhitespaceTokenizer}
 \setauthor{Lukas Starka}
@@ -531,7 +619,7 @@ Außerdem lenken sie Konversationen in die gewünschte Richtung und werden mit d
 In der sogenannten Domain werden alle Intents, Entities, Slots, Responses, Forms und Actions angegeben, die der Bot kennt.
 Diese ganzen Informationen befinden sich in der \textbf{domain.yml} Datei.\cite{domain}
 
-\subsection{Intents}
+\subsection{Intents}\label{Intents}
 \setauthor{Lukas Starka}
 
 Intents sind die Absichten hinter der Nachricht des Benutzers.
