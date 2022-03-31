@@ -418,6 +418,39 @@ Außerdem kann man daraus lesen, dass sich "man" zu "brother" ähnlich wie "woma
 Dies findet man dadurch heraus, dass man ein ähnliches Ergebnis bekommt, wenn man die zwei Unterschiede der Vektoren miteinander vergleicht.
 Man kann sich außerdem vorstellen, dass man zum Beispiel bei der Rechnung "King - Man + Woman = ?" als Ergebnis die Position des Wortes "Queen" erhält.
 
+\subsection{F-Score}\label{F-Score}
+\setauthor{Lukas Starka}
+
+Der F-Score wird oft auch als F1-Score oder F-measure bezeichnet und dieser ist ein Maß für die Genauigkeit eines Tests.
+Die Formel dafür ist in Abbildung ~\ref{fig:f-score} beschrieben.
+In unserem Fall kann man den F-Score beispielsweise verwenden, um zu beschreiben wie oft Intents ~\ref{Intents} richtig klassifiziert wurden.
+Die \texttt{precision} gibt dabei an, wie viele Intents richtig klassifiziert wurden, von der Anzahl, wie viele es tatsächlich waren ~\ref{fig:precision}.
+Es wird also beispielsweise geschaut, wie viele Intents als \texttt{ask\_htl} identifiziert wurden und, wie viele es tatsächlich sein hätten sollen.
+Beim \texttt{recall} ist es auf der anderen Seite so, dass geschaut wird, wie viele Intents richtig klassifiziert wurden und diese Anzahl wird durch die Anzahl, die der Intent vorhergesagt wurde gerechnet.~\ref{fig:recall}.
+In unserem Beispiel würde dies bedeuten, dass die Anzahl, wie oft ein Intent tatsächlich \texttt{ask\_htl} war, dividiert durch, wie oft dieser Intent vorhergesagt wurde, wird.
+Je näher der insgesamte F-Score dann bei 1 liegt, desto besser ist das Modell und desto besser ist die Genauigkeit.\cite{fScore}
+
+\begin{figure}[hbt!]
+    \centering
+    \includegraphics[scale=0.75]{pics/f-score}
+    \caption{F-Score Berechnung~\cite{fScore}}
+    \label{fig:f-score}
+\end{figure}
+
+\begin{figure}[hbt!]
+    \centering
+    \includegraphics[scale=0.75]{pics/f-score}
+    \caption{Precision Berechnung~\cite{precisionRecall}}
+    \label{fig:recall}
+\end{figure}
+
+\begin{figure}[hbt!]
+    \centering
+    \includegraphics[scale=0.75]{pics/f-score}
+    \caption{Recall Berechnung~\cite{precisionRecall}}
+    \label{fig:precision}
+\end{figure}
+
 \subsection{NLP und NLU Tools}
 \setauthor{Lukas Starka}
 
