@@ -15,10 +15,6 @@
 \setauthor{Lukas Starka}
 
 
-\section{Word Vectors}
-\setauthor{Lukas Starka}
-
-
 \section{Text Analysis}
 \setauthor{Lukas Starka}
 
@@ -82,7 +78,7 @@ Der Textkorpus ist also eine Menge von strukturierten Texten, die für den Compu
 Bei der Tokenization repräsentiert jeder Token eine sinnvolle Einheit.
 Darunter versteht man Wörter, Zeichen oder Sonderzeichen, die alle einen eigenen Token darstellen, lediglich Leerzeichen in einem Satz stellen keine eigenen Token dar.\cite{machineLearningTextAnalysis, naturalLanguageProcessing}
 
-Die verschiedenen Token, die dabei entstehen, können dabei wie folgt aussehen:
+Die verschiedenen Token, die dabei entstehen, können dabei wie in Listing ~\ref{lst:tokenization} aussehen:
 
 \begin{lstlisting}[label={lst:tokenization},caption={Beispiel für die Tokenization}]{Tokenization}
 Let us go to the park.
@@ -97,7 +93,7 @@ Let us go to the park.
 \end{lstlisting}
 
 Die Tokenization ist dabei besonders für verschiedene Sprachen von Vorteil, da es in diesen immer andere Regeln gibt, wie die Wörter aufgeteilt werden können.
-In dem obigen Beispiel wirkt es womöglich no so, als könnte man mit einer \textbf{split()} Methode das selbe Resultat erzielen, aber es gibt auch Besonderheiten einer Sprache, die vom Tokenizer bedacht werden müssen, wie folgendes Beispiel aufzeigt.\cite{machineLearningTextAnalysis, naturalLanguageProcessing}
+In dem Beispiel ~\ref{lst:tokenization} wirkt es womöglich so, als könnte man mit einer \textbf{split()} Methode das selbe Resultat erzielen, aber es gibt auch Besonderheiten einer Sprache, die vom Tokenizer bedacht werden müssen, wie folgendes Beispiel aufzeigt.\cite{machineLearningTextAnalysis, naturalLanguageProcessing}
 
 \begin{lstlisting}[label={lst:tokenization-exception},caption={Ausnahme für bestimmte Tokens}]{Tokenization-Exception}
 "Let's go to the U.K.!"
@@ -123,7 +119,7 @@ Im deutschen sind hierbei also die verschiedenen Wortarten gemeint.
 Beim Tagging werden entweder Statistiken angewendet, wie beispielsweise, dass es sehr wahrscheinlich ist, dass nach einem Artikel ein Nomen folgt.
 Außerdem gibt es sogenannte Rule-Based POS-Taggers, deren Aufgabe es ist, vordefinierte Regeln zu verwenden, um das Tagging zu vollziehen.\cite{machineLearningTextAnalysis, naturalLanguageProcessing}
 
-Ein Beispiel für POS-Tagging könnte also folgendermaßen aussehen:
+Ein Beispiel für POS-Tagging könnte also wie in Listing ~\ref{lst:pos-tagging} aussehen:
 
 \begin{lstlisting}[label={lst:pos-tagging},caption={Beispiel für POS-Tagging}]{POS-Tagging}
 I am going to the U.K.
@@ -163,7 +159,7 @@ Beim Stemming wird der Wortstamm eines Tokens von den Präfixen und Suffixen gel
 Unter einem Präfix versteht man eine Vorsilbe, die dem Wortstamm vorangestellt wird und bei dem Suffix, handelt es sich im Gegenzug dazu um Worterweiterungen, die dem Stamm folgen.
 Hierbei gibt es wieder die Möglichkeit selber einen Stemmer zu implementieren oder bereits vorgefertigte Stemmer zu verwenden.\cite{textAnalysisMonkeylearn, machineLearningTextAnalysis}
 
-Ein Beispiel für Stemming wäre also wie folgt:
+Ein Beispiel für Stemming von deutschen Wörtern wäre also in Listing ~\ref{lst:stemming} zu sehen.
 
 \begin{lstlisting}[label={lst:stemming},caption={Stemming von deutschen Wörtern}]{Stemming}
 
@@ -180,7 +176,7 @@ Unter der Lemmatization oder auch Lemmatisierung wird der Prozess verstanden, be
 
 Die Lemmatisierung ist sozusagen eine Weiterentwicklung des Stemming und versucht im Gegensatz zum Stemming den Kontext zu den Wörtern zu bringen.
 Je nachdem in welchem Kontext die Verben gebraucht werden können sie sich dabei von ihrer Wortart unterscheiden und so eine andere Bedeutung haben.
-Generell lässt sich sagen, dass Stemmer meist einfacher zu implementieren sind und für schnellere Laufzeiten sorgen, allerdings wird von vielen auch die Lemmatization dem Stemming vorgezogen, aufgrund der Vorteile die das Einbeziehen des Kontextes mit sich bringt.\cite{machineLearningTextAnalysis, textAnalysisMonkeylearn, stemmingLemmatization, }
+Generell lässt sich sagen, dass Stemmer meist einfacher zu implementieren sind und für schnellere Laufzeiten sorgen, allerdings wird von vielen auch die Lemmatization dem Stemming vorgezogen, aufgrund der Vorteile die das Einbeziehen des Kontextes mit sich bringt.\cite{machineLearningTextAnalysis, textAnalysisMonkeylearn, stemmingLemmatization}
 
 
 Beispiele für die Lemmatisierung sind:
@@ -220,7 +216,7 @@ Ein anderes Beispiel könnten die Wörter "black" und "car" sein.
     \label{fig:dependency_parsing_relation}
 \end{figure}
 
-Wie man dieser Grafik entnehmen kann, bezieht sich die Farbe Schwarz in diesem Fall auf das Auto.
+Wie man aus der Grafik ~\ref{fig:dependency_parsing_relation} entnehmen kann, bezieht sich die Farbe Schwarz in diesem Fall auf das Auto.
 Im Englischen wird das Wort "car" deswegen auch als "Head" bezeichnet und "black" ist ein "child", also ein Wort, dass abhängig von diesem "Head" ist.
 Die Beziehung, die zwischen diesen Wörtern vorliegt, wird mit "amod" bezeichnet.
 Dies ist eine Abkürzung für "Adjectival Modifier", also ein Adjektiv, welches ein Nomen modifiziert und zu der Bedeutung des Nomens beiträgt.
@@ -259,7 +255,7 @@ Der Satz "I saw a fox" wird hierbei als Tree des Constituency Parsings dargestel
     \label{fig:constituency_parsing_tree}
 \end{figure}
 
-In diesem Beispiel kann man sehen, dass der Satz in zwei Teile aufgeteilt wurde.
+In dem Beispiel ~\ref{fig:constituency_parsing_tree} kann man sehen, dass der Satz in zwei Teile aufgeteilt wurde.
 Der Textbaustein "I" wurde als Substantiv (NP) erkannt und "saw a fox" ist hierbei die Phrase des Verbs (VP).
 Darunter sieht man die Regeln, die dazu führten, dass hierbei erkannt wurde, dass es sich um eine Nominalphrase und eine Verbalphrase handelt.
 Diese Regeln werden durch die Grammatik der Sprache erstellt und so sagt beispielsweise die Regel "S -> NPVP" aus, dass ein ganzer Satz (S) durch eine Nominalphrase (NP) und eine Verbalphrase (VP) entsteht.\cite{dependencyVsConstituencyParsing}
@@ -301,7 +297,7 @@ Hierbei kommen nun Vektoren zum Einsatz, weil das System dadurch die wichtigsten
 
 Beim Natural Language Processing benötigt man sehr oft das sogenannte Skalarprodukt. Dieses kann auch als inneres Produkt oder Punktprodukt bezeichnet werden.
 Das Skalarprodukt ordnet zwei Vektoren eine Zahl zu.
-Ein Skalarprodukt berechnet man wie folgt:
+Ein Skalarprodukt berechnet man wie in ~\ref{fig:dot-product} zu sehen ist.
 
 \begin{figure}[hbt!]
     \centering
@@ -344,7 +340,7 @@ Allerdings wird bei einem Bag of n-grams ein Text als eine unsortierte Collectio
 In dem Bag of n-grams wird dann die Anzahl, wie oft ein n-gram vorkommt gespeichert.
 Ein n-gram ist eine Sammlung von n aufeinander folgender Wörter.
 Wenn das n = 2 ist, spricht man von einem bigram, wenn n = 3 ist von einem trigram und so weiter.
-Somit würde unser vorheriges Beispiel als bigram folgendermaßen aussehen:
+Somit würde unser Beispiel von ~\ref{lst:bag-of-word} als bigram folgendermaßen aussehen:
 
 \begin{lstlisting}[label={lst:bag-of-n-grams},caption={Bag of n-grams}]{Bag of n-grams}
 Dies ist ein Bag of Words Beispiel.
@@ -393,7 +389,7 @@ warmer      2
 Tag         5
 \end{lstlisting}
 
-Bei diesem Beispiel wird gezeigt, dass die Wörter, die häufig in einem deutschen Satz vorkommen, wie "ist" oder "ein", einen niedrigen Score erhalten und das Wort "Tag" einen hohen Score aufweist, was bedeutet, dass dieses Wort vermutlich wichtig für die Bedeutung des Satzes ist.
+Bei dem Beispiel ~\ref{lst:tf-idf-example} wird gezeigt, dass die Wörter, die häufig in einem deutschen Satz vorkommen, wie "ist" oder "ein", einen niedrigen Score erhalten und das Wort "Tag" einen hohen Score aufweist, was bedeutet, dass dieses Wort vermutlich wichtig für die Bedeutung des Satzes ist.
 
 Bei der Text Analysis mit Machine Learning werden solche TF-IDF Algorithmen verwendet, um Daten in Kategorien einzuordnen und wichtige Schlüsselwörter zu extrahieren.
 Auch Suchmaschinen wie Google verwenden diese Technologien, um aus dem Suchbegriff des Users die zentrale Aussage herauszufinden und die Suchergebnisse nach ihrer Relevanz zu sortieren.\cite{tfIdf}
@@ -412,12 +408,12 @@ Hierbei kann man Grafiken erstellen, die die Wörter in einem Koordinatensystem 
 
 \begin{figure}[hbt!]
     \centering
-    \includegraphics[scale=0.50]{pics/whatlies_demo}
+    \includegraphics[scale=1]{pics/whatlies_demo}
     \caption{Whatlies Illustration~\cite{whatlies}}
     \label{fig:whatlies-demo}
 \end{figure}
 
-Daraus kann man nun erkennen, dass die Wörter "brother" und "sister" oder "woman" und "man" nahe beieinander im Raum dargestellt werden.
+Aus der Abbildung ~\ref{fig:whatlies-demo} kann man nun erkennen, dass die Wörter "brother" und "sister" oder "woman" und "man" nahe beieinander im Raum dargestellt werden.
 Außerdem kann man daraus lesen, dass sich "man" zu "brother" ähnlich wie "woman" zu "sister" oder "puppy" zu "dog" sich ähnlich wie "kitten" zu "cat" verhält.
 Dies findet man dadurch heraus, dass man ein ähnliches Ergebnis bekommt, wenn man die zwei Unterschiede der Vektoren miteinander vergleicht.
 Man kann sich außerdem vorstellen, dass man zum Beispiel bei der Rechnung "King - Man + Woman = ?" als Ergebnis die Position des Wortes "Queen" erhält.
