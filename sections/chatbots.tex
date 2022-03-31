@@ -77,7 +77,7 @@ In Rasa Open Source werden eingehende Nachrichten von einer Reihe von Komponente
 Diese Komponenten werden nacheinander in einer sogenannten Processing Pipeline ausgeführt, die im config.yml File definiert ist.
 Wenn man eine NLU-Pipeline auswählt, kann man allerdings sein Model anpassen und an das Dataset verfeinern.\cite{howToChooseAPipeline}
 
-In der Abbildung 3 werden die Komponenten und ihre Lifecycle abgebildet.
+In der Abbildung ~\ref{fig:component_lifecycle} werden die Komponenten und ihre Lifecycle abgebildet.
 
 \begin{figure}[hbt!]
     \centering
@@ -93,7 +93,7 @@ Beispielsweise kann eine Komponente Merkmalsvektoren für die Trainingsdaten ber
 Zunächst wird der Kontext mit allen Konfigurationswerten gefüllt, die Pfeile im Bild zeigen die Aufrufreihenfolge und visualisieren den Pfad des übergebenen Kontexts.
 Nachdem alle Komponenten trainiert und beibehalten wurden, wird das finale context dictionary verwendet, um die Metadaten des Models beizubehalten.\cite{componentLifecycle, componentLifecycleDoc}
 
-Dies ist in der Grafik 4 zu erkennen.
+Dies ist in der Grafik ~\ref{fig:pipeline_image} zu erkennen.
 
 \begin{figure}[hbt!]
     \centering
@@ -115,7 +115,7 @@ Der Vorteil von Pipelines, die Pretrained Word Vectors verwendet ist, dass diese
 Somit weiß das Model beispielsweise, dass Äpfel und Birnen ähnlich sind ohne, dass dies in den Intents irgendwo spezifiziert werden muss.\cite{differenceStackOverflow, rasaMasterclassPreConfiguredPipelines}
 
 Die Vorteile hierbei sind also, dass das Model weniger Trainingsdaten benötigt, um eine gute Performance zu besitzen.
-Außerdem geht der ganze Trainingsprozess in der Regel schneller und die sogenannten Iteration Times sind kürzer als bei Modellen ohne pre-trained word vectors.\cite{differenceStackOverflow, pretrainedVsSupervised, rasaMasterclassPreConfiguredPipelines}
+Außerdem geht der ganze Trainingsprozess in der Regel schneller und die sogenannten Iteration Times sind kürzer als bei Modellen ohne Pretrained Word Vectors.\cite{differenceStackOverflow, pretrainedVsSupervised, rasaMasterclassPreConfiguredPipelines}
 
 \begin{lstlisting}[label={lst:spacy-sklearn-pipeline},caption={SpaCy Sklearn Pipeline}]{SpaCy Sklearn Pipeline}
 language: "de"
@@ -128,7 +128,8 @@ Die SpaCy Pipeline verwendet Pretrained Word Vectors von GloVe oder fastText.\ci
 Es gibt außerdem auch noch Pipelines von MITIE.
 Diese verwendet MITIE als Source für die word vectors.
 Ein Vorteil von MITIE ist, dass man hier auch seine eigenen word vectors trainieren kann, indem man einen Corpus von Wikipedia oder ähnlichen Seiten verwendet.
-Allerdings wird MITIE meistens nicht empfohlen und es könnte auch sein, dass MITIE demnächst deprecated sein wird.\cite{mitieNLP, mitieDeprecated}
+Allerdings wird MITIE meistens nicht empfohlen und es könnte auch sein, dass MITIE demnächst deprecated sein wird.
+Die MITIE Pipeline kann man wie in Listing ~\ref{lst:mitie-sklearn-pipeline} definieren.\cite{mitieNLP, mitieDeprecated}
 
 \begin{lstlisting}[label={lst:mitie-sklearn-pipeline},caption={MITIE Sklearn Pipeline}]{MITIE Sklearn Pipeline}
 language: "de"
@@ -145,8 +146,8 @@ Diese Wörter sind eng miteinander verwandt.
 Allerdings kann im Kontext von Banken das Wort "balance" auch mit "cash" verwandt sein.
 Bei einem vortrainierten Model würden diese Wortvektoren nicht nah aneinander liegen, aber wenn man einen Chatbot hat der nur Intents besitzt, die mit Banken und Rechnungswesen zu tun haben, werden diese zwei Wörter "balance" und "cash" ohne Pretrained Word Vectors als ähnlich erkannt werden.\cite{tensorFlowEmbedding}
 
-Außerdem benutzen diese Pipelines kein sprach-spezifisches Model und somit kann man sie in allen Sprachen verwenden, die tokenisiert werden kann.\cite{tensorFlowEmbedding}
-
+Außerdem benutzen diese Pipelines kein sprach-spezifisches Model und somit kann man sie in allen Sprachen verwenden, die tokenisiert werden kann.
+Eine solche Pipeline kann man wie in Listing ~\ref{lst:tensorflow-embedding-pipeline} definieren.\cite{tensorFlowEmbedding}
 
 \begin{lstlisting}[label={lst:tensorflow-embedding-pipeline},caption={Tensorflow Embedding Pipeline}]{Tensorflow Embedding Pipeline}
 language: "de"
@@ -187,7 +188,8 @@ In der Grafik 5 sieht man ein Flussdiagramm, welches beschreibt, ob man Supervis
 Es gibt also vordefinierte Pipelines von Rasa, die man nutzen kann.
 
 Dabei kann man nun wieder entscheiden, ob man Pretrained Word Embeddings will oder nicht.
-Sollte man sich dafür entscheiden, kann man auf eine Pipeline mit SpaCy zurückgreifen, welche den SpacyFeaturizer verwendet und somit Pretrained Word Embeddings nutzt.\cite{startingPipelines, allComponents}
+Sollte man sich dafür entscheiden, kann man auf eine Pipeline mit SpaCy zurückgreifen, welche den SpacyFeaturizer verwendet und somit Pretrained Word Embeddings nutzt.
+Diese ist in Listing ~\ref{lst:spacy-pipeline} zu sehen.\cite{startingPipelines, allComponents}
 
 \begin{lstlisting}[label={lst:spacy-pipeline},caption={Spacy Startpipeline}]{Spacy Startpipeline}
 language: "de"  # Code für die Sprache
@@ -235,7 +237,7 @@ pipeline:
 
 \end{lstlisting}
 
-Die von uns verwendete Pipeline beruht auf dieser Standard-Pipeline und die jeweiligen Komponenten werden in den folgenden Kapiteln genauer erläutert.
+Die von uns verwendete Pipeline aus Listing ~\ref{lst:our-pipeline} beruht auf dieser Standard-Pipeline und die jeweiligen Komponenten werden in den folgenden Kapiteln genauer erläutert.
 
 \begin{lstlisting}[label={lst:our-pipeline},caption={Unsere Pipeline}]{Unsere Pipeline}
 language: de
@@ -461,7 +463,7 @@ Bei einem Retrieval Intent handelt es sich um einen speziellen Intent, der weite
 Dies kann man zum Beispiel nutzen, wenn man einen Retrieval Intent für FAQ und für Chitchat hat, bei denen dann jede individuelle Frage einen Sub-Intent darstellt.\cite{retrievalIntent}
 Verwendet wird dies, wenn der Bot zum Beispiel bei FAQ oder Chitchat sowieso immer mit der selben Antwort auf die Frage antworten soll, unabhängig von dem was vorher geschrieben wurde.\cite{chitchatAndFaqs}
 
-Auch wir haben diesen Ansatz in unsere Pipeline gewählt.
+Auch wir haben diesen Ansatz in unsere Pipeline gewählt, wie ihn ~\ref{lst:response-selector-2} zu sehen ist.
 
 \begin{lstlisting}[label={lst:response-selector-2},caption={Response Selector für Chitchat und FAQ}]{Response Selector}
 - name: ResponseSelector
@@ -494,7 +496,7 @@ pipeline:
 \section{Welche Rolle spielen neuronale Netze in Rasa}
 \setauthor{Lukas Starka}
 
-Rasa selbst definiert 5 Stufen von AI\@.\cite{ai5Levels}
+Rasa selbst definiert 5 Stufen von AI, wie in Abbildung ~\ref{fig:5_levels_of_ai} zu sehen ist.\@.\cite{ai5Levels}
 
 \begin{figure}[hbt!]
     \centering
@@ -620,8 +622,7 @@ Von diesen sollte man allerdings nicht zu viele machen, weil sonst die Stories s
 Man definiert einen Checkpoint am Ende seiner Story, wenn man diesen Teil der Story auch wieder als Voraussetzung für eine weitere Story setzt.
 In der nächsten Story beginnt man dann mit seinem Checkpoint, also dem Punkt auf den man anknüpfen möchte und die Teile der Konversation, die für diese Story ebenfalls vorausgesetzt werden sollen.
 
-Im folgenden Beispiel werden Checkpoints von Stories verwendet, um an anderen Stories anzuknüpfen\cite{checkpoints}
-:
+Im folgenden Beispiel werden Checkpoints von Stories verwendet, um an anderen Stories anzuknüpfen\cite{checkpoints}:
 
 \begin{lstlisting}[label={lst:checkpoints-example},caption={Checkpoints Beispiel}]{Checkpoint Beispiel}
 stories:
@@ -866,7 +867,7 @@ actions:
 \setauthor{Lukas Starka}
 
 Einen neuen Rasa Assistant kann man mithilfe des Init-Befehls in der Konsole anlegen.
-Der Befehl dafür lautet wie folgt:
+Der Befehl dafür lautet wie in Listing ~\ref{lst:init-example} zu sehen ist.
 
 \begin{lstlisting}[language=bash,label={lst:init-example},caption={Befehl fürs Initialisieren}]{Rasa Init Befehl}
 rasa init
