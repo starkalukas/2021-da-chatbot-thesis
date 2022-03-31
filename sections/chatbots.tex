@@ -107,11 +107,11 @@ Dies ist in der Grafik 4 zu erkennen.
 
 Es gibt verschiedene bereits konfigurierte Pipelines.\cite{howToChooseAPipeline}
 
-Grundsätzlich ist zwischen Pipelines zu unterscheiden, indem man sich informiert, ob sie pre-trained word vectors verwenden oder nicht.
+Grundsätzlich ist zwischen Pipelines zu unterscheiden, indem man sich informiert, ob sie Pretrained Word Vectors verwenden oder nicht.
 
-\subsubsection{Beispiele für Pipelines mit pre-trained word vectors}
+\subsubsection{Beispiele für Pipelines mit Pretrained Word Vectors}
 
-Der Vorteil von Pipelines, die pre-trained word vectors verwendet ist, dass diese bereits aus der jeweiligen Sprache word vectors besitzen.
+Der Vorteil von Pipelines, die Pretrained Word Vectors verwendet ist, dass diese bereits aus der jeweiligen Sprache word vectors besitzen.
 Somit weiß das Model beispielsweise, dass Äpfel und Birnen ähnlich sind ohne, dass dies in den Intents irgendwo spezifiziert werden muss.\cite{differenceStackOverflow, rasaMasterclassPreConfiguredPipelines}
 
 Die Vorteile hierbei sind also, dass das Model weniger Trainingsdaten benötigt, um eine gute Performance zu besitzen.
@@ -123,12 +123,12 @@ language: "de"
 pipeline: "spacy_sklearn"
 \end{lstlisting}
 
-Die SpaCy Pipeline verwendet pre-trained word vectors von GloVe oder fastText.\cite{spacySklearnPipeline, spacyNLP, rasaMasterclassPreConfiguredPipelines}
+Die SpaCy Pipeline verwendet Pretrained Word Vectors von GloVe oder fastText.\cite{spacySklearnPipeline, spacyNLP, rasaMasterclassPreConfiguredPipelines}
 
 Es gibt außerdem auch noch Pipelines von MITIE.
 Diese verwendet MITIE als Source für die word vectors.
 Ein Vorteil von MITIE ist, dass man hier auch seine eigenen word vectors trainieren kann, indem man einen Corpus von Wikipedia oder ähnlichen Seiten verwendet.
-Allerdings wird MITIE meistens nicht empfohlen und es könnte auch sein, dass MITIE demnächstet deprecated sein wird.\cite{mitieNLP, mitieDeprecated}
+Allerdings wird MITIE meistens nicht empfohlen und es könnte auch sein, dass MITIE demnächst deprecated sein wird.\cite{mitieNLP, mitieDeprecated}
 
 \begin{lstlisting}[label={lst:mitie-sklearn-pipeline},caption={MITIE Sklearn Pipeline}]{MITIE Sklearn Pipeline}
 language: "de"
@@ -136,14 +136,14 @@ language: "de"
 pipeline: "mitie_sklearn"
 \end{lstlisting}
 
-\subsubsection{Beispiele für Pipelines ohne pre-trained word vectors}
+\subsubsection{Beispiele für Pipelines ohne Pretrained Word Vectors}
 
-Der Vorteil von Pipelines ohne pre-trained word vectors ist, dass diese speziell auf den Fachbereich angepasst sind, für den man den Chatbot entwickelt.\cite{pretrainedVsSupervised, tensorFlowEmbedding}
+Der Vorteil von Pipelines ohne Pretrained Word Vectors ist, dass diese speziell auf den Fachbereich angepasst sind, für den man den Chatbot entwickelt.\cite{pretrainedVsSupervised, tensorFlowEmbedding}
 
 Als Beispiel kann man die Wörter "balance" und "symmetry" aus dem Englischen sehen.
 Diese Wörter sind eng miteinander verwandt.
 Allerdings kann im Kontext von Banken das Wort "balance" auch mit "cash" verwandt sein.
-Bei einem pre-trained Model würden diese Wortvektoren nicht nah aneinander liegen, aber wenn man einen Chatbot hat der nur Intents besitzt, die mit Banken und Rechnungswesen zu tun haben, werden diese zwei Wörter "balance" und "cash" ohne pre-trained word vectors als ähnlich erkannt werden.\cite{tensorFlowEmbedding}
+Bei einem vortrainierten Model würden diese Wortvektoren nicht nah aneinander liegen, aber wenn man einen Chatbot hat der nur Intents besitzt, die mit Banken und Rechnungswesen zu tun haben, werden diese zwei Wörter "balance" und "cash" ohne Pretrained Word Vectors als ähnlich erkannt werden.\cite{tensorFlowEmbedding}
 
 Außerdem benutzen diese Pipelines kein sprach-spezifisches Model und somit kann man sie in allen Sprachen verwenden, die tokenisiert werden kann.\cite{tensorFlowEmbedding}
 
@@ -156,10 +156,10 @@ pipeline: "tensorflow_embedding"
 
 Der Bag-of-word-vectors Ansatz ist zwar sehr gut aber leider auch nicht perfekt.
 Ein Problem davon ist, dass er oftmals keine fachspezifischen Begriffe kennt und außerdem können Typos nicht als Wortvektoren gelernt werden.
-Außerdem ist das Problem bei pre-trained word vectors, dass zehntausende Vektoren gespeichert werden, die vermutlich nie verwendet werden.\cite{tensorFlowEmbedding, choosingPipeline}
+Außerdem ist das Problem bei Pretrained Word Vectors, dass zehntausende Vektoren gespeichert werden, die vermutlich nie verwendet werden.\cite{tensorFlowEmbedding, choosingPipeline}
 
 Mit dem Tensorflow-Embedding macht man im Grunde genommen genau das Gegenteil.
-Diese Pipeline verwendet keine pre-trained vectors und sollte mit jeder Sprache verwendet werden können.
+Diese Pipeline verwendet keine vortrainierten Vektoren und sollte mit jeder Sprache verwendet werden können.
 Diese Pipeline lernt Embeddings für die Intents und für die Wörter und die Embeddings werden verwendet um die Ähnlichkeit zwischen dem Input und den Intents zu ermitteln.\cite{tensorFlowEmbedding, choosingPipeline}
 
 Eine weitere Pipeline lautet wie folgt:
@@ -582,8 +582,7 @@ utter_chitchat/what_are_you_doing:
 \setauthor{Lukas Starka}
 
 Stories werden als Trainingsdaten verwendet, die zum Trainieren des Models des Bots verwendet werden.
-Stories können dabei genutzt werden, um Models zu trainieren, bei denen auch unvorhersehbare Konversationspfade behandelt werden und unterscheiden sich in dieser Hinsicht von den Rules.
-\cite{stories}
+Stories können dabei genutzt werden, um Models zu trainieren, bei denen auch unvorhersehbare Konversationspfade behandelt werden und unterscheiden sich in dieser Hinsicht von den Rules.\cite{stories}
 
 Bei einer Story wird also die Unterhaltung zwischen einem Benutzer und dem Bot dargestellt.
 Dabei wird die Eingabe des Benutzers als Intent angegeben und die Antwort, mit der der Bot antworten soll, als Name der Action.\cite{stories}
@@ -613,12 +612,10 @@ stories:
 \subsubsection{Checkpoints und OR-Statements}
 
 Man kann seine Stories außerdem mit Checkpoints und OR-Statements versehen.
-Bei diesen sollte man aber grundsätzlich aufpassen und sie nur bedacht verwenden, weil in den meisten Fällen die gewünschten Resultate besser mit \textbf{Rules} oder einem \textbf{ResponseSelector} zu erzielen sind.
-\cite{checkpointsor}
+Bei diesen sollte man aber grundsätzlich aufpassen und sie nur bedacht verwenden, weil in den meisten Fällen die gewünschten Resultate besser mit \textbf{Rules} oder einem \textbf{ResponseSelector} zu erzielen sind.\cite{checkpointsor}
 
 Checkpoints können genutzt werden, um seine Trainingsdaten zu vereinfachen, indem man einen Checkpoint in einer Story setzt und auf diesen in einer anderen Story wieder ansetzt.
-Von diesen sollte man allerdings nicht zu viele machen, weil sonst die Stories sehr leicht schwer zu lesen und unübersichtlich sind und außerdem die Trainingszeit dadurch erhöht wird.
-\cite{checkpoints}
+Von diesen sollte man allerdings nicht zu viele machen, weil sonst die Stories sehr leicht schwer zu lesen und unübersichtlich sind und außerdem die Trainingszeit dadurch erhöht wird.\cite{checkpoints}
 
 Man definiert einen Checkpoint am Ende seiner Story, wenn man diesen Teil der Story auch wieder als Voraussetzung für eine weitere Story setzt.
 In der nächsten Story beginnt man dann mit seinem Checkpoint, also dem Punkt auf den man anknüpfen möchte und die Teile der Konversation, die für diese Story ebenfalls vorausgesetzt werden sollen.
@@ -694,8 +691,7 @@ rules:
 
 Slots sind sozusagen das Gedächtnis des Bots.
 Diese sind als key-value Paare dargestellt und können dazu verwendet werden, damit Information, die der Benutzer bereitstellt, gespeichert werden können, ähnlich zu Entities.
-Diese Informationen können beispielsweise der Name des Benutzers sein oder Informationen, die für den generellen Kontext des Gesprächs wichtig sind.
-\cite{slots}
+Diese Informationen können beispielsweise der Name des Benutzers sein oder Informationen, die für den generellen Kontext des Gesprächs wichtig sind.\cite{slots}
 
 \begin{lstlisting}[label={lst:slots-example},caption={Slots Beispiel}]{Slots Beispiel}
 slots:

@@ -29,7 +29,7 @@ Es gibt jedoch einen Unterschied zwischen Text Analysis und Text Analytics.
 Grundsätzlich kann man dabei sagen, dass Text Analysis qualitative Ergebnisse liefert, wohingegen bei Text Analytics die Quantität mehr im Vordergrund steht.\cite{textAnalysisMonkeylearn, machineLearningTextAnalysis}
 
 Bei Text Analysis werden also wichtige Informationen aus der Nachricht herausgelesen.
-Oder anders formuliert geht es darum, dass trotz der Vielseitigkeiten der menschlichen Sprache trotzdem die Kernaussage herausgefunden werden kann, mit der dann gearbeitet wird.
+Oder anders formuliert geht es darum, dass trotz der Unterschiede der menschlichen Sprache trotzdem die Kernaussage herausgefunden werden kann, mit der dann gearbeitet wird.
 Es können also dann Informationen herausgefiltert werden, wie beispielsweise, ob etwas positiv oder negativ ist oder was das Hauptthema des Textes ist.\cite{textAnalysisMonkeylearn, machineLearningTextAnalysis}
 
 Auf der anderen Seite wird bei Text Analytics werden verschiedene Muster aus einer großen Menge an Nachrichten herausgefiltert, welche dann in Graphen, Tabellen oder Berichten gezeigt werden können.
@@ -218,7 +218,7 @@ Ein anderes Beispiel könnten die Wörter "black" und "car" sein.
 
 Wie man aus der Grafik ~\ref{fig:dependency_parsing_relation} entnehmen kann, bezieht sich die Farbe Schwarz in diesem Fall auf das Auto.
 Im Englischen wird das Wort "car" deswegen auch als "Head" bezeichnet und "black" ist ein "child", also ein Wort, dass abhängig von diesem "Head" ist.
-Die Beziehung, die zwischen diesen Wörtern vorliegt, wird mit "amod" bezeichnet.
+Die Beziehung, die zwischen diesen Wörtern vorliegt, wird mit \texttt{amod} bezeichnet.
 Dies ist eine Abkürzung für "Adjectival Modifier", also ein Adjektiv, welches ein Nomen modifiziert und zu der Bedeutung des Nomens beiträgt.
 In diesem Fall gibt dieses eine genaue Beschreibung der Farbe des Autos.\cite{dependencyParsing}
 
@@ -258,7 +258,7 @@ Der Satz "I saw a fox" wird hierbei als Tree des Constituency Parsings dargestel
 In dem Beispiel ~\ref{fig:constituency_parsing_tree} kann man sehen, dass der Satz in zwei Teile aufgeteilt wurde.
 Der Textbaustein "I" wurde als Substantiv (NP) erkannt und "saw a fox" ist hierbei die Phrase des Verbs (VP).
 Darunter sieht man die Regeln, die dazu führten, dass hierbei erkannt wurde, dass es sich um eine Nominalphrase und eine Verbalphrase handelt.
-Diese Regeln werden durch die Grammatik der Sprache erstellt und so sagt beispielsweise die Regel "S -> NPVP" aus, dass ein ganzer Satz (S) durch eine Nominalphrase (NP) und eine Verbalphrase (VP) entsteht.\cite{dependencyVsConstituencyParsing}
+Diese Regeln werden durch die Grammatik der Sprache erstellt und so sagt beispielsweise die Regel "S → NPVP" aus, dass ein ganzer Satz (S) durch eine Nominalphrase (NP) und eine Verbalphrase (VP) entsteht.\cite{dependencyVsConstituencyParsing}
 
 \subsection{Stopwords}
 \setauthor{Lukas Starka}
@@ -375,7 +375,7 @@ Bei TF-IDF werden zwei verschiedene Metriken miteinander multipliziert.\cite{tfI
     \label{fig:tf-idf}
 \end{figure}
 
-Wenn man diese zwei Werte nun also miteinander multipliziert, erhält man so einen Wert, der indiziert, ob ein Wort relevant für die Bedeutung in dem Dokument ist, oder nicht.
+Wenn man diese zwei Werte nun also miteinander multipliziert, erhält man so einen Wert, der indiziert, ob ein Wort relevant für die Bedeutung in dem Dokument ist.
 Je höher der Wert ist, desto relevanter ist das Wort sozusagen.
 
 \begin{lstlisting}[label={lst:tf-idf-example},caption={TF-IDF Beispiel}]{TF-IDF Beispiel}
