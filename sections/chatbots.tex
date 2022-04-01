@@ -302,7 +302,7 @@ rasa test nlu --nlu data/nlu.yml
 
 Nachdem nun ein ausführlicher Test aller NLU Daten durchgeführt wurde, bekommt man das Ergebnis in einem \texttt{results/} Ordner.\cite{interpretingTheOutput}
 
-Dort bekommt man nun direkt im Ordner ein File mit dem Titel \texttt{nlu\_model\_comparision\_graph.pdf}.
+Dort bekommt man nun direkt im Ordner ein File mit dem Titel ~\texttt{nlu\_model\_comparision\_graph.pdf}.
 In der Abbildung ~\ref{fig:comparision_graph} kann man erkennen, dass hierbei nur 1 Konfigurationsfile genutzt wurde, bei dem es sich um unsere verwendete Pipeline handelt.
 Auf der x-Achse befindet sich die Anzahl der Trainingsphrasen, die beim Training dabei waren.
 Hier ist zu sehen, dass je höher die Anzahl ist, desto genauer auch der F1-Score ~\ref{F-Score} ist.
@@ -420,7 +420,7 @@ Dies wird auch mit den Wörtern davor und danach gemacht.\cite{crfEntityExtracto
 
 \begin{figure}[hbt!]
     \centering
-    \includegraphics[scale=0.4]{pics/crf-entity-extractor}
+    \includegraphics[scale=0.35]{pics/crf-entity-extractor}
     \caption{Funktionsweise vom CRFEntityExtractor~\cite{pipelineComponentsYoutube}}
     \label{fig:CRFEntityExtractor}
 \end{figure}
@@ -551,7 +551,7 @@ Bei einem Retrieval Intent handelt es sich um einen speziellen Intent, der weite
 Dies kann man zum Beispiel nutzen, wenn man einen Retrieval Intent für FAQ und für Chitchat hat, bei denen dann jede individuelle Frage einen Sub-Intent darstellt.\cite{retrievalIntent}
 Verwendet wird dies, wenn der Bot zum Beispiel bei FAQ oder Chitchat sowieso immer mit der selben Antwort auf die Frage antworten soll, unabhängig von dem was vorher geschrieben wurde.\cite{chitchatAndFaqs}
 
-Auch wir haben diesen Ansatz in unsere Pipeline gewählt, wie ihn ~\ref{lst:response-selector-2} zu sehen ist.
+Bei der Arbeit wurde dieser Ansatz ebenfalls gewählt, wie in ~\ref{lst:response-selector-2} zu sehen ist.
 
 \begin{lstlisting}[label={lst:response-selector-2},caption={Response Selector für Chitchat und FAQ}]{Response Selector}
 - name: ResponseSelector
