@@ -1,0 +1,26 @@
+Das geplante Ergebnis der Diplomarbeit war laut dem Diplomarbeitsantrag:
+
+Ein webbasierter grafischer Avatar, der durch eine modulare Architektur leicht in Webseiten integrierbar ist.
+Wichtig dabei ist, dass dieser selbstlernend ist und nicht rule-based.
+Das Wartungspersonal soll dabei Logs des Chatbots erhalten und die Möglichkeit haben, die Wissensbasis zu manipulieren, also neue Inhalte bereitzustellen oder nicht mehr relevante Inhalte zu entfernen.
+
+In der Arbeit kann man erkennen das ein großteil dieser Punkte erfüllt worden sind.
+
+\begin{itemize}
+    \item Da das Chat-Widget als Webkomponente exportiert wurde, ist es sehr leicht den Chat in Webseiten zu integrieren.
+    \item Selbstlernend ist er nicht da dies in dieser Form nicht möglich ist und praktisch gewesen wäre, aber er durch ML erkennt er Muster.
+    \item Im Dashboard erhält das Wartungspersonal alle Unterhaltungen.
+    \item Im Dashboard kann das Wartungspersonal die Wissensbasis manipulieren.
+\end{itemize}
+
+\section{Schwierigkeiten in der Umsetzung}
+\setauthor{Felix Dumfarth}
+
+
+\subsection{Backend}
+Beim Backend war eine sehr große Schwierigkeit das die Rasa X API nicht sehr gut dokumentiert ist und deshalb sehr viele der Endpoints nur durch Probieren und sehr tiefe Recherchen ermittelt werden konnten.
+
+
+\subsection{Frontend}
+Beim Frontend war die größte Schwierigkeit der export der Chatkomponente da Angular Materials nicht mit exportiert werden konnte, dies jedoch für die Feedback-Ansicht notwendig ist.
+%TODO Lösung wenn i eine find

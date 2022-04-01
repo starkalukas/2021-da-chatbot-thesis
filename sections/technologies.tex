@@ -44,9 +44,6 @@ und CONNECT diese werden aber in der vorliegenden Arbeit nicht benutzt.
 \subsection{Quarkus}\label{quarkus}
 Quarkus ist ein Framework für Java welches sich auf die REST-Service-API ausrichtet. Wir haben unser Backend\ref{sec:backend} mit Quarkus umgesetzt.
 
-\subsection{Rasa}
-
-
 \subsection{Angular}
 Angular ist ein auf TypeScript basierendes Framework für Webseiten.
 Gedacht ist es für Single Page Applications.
@@ -56,6 +53,25 @@ Unser Chat Widget\ref{sec:chat-widget} und unser Dashboard\ref{sec:dashboard} wu
 
 \section{Werkzeuge}
 \setauthor{Felix Dumfarth}
+
+\subsection{Rasa X}\label{subsec:rasa-x}
+Rasa X ist ein Werkzeug um Conversation-Driven Development\ref{cdd} in die Tat umzusetzen\cite{rasax}.
+Rasa X liegt über Rasa und liefert dadurch erweiterte Funktionalitäten, die man nur mit Rasa nicht hätte.
+Wir haben Rasa X mit Docker Compose\cite{rasaxDocker} auf unserer VM installiert\ref{sec:systemarchitektur}.
+
+Rasa X kommt mit einer grafischen Weboberfläche, auf dieser kann man sich seine Intents, Responses und so weiter verändern und ansehen.
+Man kann auch sein Model trainieren oder ein Model hochladen.
+
+Wir benutzen jedoch unser eigenes Dashboard und benötigen die grafische Oberfläche nicht sondern nur die erweiterte Funktionalität die auch über die API aufgerufen werden kann.
+
+Damit unser Frontend auf Rasa, welches eine Ebene unter Rasa X liegt, zugreifen kann, muss das automatisch erstellte credentials.yml file bearbeitet werden:
+
+\begin{lstlisting}[language=yml]
+rasa:
+url: ${RASA_X_HOST}/api
+rest:
+\end{lstlisting}
+
 \subsection{IntelliJ IDEA}
 IntelliJ ist ein IDE welche eine Vielzahl von Programmiersprachen unterstützt und hauptsächlich für diese Arbeit verwendet wird.
 
