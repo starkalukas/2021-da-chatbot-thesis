@@ -141,10 +141,10 @@ pipeline: "mitie_sklearn"
 
 Der Vorteil von Pipelines ohne Pretrained Word Vectors ist, dass diese speziell auf den Fachbereich angepasst sind, für den man den Chatbot entwickelt.\cite{pretrainedVsSupervised, tensorFlowEmbedding}
 
-Als Beispiel kann man die Wörter "balance" und "symmetry" aus dem Englischen sehen.
+Als Beispiel kann man die Wörter \texttt{balance} und \texttt{symmetry} aus dem Englischen sehen.
 Diese Wörter sind eng miteinander verwandt.
-Allerdings kann im Kontext von Banken das Wort "balance" auch mit "cash" verwandt sein.
-Bei einem vortrainierten Model würden diese Wortvektoren nicht nah aneinander liegen, aber wenn man einen Chatbot hat der nur Intents besitzt, die mit Banken und Rechnungswesen zu tun haben, werden diese zwei Wörter "balance" und "cash" ohne Pretrained Word Vectors als ähnlich erkannt werden.\cite{tensorFlowEmbedding}
+Allerdings kann im Kontext von Banken das Wort \texttt{balance} auch mit \texttt{cash} verwandt sein.
+Bei einem vortrainierten Model würden diese Wortvektoren nicht nah aneinander liegen, aber wenn man einen Chatbot hat der nur Intents besitzt, die mit Banken und Rechnungswesen zu tun haben, werden diese zwei Wörter \texttt{balance} und \texttt{cash} ohne Pretrained Word Vectors als ähnlich erkannt werden.\cite{tensorFlowEmbedding}
 
 Außerdem benutzen diese Pipelines kein sprach-spezifisches Model und somit kann man sie in allen Sprachen verwenden, die tokenisiert werden kann.
 Eine solche Pipeline kann man wie in Listing ~\ref{lst:tensorflow-embedding-pipeline} definieren.\cite{tensorFlowEmbedding}
@@ -394,7 +394,7 @@ Regular Expressions können verwendet werden, um Muster eines Strings zu beschre
 \subsubsection{Lookup Tables}
 
 Lookup Tables können verwendet werden, wenn eine Entity vordefinierte Werte haben kann.
-Zum Beispiel kann eine Entity mit dem Namen "country" 194 verschiedene Länder annehmen.\cite{rasaMasterclassRegexFeaturizer, pipelineComponentsYoutube, regexFeaturizerCrf}
+Zum Beispiel kann eine Entity mit dem Namen \texttt{country} 194 verschiedene Länder annehmen.\cite{rasaMasterclassRegexFeaturizer, pipelineComponentsYoutube, regexFeaturizerCrf}
 
 \begin{figure}[hbt!]
     \centering
@@ -568,10 +568,10 @@ Bei der Arbeit wurde dieser Ansatz ebenfalls gewählt, wie in ~\ref{lst:response
 Der FallbackClassifier ist standardmäßig nicht in der Rasa Pipeline enthalten und wurde von uns hinzugefügt.\cite{startingPipelines}
 
 Diesen verwendet man, um mit Nachrichten umzugehen, bei denen nur eine sehr niedrige Confidence vorhergesagt wurde.
-In diesem Fall wird dann ein Intent mit dem Namen "nlu\_fallback" vorhergesagt, welchen man dann behandeln kann, indem man beispielsweise als Antwort immer definiert, dass der User seine Nachricht neu formulieren soll.
+In diesem Fall wird dann ein Intent mit dem Namen \texttt{nlu\_fallback} vorhergesagt, welchen man dann behandeln kann, indem man beispielsweise als Antwort immer definiert, dass der User seine Nachricht neu formulieren soll.
 Die Confidence wird hierbei auf den Wert gesetzt welcher im Threshold angegeben wird.\cite{fallbackClassifier, nluFallback}
-Man kann außerdem einen sogenannten "ambiguity\_threshold" angeben.
-Bei diesem wird der "nlu\_fallback" Intent vorhergesagt, wenn die zwei als wahrscheinlichst empfundenen Intents sich um weniger, als den ambiguity\_threshold in der Confidence unterscheiden.\cite{fallbackClassifier}
+Man kann außerdem einen sogenannten \texttt{ambiguity\_threshold} angeben.
+Bei diesem wird der \texttt{nlu\_fallback} Intent vorhergesagt, wenn die zwei als wahrscheinlichst empfundenen Intents sich um weniger, als den ambiguity\_threshold in der Confidence unterscheiden.\cite{fallbackClassifier}
 
 \begin{lstlisting}[label={lst:fallback-classifier},caption={Fallback Classifier}]{Fallback Classifier}
 pipeline:

@@ -50,10 +50,10 @@ Grob kann man behaupten, dass ein Text Analysis Tool aus drei verschiedenen Schr
 
 \begin{enumerate}
     \item Zunächst muss man sich überlegen, welche Daten gesammelt werden sollen, um damit sein Modell zu trainieren und zu testen.
-    Man unterscheidet hierbei zwischen "Internal Data" und "External Data".
+    Man unterscheidet hierbei zwischen \textbf{Internal Data} und \textbf{External Data}.
     Unter External Data werden Quellen, wie Zeitungen oder Foren bezeichnet und zu der Internal Data zählen sämtliche Daten, die eine Firma jeden Tag generiert, wie E-Mails, Reports, Chats oder Umfragen.
     \item Danach müssen die Daten vorbereitet werden, damit das Programm diese versteht.
-    Dieser Schritt wird meistens als "Data Preprocessing" bezeichnet.
+    Dieser Schritt wird meistens als \textbf{Data Preprocessing} bezeichnet.
     \item Zum Schluss wird dann ein Machine Learning Algorithmus hinzugefügt, welcher sich um die Analyse kümmert.
     Diesen kann man entweder komplett selber implementieren oder man nimmt sich Libraries zur Hilfe.\cite{machineLearningTextAnalysis}
 \end{enumerate}
@@ -199,15 +199,15 @@ Beim Parsing wird also die syntaktische Struktur eines Textes bestimmt.
 Um dies zu erreichen, nimmt der Parsing Algorithmus die Eigenheiten der Grammatik, von der jeweiligen Sprache, in der der Text geschrieben ist, her.\cite{textAnalysisMonkeylearn}
 
 Es gibt zwei verschiedene Arten von Parsing.
-Diese sind das sogenannte "Dependency Parsing" und das sogenannte "Constituency Parsing".
+Diese sind das sogenannte \textbf{Dependency Parsing} und das sogenannte \textbf{Constituency Parsing}.
 
 \subsubsection{Dependency Parsing}
 \setauthor{Lukas Starka}
 
 Beim Dependency Parsing wird die grammatische Struktur eines Satzes bestimmt.
 Außerdem kann man mithilfe des Dependency Parsing herausfinden, welche Wörter zusammenhängen und welche Beziehung diese zueinander aufweisen.
-Dies bedeutet beispielsweise, dass man bei den Wörtern "blauer Ball", "nette Frau" oder ähnlichem erkennen kann, dass sich die Wörter "blau" oder "nett" auf das nachfolgende Wort bezieht.
-Ein anderes Beispiel könnten die Wörter "black" und "car" sein.
+Dies bedeutet beispielsweise, dass man bei den Wörtern \texttt{blauer Ball}, \texttt{nette Frau} oder ähnlichem erkennen kann, dass sich die Wörter \texttt{blau} oder \texttt{nett} auf das nachfolgende Wort bezieht.
+Ein anderes Beispiel könnten die Wörter \texttt{black} und \texttt{car} sein.
 
 \begin{figure}[hbt!]
     \centering
@@ -217,9 +217,9 @@ Ein anderes Beispiel könnten die Wörter "black" und "car" sein.
 \end{figure}
 
 Wie man aus der Grafik ~\ref{fig:dependency_parsing_relation} entnehmen kann, bezieht sich die Farbe Schwarz in diesem Fall auf das Auto.
-Im Englischen wird das Wort "car" deswegen auch als "Head" bezeichnet und "black" ist ein "child", also ein Wort, dass abhängig von diesem "Head" ist.
+Im Englischen wird das Wort \texttt{car} deswegen auch als \textbf{Head} bezeichnet und \texttt{black} ist ein \textbf{Child}, also ein Wort, dass abhängig von diesem \textbf{Head} ist.
 Die Beziehung, die zwischen diesen Wörtern vorliegt, wird mit \texttt{amod} bezeichnet.
-Dies ist eine Abkürzung für "Adjectival Modifier", also ein Adjektiv, welches ein Nomen modifiziert und zu der Bedeutung des Nomens beiträgt.
+Dies ist eine Abkürzung für \textbf{Adjectival Modifier}, also ein Adjektiv, welches ein Nomen modifiziert und zu der Bedeutung des Nomens beiträgt.
 In diesem Fall gibt dieses eine genaue Beschreibung der Farbe des Autos.\cite{dependencyParsing}
 
 Diese Beziehungen kann man auch in einem Tree darstellen.
@@ -234,7 +234,7 @@ Diese Beziehungen kann man auch in einem Tree darstellen.
 \subsubsection{Constituency Parsing}
 \setauthor{Lukas Starka}
 
-Beim Constituency Parsing wird ein Satz in mehrere Teilphrasen zerteilt, die auch "Constituents" genannt werden.
+Beim Constituency Parsing wird ein Satz in mehrere Teilphrasen zerteilt, die auch \textbf{Constituents} genannt werden.
 Im Gegensatz zum Dependency Parsing, bei dem man Beziehungen zwischen den Wörtern innerhalb eines Satzes bekommt, kann man hierbei also die Sätze gruppieren.
 Dies kann helfen, um die Struktur von Sätzen aufzuzeigen.
 Der Nachteil hierbei ist, dass man nun keinen Context in den Sätzen mehr hat, dafür kann man aber beispielsweise gut überprüfen, ob ein Satz grammatikalisch korrekt oder inkorrekt ist.\cite{machineLearningTextAnalysis}
@@ -246,7 +246,7 @@ Die berühmtesten Tags um Constituents zu bezeichnen sind:
     \item NP für Nominalphrasen (Noun Phrases)
 \end{itemize}
 
-Der Satz "I saw a fox" wird hierbei als Tree des Constituency Parsings dargestellt.
+Der Satz \texttt{I saw a fox} wird hierbei als Tree des Constituency Parsings dargestellt.
 
 \begin{figure}[hbt!]
     \centering
@@ -256,9 +256,9 @@ Der Satz "I saw a fox" wird hierbei als Tree des Constituency Parsings dargestel
 \end{figure}
 
 In dem Beispiel ~\ref{fig:constituency_parsing_tree} kann man sehen, dass der Satz in zwei Teile aufgeteilt wurde.
-Der Textbaustein "I" wurde als Substantiv (NP) erkannt und "saw a fox" ist hierbei die Phrase des Verbs (VP).
+Der Textbaustein \texttt{I} wurde als Substantiv (NP) erkannt und \texttt{saw a fox} ist hierbei die Phrase des Verbs (VP).
 Darunter sieht man die Regeln, die dazu führten, dass hierbei erkannt wurde, dass es sich um eine Nominalphrase und eine Verbalphrase handelt.
-Diese Regeln werden durch die Grammatik der Sprache erstellt und so sagt beispielsweise die Regel "S → NPVP" aus, dass ein ganzer Satz (S) durch eine Nominalphrase (NP) und eine Verbalphrase (VP) entsteht.\cite{dependencyVsConstituencyParsing}
+Diese Regeln werden durch die Grammatik der Sprache erstellt und so sagt beispielsweise die Regel \texttt{S → NPVP} aus, dass ein ganzer Satz (S) durch eine Nominalphrase (NP) und eine Verbalphrase (VP) entsteht.\cite{dependencyVsConstituencyParsing}
 
 \subsection{Stopwords}
 \setauthor{Lukas Starka}
@@ -389,7 +389,7 @@ warmer      2
 Tag         5
 \end{lstlisting}
 
-Bei dem Beispiel ~\ref{lst:tf-idf-example} wird gezeigt, dass die Wörter, die häufig in einem deutschen Satz vorkommen, wie "ist" oder "ein", einen niedrigen Score erhalten und das Wort "Tag" einen hohen Score aufweist, was bedeutet, dass dieses Wort vermutlich wichtig für die Bedeutung des Satzes ist.
+Bei dem Beispiel ~\ref{lst:tf-idf-example} wird gezeigt, dass die Wörter, die häufig in einem deutschen Satz vorkommen, wie \texttt{ist} oder \texttt{ein}, einen niedrigen Score erhalten und das Wort \texttt{Tag} einen hohen Score aufweist, was bedeutet, dass dieses Wort vermutlich wichtig für die Bedeutung des Satzes ist.
 
 Bei der Text Analysis mit Machine Learning werden solche TF-IDF Algorithmen verwendet, um Daten in Kategorien einzuordnen und wichtige Schlüsselwörter zu extrahieren.
 Auch Suchmaschinen wie Google verwenden diese Technologien, um aus dem Suchbegriff des Users die zentrale Aussage herauszufinden und die Suchergebnisse nach ihrer Relevanz zu sortieren.\cite{tfIdf}
@@ -403,7 +403,7 @@ Es werden also sozusagen alle Wörter in einem Koordinatensystem dargestellt, wo
 Word2Vec nimmt dabei einen großen Corpus an Text und produziert daraus einen Vektor mit den einzigartigen Wörtern, die ähnlich zueinander sind.
 Es ist sehr berühmt dafür, dass demonstriert werden kann, wie Wörter miteinander verbunden sind.
 
-Rasa hat als kleines Nebenprojekt mit "WhatLies" eine Library geschaffen, die versuchen soll, dass man Word Embeddings besser versteht.
+Rasa hat als kleines Nebenprojekt mit \textbf{WhatLies} eine Library geschaffen, die versuchen soll, dass man Word Embeddings besser versteht.
 Hierbei kann man Grafiken erstellen, die die Wörter in einem Koordinatensystem repräsentieren.\cite{whatlies}
 
 \begin{figure}[hbt!]
@@ -413,10 +413,10 @@ Hierbei kann man Grafiken erstellen, die die Wörter in einem Koordinatensystem 
     \label{fig:whatlies-demo}
 \end{figure}
 
-Aus der Abbildung ~\ref{fig:whatlies-demo} kann man nun erkennen, dass die Wörter "brother" und "sister" oder "woman" und "man" nahe beieinander im Raum dargestellt werden.
-Außerdem kann man daraus lesen, dass sich "man" zu "brother" ähnlich wie "woman" zu "sister" oder "puppy" zu "dog" sich ähnlich wie "kitten" zu "cat" verhält.
+Aus der Abbildung ~\ref{fig:whatlies-demo} kann man nun erkennen, dass die Wörter \texttt{brother} und \texttt{sister} oder \texttt{woman} und \texttt{man} nahe beieinander im Raum dargestellt werden.
+Außerdem kann man daraus lesen, dass sich \texttt{man} zu \texttt{brother} ähnlich wie \texttt{woman} zu \texttt{sister} oder \texttt{puppy} zu \texttt{dog} sich ähnlich wie \texttt{kitten} zu \texttt{cat} verhält.
 Dies findet man dadurch heraus, dass man ein ähnliches Ergebnis bekommt, wenn man die zwei Unterschiede der Vektoren miteinander vergleicht.
-Man kann sich außerdem vorstellen, dass man zum Beispiel bei der Rechnung "King - Man + Woman = ?" als Ergebnis die Position des Wortes "Queen" erhält.
+Man kann sich außerdem vorstellen, dass man zum Beispiel bei der Rechnung \texttt{King - Man + Woman = ?} als Ergebnis die Position des Wortes \texttt{Queen} erhält.
 
 \subsection{F-Score}\label{F-Score}
 \setauthor{Lukas Starka}
@@ -460,7 +460,7 @@ Ein paar Beispiele für berühmte Tools, die man nützen kann für Natural Langu
     \item \href{https://www.nltk.org/}{NLTK}: Das Natural Language Toolkit (kurz NLTK) ist wahrscheinlich die berühmteste Python Library für NLP. NLTK besitzt über 50 Ressourcen für das Bearbeiten von Corpora.
     Außerdem gibt es viele eingebaute Libraries für das Analysieren eines Textes, wie die Klassifikation, Tokenization, Stemming, Tagging, Parsing und Semantic Reasoning.
     \item \href{https://spacy.io/}{SpaCy}: SpaCy ist ebenfalls eine sehr berühmte Bibliothek für Python.
-    SpaCy beschreibt sich selbst als "Industrial-Strength Natural Language Processing" und unterstützt über 64 Sprachen.
+    SpaCy beschreibt sich selbst als \texttt{Industrial-Strength Natural Language Processing} und unterstützt über 64 Sprachen.
     SpaCy hat nur einen POS-Tagging-Algorithmus und pro Sprache nur einen Named-Entity-Recognizer, was den Vorteil hat, dass es nicht voller unnötiger Features ist und sich nur auf ein paar wichtige Funktionalitäten konzentriert.
     \item \href{https://www.tensorflow.org/}{TensorFlow}: TensorFlow wird von Google betrieben und ist bei weitem die meist verwendete Library für Deep Learning.
     Außerdem ist die Plattform Open-Source.
