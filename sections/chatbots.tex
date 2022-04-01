@@ -472,6 +472,48 @@ pipeline:
 \subsection{DIETClassifier}\label{subsec:dietclassifier}
 \setauthor{Lukas Starka}
 
+DIET steht für \textbf{Dual Intent and Entity Transformer} und kann somit sowohl Intents ~\ref{subsec:Intents} als auch Entities ~\ref{subsection:entities} klassifizieren und erkennen.
+Bei der Klassifizierung wird die Eingabe des Users hergenommen und dabei der passende Intent aus dem NLU.yml File gefunden.
+Ohne DIET würde zusätzlich zur Intent-Klassifizierung auch noch eine Komponente benötigt werden, die Entities extrahiert, wie beispielsweise den CRFEntityExtractor ~\ref{subsec:crfentityextractor}.
+Der Parameter \texttt{epochs} gibt dabei an, wie oft die Trainingsdaten durchgegangen werden sollen.
+Standardmäßig ist dieser auf den Wert 300 gesetzt.
+Je kleiner diese Nummer also ist, desto schneller wird das Modell trainiert.\cite{dietClassifier}
+
+\begin{lstlisting}[label={lst:dietclassifier-pipeline},caption={DietClassifier in Pipeline}]{DietClassifierPipeline}
+pipeline:
+    - name: DIETClassifier
+    epochs: 100
+\end{lstlisting}
+
+Der Output des DIETClassifier kann wie in Listing ~\ref{lst:dietclassifier-output} aussehen.
+Dabei wird zunächst der Intent angeführt, der mit der höchsten Wahrscheinlichkeit (Confidence) vorhergesagt wurde.
+Alle anderen Intents, die das Modell in Betracht gezogen hat, werden nach ihrer Confidence absteigend sortiert, ausgegeben.
+Zusätzlich sind noch alle Entities, die erkannt wurden mit deren Wert angeführt, inklusive der Stelle in der Eingabe des Users, an der die jeweiligen Entities erkannt wurden.
+
+\begin{lstlisting}[label={lst:dietclassifier-output},caption={Output des DIETClassifiers ~\cite{dietClassifier}}]{DietClassifierOutput}
+{
+    "intent": {"name": "greet", "confidence": 0.8343},
+    "intent_ranking": [
+        {
+            "confidence": 0.385910906220309,
+            "name": "goodbye"
+        },
+        {
+            "confidence": 0.28161531595656784,
+            "name": "restaurant_search"
+        }
+    ],
+    "entities": [{
+        "end": 53,
+        "entity": "time",
+        "start": 48,
+        "value": "2017-04-10T00:00:00.000+02:00",
+        "confidence": 1.0,
+        "extractor": "DIETClassifier"
+    }]
+}
+\end{lstlisting}
+
 \subsection{EntitySynonymMapper}
 \setauthor{Lukas Starka}
 
@@ -619,7 +661,7 @@ Außerdem lenken sie Konversationen in die gewünschte Richtung und werden mit d
 In der sogenannten Domain werden alle Intents, Entities, Slots, Responses, Forms und Actions angegeben, die der Bot kennt.
 Diese ganzen Informationen befinden sich in der \textbf{domain.yml} Datei.\cite{domain}
 
-\subsection{Intents}\label{Intents}
+\subsection{Intents}\label{subsec:Intents}
 \setauthor{Lukas Starka}
 
 Intents sind die Absichten hinter der Nachricht des Benutzers.
@@ -797,7 +839,7 @@ slots:
     influence_conversation: false
 \end{lstlisting}
 
-\subsection{Entities}
+\subsection{Entities}\label{subsection:entities}
 \setauthor{Lukas Starka}
 
 Entities sind strukturierte Stücke von Informationen, die sich innerhalb der Nachricht eines Benutzers befinden.
