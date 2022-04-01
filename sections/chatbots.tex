@@ -405,7 +405,7 @@ Zum Beispiel kann eine Entity mit dem Namen \texttt{country} 194 verschiedene L�
 
 Der RegexFeaturizer muss vor dem EntityExtractor in der Pipeline platziert werden.\cite{rasaMasterclassRegexFeaturizer, pipelineComponentsYoutube, regexFeaturizerCrf}
 
-\subsection{CRFEntityExtractor}
+\subsection{CRFEntityExtractor}\label{subsec:crfentityextractor}
 \setauthor{Lukas Starka}
 
 Eine Möglichkeit um Entities aus der Nachricht des Benutzers zu extrahieren ist über den CRFEntityExtractor.\cite{crfEntityExtractor}
@@ -469,7 +469,7 @@ pipeline:
     max_ngram: 4
 \end{lstlisting}
 
-\subsection{DIETClassifier}
+\subsection{DIETClassifier}\label{subsec:dietclassifier}
 \setauthor{Lukas Starka}
 
 \subsection{EntitySynonymMapper}
@@ -860,7 +860,8 @@ Group 1: [Pizza](meal) [Pilzen](topping)
 Group 2: [Salami](topping) [Pizza](meal)
 \end{lstlisting}
 
-\subsubsection{Nutzung von Entity Roles und Entity Groups}
+Um Entity Groups oder Entity Roles nutzen zu können muss in der Pipeline entweder der CRFEntityExtractor ~\ref{subsec:crfentityextractor} oder der DIETClassifier ~\ref{subsec:dietclassifier} verwendet werden.
+Diese sind die einzigen Entity Extraktoren, die Role und Group Labels erkennen können.\cite{entityRolesGroups}
 
 \subsection{Forms}
 \setauthor{Lukas Starka}
