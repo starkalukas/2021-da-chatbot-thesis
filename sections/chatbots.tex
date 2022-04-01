@@ -862,20 +862,6 @@ Group 2: [Salami](topping) [Pizza](meal)
 
 \subsubsection{Nutzung von Entity Roles und Entity Groups}
 
-\subsection{Actions}
-\setauthor{Lukas Starka}
-
-Es gibt 2 verschiedene Arten von Messages:
-
-\begin{enumerate}
-    \item \textbf{Static Messages}: Diese sind unabhängig vom User Input und benötigen keinen Action Server\cite{actionsVid}
-    \item \textbf{Dynamic Messages}: Diese sind abhängig vom User Input und benötigen einen Action Server\cite{actionsVid}
-\end{enumerate}
-
-Der Rasa Action Server führt sogenannte Custom Actions für einen Rasa Open Source Conversation assistent aus.
-
-Wenn der Assistant eine gewisse Custom Action vorhersagt, sendet der Rasa Server einen POST request an den Actionserver mit einer JSON Payload mit dem Namen der vorhergesagten Action, der Conversation ID, den Inhalten des Trackers und den Inhalten der Domain.\cite{actions}
-
 \subsection{Forms}
 \setauthor{Lukas Starka}
 
@@ -911,6 +897,20 @@ Ein Beispiel dafür wäre folgendes im \textbf{nlu.yml} File:
     - IT Medientechnik
     - Medientechnologie
 \end{lstlisting}
+
+\subsection{Actions}
+\setauthor{Lukas Starka}
+
+Es gibt 2 verschiedene Arten von Messages:
+
+\begin{enumerate}
+    \item \textbf{Static Messages}: Diese sind unabhängig vom User Input und benötigen keinen Action Server\cite{actionsVid}
+    \item \textbf{Dynamic Messages}: Diese sind abhängig vom User Input und benötigen einen Action Server\cite{actionsVid}
+\end{enumerate}
+
+Der Rasa Action Server führt sogenannte Custom Actions für einen Rasa Open Source Conversation assistent aus.
+
+Wenn der Assistant eine gewisse Custom Action vorhersagt, sendet der Rasa Server einen POST request an den Actionserver mit einer JSON Payload mit dem Namen der vorhergesagten Action, der Conversation ID, den Inhalten des Trackers und den Inhalten der Domain.\cite{actions}
 
 \subsection{Custom Actions}
 \setauthor{Lukas Starka}
