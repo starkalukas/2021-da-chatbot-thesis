@@ -237,10 +237,10 @@ pipeline:
 
 \end{lstlisting}
 
-\subsection{Unsere Pipeline}\label{subsec:our-pipeline}
+\subsection{Verwendete Pipeline}\label{subsec:our-pipeline}
 \setauthor{Lukas Starka}
 
-Die von uns verwendete Pipeline aus Listing ~\ref{lst:our-pipeline} beruht auf dieser Standard-Pipeline und die jeweiligen Komponenten werden in den folgenden Kapiteln genauer erläutert.
+Die für die Umsetzung des Chatbots verwendete Pipeline aus Listing ~\ref{lst:our-pipeline} beruht auf dieser Standard-Pipeline und die jeweiligen Komponenten werden in den folgenden Kapiteln genauer erläutert.
 
 \begin{lstlisting}[label={lst:our-pipeline},caption={Unsere Pipeline}]{Unsere Pipeline}
 language: de
@@ -919,7 +919,7 @@ Wenn der Assistant eine gewisse Custom Action vorhersagt, sendet der Rasa Server
 Neben normalen Responses kann man auch Custom Actions definieren.
 Diese sind in Python zu schreiben und dabei kann man seinen eigenen Code für Berechnungen oder dergleichen verwenden.
 Hierbei muss man eine Klasse implementieren, die Kind der Klasse \texttt{Action} ist und eine Methode \texttt{name} und \texttt{run} besitzt.
-Eine Custom Action wird bei unserem Chatbot beispielsweise für die Ausgabe des aktuellen Datums genutzt, wie bei Listing ~\ref{lst:custom-date-action} zu sehen ist.
+Eine Custom Action wird beim Leobot beispielsweise für die Ausgabe des aktuellen Datums genutzt, wie bei Listing ~\ref{lst:custom-date-action} zu sehen ist.
 
 \begin{lstlisting}[label={lst:custom-date-action},caption={Custom Action für die Ausgabe des aktuellen Datums}]{Custom Action}
 class ActionWhatDateIsIt(Action):

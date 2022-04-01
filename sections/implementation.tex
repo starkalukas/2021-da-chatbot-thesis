@@ -183,6 +183,40 @@ Trainieren ist der vierte Schritt des Leobot Conversation Cycles, in diesem Schr
 
 Und nun beginnt der Leobot Conversation Cycle wieder von vorne.
 
+\subsubsection{Regelkreis}
+\setauthor{Lukas Starka}
+
+Dieser Vorgang erinnert dabei stark an einen Regelkreis.
+Ein solcher Regelkreis ist in Abbildung ~\ref{fig:regelkreis} zu sehen und dieser führt eine Regelgröße auf einen gewünschten Sollwert.
+Die Hauptkomponenten des Regelkreises sind der Regler und die Regelstrecke.
+Beispielhaft ist die Regelstrecke ein Auto und die Fahrerin oder der Fahrer der Regler.
+Dabei nimmt die Lenkerin oder der Lenker gewisse Parameter zur Hilfe, durch die entschieden wird, ob das Auto gelenkt, gebremst oder beschleunigt werden soll.
+Diese Signale sind beispielsweise die aktuelle Geschwindigkeit, die Position des Autos oder die Fahrbahnverhältnisse.
+Beim Regelkreis wird also eine Regelgröße über ein Eingangssignal der Regelstrecke zurückgeführt und auf einen gewünschten Wert gebracht.
+Der Regelkreis wird oft bei der Regelung von Heizungen eingesetzt ~\ref{heizungRegelKreis}.\cite{regelkreis, regelkreisBeispiel}
+
+\begin{figure}[hbt!]
+    \centering
+    \includegraphics[scale=0.8]{pics/regelkreis}
+    \caption{Allgemeiner Regelkreis ~\cite{regelkreis}}
+    \label{fig:regelkreis}
+\end{figure}
+
+\begin{figure}[hbt!]
+    \centering
+    \includegraphics[scale=0.8]{pics/regelkreis_heizung}
+    \caption{Regelkreis am Beispiel einer Heizung ~\cite{regelkreis}}
+    \label{fig:heizungRegelKreis}
+\end{figure}
+
+Ein Regelkreis wird dabei entweder durch eine Änderung der Sollgröße oder durch Auftreten einer Störung ausgelöst.
+Beim Leobot Conversation Cycle wird der Regelkreis demzufolge ausgelöst, wenn eine Interaktion mit einem User statt fand, bei der der Bot eine falsche Antwort gegeben hat.
+Die Messeinrichtung ist dabei das Dashboard ~\ref{sec:dashboard}, das alle Unterhaltungen auflistet und diese grafisch veranschaulicht.
+Durch den eingebauten Editor ist die Möglichkeit gegeben, dass direkt die Files bearbeitet werden, sodass der Bot in Zukunft auch auf diese Fragestellung die richtige Antwort parat hat.
+Der Sollwert wird also in den Regler eingegeben und anschließend wird das Modell basierend auf den neuen Files neu trainiert.
+Dies stellt dabei die Stelleinrichtung des Regelkreises dar und der Kreislauf kann von vorne beginnen, sollte erneut eine Störgröße auftreten oder die Sollgröße verändert werden.
+
+
 \subsection{Umsetzung}
 
 Einerseits kann man sich die vergangenen Unterhaltungen ansehen, so wie die nlu.yml, stories.yml, rules.yml, domain.yml direkt im Monaco Editor bearbeiten und speichern.
