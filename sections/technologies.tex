@@ -10,7 +10,7 @@
     \label{fig:impl:java}
 \end{figure}
 
-Für das Backend haben wir uns für Java entschieden.
+Für das Backend wurde sich für Java entschieden.
 Java ist laut dem TIOBE-Index\cite{tiobe} eine der populärsten Programmiersprachen.
 Java ist eine objektorientierte Programmiersprache und besitzt dadurch Klassen und Vererbung\cite{java}.
 
@@ -42,14 +42,37 @@ und CONNECT diese werden aber in der vorliegenden Arbeit nicht benutzt.
 * Bei DELETE sollen Daten gelöscht werden.
 
 \subsection{Quarkus}\label{quarkus}
-Quarkus ist ein Framework für Java welches sich auf die REST-Service-API ausrichtet. Wir haben unser Backend\ref{sec:backend} mit Quarkus umgesetzt.
+Quarkus ist ein Framework für Java welches sich auf die REST-Service-API ausrichtet.
+Das Backend\ref{sec:backend} wurde mit Quarkus umgesetzt.
 
 \subsection{Angular}
 Angular ist ein auf TypeScript basierendes Framework für Webseiten.
 Gedacht ist es für Single Page Applications.
 Unser Chat Widget\ref{sec:chat-widget} und unser Dashboard\ref{sec:dashboard} wurden mit Angular umgesetzt
 
+\subsection{Angular Elements}
+''Webkomponenten sind eine Gruppe von Web-Technologien, die es ermöglichen, benutzerdefinierte, wiederverwendbare HTML Elemente zu erstellen, deren Funktionalität gekapselt ist und damit vollständig getrennt von anderem Code.''\cite{webcomponents}
 
+Um unsre Chatkomponente auf die Wordpress Seite zu bringen, wurde entschieden, dass die Komponente mithilfe von Angular Elements als Webkomponente zu exportieren um somit eine einfache einbindung auf die Schulhomepage zu ermöglichen.
+
+Eine Webkomponente wird in Angular Elements in 3 Javascript Files erstellt und zwar
+
+\begin{itemize}
+    \item main.js
+    \item polyfills.js
+    \item runtime.js
+\end{itemize}
+
+Diese können jedoch ohne bedenken zu einem einzelnen Javascript File zusammengefasst werden.
+
+Um die Webkomponente in HTML zu benutzen, muss man alle JS files einbinden und schon kann man seine eigene Komponente wie jedes andere Element benutzen.
+\begin{lstlisting}[language=html,label={lst:webcomponent},caption={HTML File}]{HTML File}]
+<name-der-komponente></name-der-komponente>
+
+<script src="./runtime.js"></script>
+<script src="./polyfills.js"></script>
+<script src="./main.js"></script>
+\end{lstlisting}
 
 \section{Werkzeuge}
 \setauthor{Felix Dumfarth}
@@ -57,20 +80,24 @@ Unser Chat Widget\ref{sec:chat-widget} und unser Dashboard\ref{sec:dashboard} wu
 \subsection{Rasa X}\label{subsec:rasa-x}
 Rasa X ist ein Werkzeug um Conversation-Driven Development\ref{cdd} in die Tat umzusetzen\cite{rasax}.
 Rasa X liegt über Rasa und liefert dadurch erweiterte Funktionalitäten, die man nur mit Rasa nicht hätte.
-Wir haben Rasa X mit Docker Compose\cite{rasaxDocker} auf unserer VM installiert\ref{sec:systemarchitektur}.
+Rasa X wurde mit Docker Compose\cite{rasaxDocker} auf der VM installiert\ref{sec:systemarchitektur}.
 
 Rasa X kommt mit einer grafischen Weboberfläche, auf dieser kann man sich seine Intents, Responses und so weiter verändern und ansehen.
 Man kann auch sein Model trainieren oder ein Model hochladen.
 
-Wir benutzen jedoch unser eigenes Dashboard und benötigen die grafische Oberfläche nicht sondern nur die erweiterte Funktionalität die auch über die API aufgerufen werden kann.
+Da jedoch unser eigenes Dashboard verwendet wird, wird die grafische Oberfläche nicht benötigt, sondern nur die erweiterte Funktionalität die auch über die API aufgerufen werden kann.
 
 Damit unser Frontend auf Rasa, welches eine Ebene unter Rasa X liegt, zugreifen kann, muss das automatisch erstellte credentials.yml file bearbeitet werden:
 
-\begin{lstlisting}[language=yml]
+\begin{lstlisting}[language=yaml,label={lst:rasaXCred},caption={credentials.yml}]{credentials.yml}]
 rasa:
 url: ${RASA_X_HOST}/api
 rest:
 \end{lstlisting}
+
+Etwas nachdem sehr lange gesucht werden musste war wie es möglich ist das Rasa X auf https lauft.
+
+
 
 \subsection{IntelliJ IDEA}
 IntelliJ ist ein IDE welche eine Vielzahl von Programmiersprachen unterstützt und hauptsächlich für diese Arbeit verwendet wird.
@@ -78,5 +105,19 @@ IntelliJ ist ein IDE welche eine Vielzahl von Programmiersprachen unterstützt u
 \subsection{GitHub}
 GitHub ist ein online Git Repository welches die gemeinsame Programmierung von Programmierern und Entwicklern erleichtert.
 
+\subsection{GitHub Actions}\label{subsec:github-actions}
+Mit Github Actions kannst du Workflows für dein Github Repository erstellen.
+Ein Workflow besteht aus einem oder mehreren Jobs, wobei ein Job aus einem oder mehreren Schritten besteht.
+
+\begin{figure}[hbt!]
+    \centering
+    \includegraphics[scale=0.5]{pics/ghActions}
+    \caption{Beispiel eines Workflows}
+    \label{fig:impl:ghActions}
+\end{figure}
+
+Die Jobs werden abgearbeitet, meistens wird richtung Ende des Workflows das Produkt wohin gepushed.
 \subsection{Docker}
 Docker ist einer der bekanntesten Container-Manager.
+
+\subsection{Wordpress}

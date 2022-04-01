@@ -10,7 +10,7 @@ Unser System sieht folgendermaßen aus:
     \label{fig:impl:architektur}
 \end{figure}
 
-Wir haben 2 Ubuntu VM's, eine für den Chat und eine für Rasa und das Backend, nachdem der Chat auf die HTL Leonding Seite kommt, wird dadurch nur noch eine VM benötigt.
+Es gibt 2 Ubuntu VM's, eine für den Chat und eine für Rasa und das Backend, nachdem der Chat auf die HTL Leonding Seite kommt, wird dadurch nur noch eine VM benötigt.
 
 Unser Chat wird gerade mit NGINX gehostet, dieser kommuniziert mit Rasa direkt über REST, wenn der Benutzer eine Nachricht sendet, wird diese an Rasa gesendet und Rasa antwortet mit der passenden Antwort.
 Das Dashboard wird auf GH Pages gehostet, dieses kommuniziert mit dem Backend über REST, das Backend authentisiert sich bei Rasa X\ref{subsec:rasa-x} und holt sich alle Konversationen und bereitet diese auf und sendet sie an das Dashboard.
@@ -150,7 +150,7 @@ Bei CDD wird empfohlen, dass man seinen Chatbot möglichst früh echten Benutzer
     \label{fig:impl:ConversationCycle}
 \end{figure}
 
-Wir setzen CDD ~\ref{cdd} mithilfe unsres Leobot Conversation Cycle um, der Leobot Conversation Cycle ist ein Workflow, der dazu dient, den Leobot zu überprüfen und zu erweitern.
+CDD ~\ref{cdd} wird mithilfe unsres Leobot Conversation Cycle um, der Leobot Conversation Cycle ist ein Workflow, der dazu dient, den Leobot zu überprüfen und zu erweitern.
 
 Der Workflow besteht aus folgenden Schritten:
 
@@ -161,15 +161,15 @@ Der Workflow besteht aus folgenden Schritten:
     \item Trainieren
 \end{itemize}
 
-Diese 4 Schritte werden immer wieder durchgeführt um den Chatbot dauerhaft zu verbessern.
+Diese 4 Schritte werden immer wieder durchgeführt, um den Chatbot dauerhaft zu verbessern.
 
 \subsubsection{Unterhalten}
-Unterhalten ist der erste Schritt des Leobot Conversation Cycles, in diesem Schritt werden dem Bot Fragen gestellt, die er beantworten muss, dies passiert natürlich während Unterhaltungen im Chat auf der Schulhompage.
-Die Unterhaltungen werden dann alle gespeichert.
+Unterhalten ist der erste Schritt des Leobot Conversation Cycles, in diesem Schritt werden dem Bot Fragen über die HTL Leonding und deren Produktangebot gestellt, die er beantworten muss, dies passiert während Unterhaltungen im Chat auf der Schulhomepage mit echten Personen.
+Diese Unterhaltungen werden dann alle gespeichert.
 
 \subsubsection{Überprüfen}
-Überprüfen ist der zweite Schritt des Leobot Conversation Cycles, in diesem Schritt wird der Bot überprüft, ob er die Fragen richtig beantwortet und erkannt hat.
-Dieser Schritt wird von Verantwortlichen für den Leobot durchgeführt.
+
+Überprüfen ist der zweite Schritt des Leobot Conversation Cycles, in diesem Schritt wird der Bot vom Schulpersonal oder Verantwortlichen überprüft, ob dieser die Fragen richtig beantwortet und erkannt hat oder ob Verbesserungspotential besteht
 
 \subsubsection{Verbessern}
 Verbessern ist der dritte Schritt des Leobot Conversation Cycles, in diesem Schritt wird der Bot verbessert, das heißt die Fehler werden versucht zu beheben.
@@ -212,19 +212,171 @@ Im Editor wurden auch Code Vorschläge benutzt um etwas an Tipparbeit sparen zu 
 
 
 \section{Einbindung in Wordpress}
-\subsection{Angular Elements}
-''Webkomponenten sind eine Gruppe von Web-Technologien, die es ermöglichen, benutzerdefinierte, wiederverwendbare HTML Elemente zu erstellen, deren Funktionalität gekapselt ist und damit vollständig getrennt von anderem Code.''\cite{webcomponents}
+%tODO
 
-Um unsre Chatkomponente auf die Wordpress Seite zu bringen, entschieden wir uns dazu die Komponente mithilfe von Angular Elements als WebKomponente zu exportieren um somit eine einfache einbindung auf die Schulhomepage zu ermöglichen.
+\section{Deployment}
 
-\section{GitHub Actions}
+\subsection{GitHub Actions}
 
-Die Praxische Arbeit besteht aus sehr vielen einzelen Projekten, mit verschiedenen Funktionen, doch bei vielen der GitHub Projekte haben wir mithilfe von GitHub Actions unser Deployment automatisiert.
+Die praktische Arbeit besteht aus sehr vielen einzelnen Projekten, wie dem Chat, Dashboard und Rasa selbst, diese haben alle verschiedenen Funktionen, bei vielen der GitHub Projekte wurde mithilfe von GitHub Actions\ref{subsec:github-actions} das Deployment automatisiert.
 
 % TODO
-\subsection{Backend}
+\subsubsection{Action Server}
+Unser Rasa Custom Action Server wird mithilfe von GitHub Actions auf das LeoCloud Docker Registry geladen.
 
-Unser Backend wird mithilfe von GitHub Actions automatisiert gebaut der Workflow baut das .jar file und dieses wird dann über SSH auf unsre VM geladen.
+\begin{lstlisting}[language=yaml,label={lst:actionserveryml},caption={action\_server.yml}]{actionserver.yml}]
+on:
+  push:
+    branches:
+      - main
+    paths:
+    - 'rasa-docker-prototype/actions/**'
 
-\subsection{Frontend}
-Die Chat Seite sowie das Dashboard werden mithilfe von GitHub Actions automatisiert gebaut und auf GH Pages gepublished
+jobs:
+  build_and_deploy:
+    runs-on: ubuntu-latest
+    name: Build Action Server image and upgrade Rasa X deployment
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - id: action_server
+      name: Build an action server with a custom actions
+      uses: RasaHQ/action-server-gha@main
+      # Full list of parameters: https://github.com/RasaHQ/action-server-gha/tree/master#input-arguments
+      with:
+        actions_directory: 'rasa-docker-prototype/actions/'
+        docker_registry: registry.cloud.htl-leonding.ac.at
+        requirements_file: rasa-docker-prototype/actions/requirements.txt
+        docker_image_name: 'f.dumfarth/leobot'
+        docker_registry_login: ${{ secrets.LEO_LOGIN }}
+        docker_registry_password: ${{ secrets.LEO_PASS }}
+        # More details about github context:
+        # https://docs.github.com/en/actions/reference/context-and-expression-syntax-for-github-actions#github-context
+        #
+        # github.sha - The commit SHA that triggered the workflow run
+        docker_image_tag: 'leonie'
+        docker_registry_push: true
+\end{lstlisting}
+
+Um den Action Server zu bauen, wird die ``RasaHQ/action-server-gha@main'' Action\cite{actionServerAction} benutzt.
+
+Unsre genutzten Argumente sind:
+\begin{itemize}
+    \item actions\_directory: Der Ordner in dem sich die Actions befinden.
+    \item docker\_registry: Das Docker Registry wohin der Action Server hochgeladen werden soll.
+    \item requirements\_file: Der Pfad zur requirements.txt Datei.
+    \item docker\_image\_name: Der Name des Docker Images.
+    \item docker\_registry\_login: Dein Username für das Docker Registry, am besten in einem Secret.
+    \item docker\_registry\_password: Dein Passwort für das Docker Registry, am besten in einem Secret.
+    \item docker\_image\_tag: der Tag des Docker Images.
+    \item docker\_registry\_push: True oder False ob das Docker Image auf das Docker Registry hochgeladen werden soll.
+\end{itemize}
+
+Auf der VM im docker-compose.yml muss noch das Image angeben:
+\begin{lstlisting}[language=yaml,label={lst:dockercomposeyml},caption={docker-compose.yml}]{docker-compose.yml}]
+app:
+restart: always
+image: "registry.cloud.htl-leonding.ac.at/f.dumfarth/leobot:leon"
+expose:
+- "5055"
+depends_on:
+- rasa-production
+\end{lstlisting}
+
+Man sieht dass unser Image den Namen ``leobot'' und den tag ``leon'' bekommen hat.
+
+\subsubsection{Backend}
+Das Backend wird mithilfe von GitHub Actions automatisiert gebaut, der Workflow baut das .jar file und dieses wird dann über SSH auf unsre VM geladen.
+
+\begin{lstlisting}[language=yaml,label={lst:ciyml},caption={ci.yml}]{ci.yml}]
+name: Quarkus Codestart CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up JDK 17
+        uses: actions/setup-java@v2
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+      - name: Build
+        run: ./mvnw clean package -Dquarkus.package.type=uber-jar -B
+      - name: install ssh key
+        uses: webfactory/ssh-agent@v0.5.3
+        with:
+          ssh-private-key: ${{ secrets.SSH_SERVER_PRIVATE_KEY }}
+      - name: create .ssh/known_hosts
+        run: |
+          ssh-keyscan -H -t rsa -v ${{ secrets.SERVER }}  >> ~/.ssh/known_hosts
+      - name: copy binaries to vm
+        run: |
+          echo "Hallo ich bin hier"
+          ls -l target/
+          scp target/leon-1.0.0-SNAPSHOT-runner.jar ${{ secrets.SERVER_USER }}@${{ secrets.SERVER }}:
+\end{lstlisting}
+
+\subsubsection{Frontend}
+Die Chat Seite sowie das Dashboard werden mithilfe von GitHub Actions automatisiert gebaut und auf GH Pages gepublished dies passiert mit dem Workflow im build-and-deploy.yml file:
+
+\begin{lstlisting}[language=yaml,label={lst:buildanddeployyml},caption={build-and-deploy.yml}]{build-and-deploy.yml}]
+name: deploy to gh-pages
+
+on:
+  push:
+    branches:
+      - 'main'
+
+jobs:
+  build:
+    name: Build ⚙
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Use Node 12.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
+      - name: Install dependencies
+        run: npm i
+      - name: Build
+        run: npm run build
+      - name: Archive build
+        if: success()
+        uses: actions/upload-artifact@v1
+        with:
+          name: dist
+          path: dist
+  deploy:
+    name: Deploy 🚀
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+      - name: Download build
+        uses: actions/download-artifact@v1
+        with:
+          name: dist
+      - name: Deploy to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@releases/v3
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BRANCH: gh-pages
+          FOLDER: dist/LeoBotHtlLeonding
+\end{lstlisting}
+
+Diese Action hat zwei Jobs, und zwar ``build'' und ``deploy''.
+
+Die verschiedenen Tasks in Build, laden zuerst eine Node Version herunter, installieren die Dependencies, builden das Angular Projekt und schließlich wird dist in die Github Actions Artifacts gespeichert.
+
+Beim Deploy Task wird dist von den Artefakten  heruntergeladen und wird in den Zweig ``gh-pages'' des Repositories gespeichert.
