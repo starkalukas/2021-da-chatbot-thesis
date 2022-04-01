@@ -394,6 +394,23 @@ Bei dem Beispiel ~\ref{lst:tf-idf-example} wird gezeigt, dass die Wörter, die h
 Bei der Text Analysis mit Machine Learning werden solche TF-IDF Algorithmen verwendet, um Daten in Kategorien einzuordnen und wichtige Schlüsselwörter zu extrahieren.
 Auch Suchmaschinen wie Google verwenden diese Technologien, um aus dem Suchbegriff des Users die zentrale Aussage herauszufinden und die Suchergebnisse nach ihrer Relevanz zu sortieren.\cite{tfIdf}
 
+\subsubsection{Word Vectors}
+\setauthor{Lukas Starka}
+
+Zurzeit haben wurde der Kontext von Wörtern in einem Satz neben dem zu analysierenden Wort ignoriert.
+Tatsächlich tragen die Wortnachbarn viel zur Bedeutung eines Wortes bei.
+Mit Word Vectors kann man Beispielsweise Synonyme (Wörter mit gleicher Bedeutung), Antonyme (Wörter mit gegenseitiger Bedeutung) oder auch Wörter, die zu derselben Kategorie zählen erkennen.
+Word Vectors im Allgemeinen sind numerische Repräsentationen von Wortmerkmalen oder der Bedeutung von Wörtern.
+
+\subsubsection{Wofür benötigt man Word Vectors}
+
+Word Vectors sind hilfreich um Wörter zu finden, welche sich aus der Bedeutung verschiedener Wörter zusammensetzen.
+Ein Beispiel dafür ist die Phrase: \texttt{Eine Frau, die in Europa im frühen 20. Jahrhundert im Bereich der Physik etwas erfunden hat.}
+Wenn nach einer solchen Frage im Internet gesucht würd, würde nur eine Liste von berühmten Physikerinnen und Physikern ausgegeben werden.
+Sobald man allerdings die korrekte Antwort definiert hat, kann es sein, dass beim nächsten Mal, wenn man dies nachschlägt bereits die richtige Antwort bekommt.
+Bei der Verwendung von Word Vectors ist das Prinzip dasselbe.
+Dabei kann nach einem Wort gesucht werden, welches die Begriffe \texttt{Physik}, \texttt{weiblich} oder \texttt{Europa 20. Jahrhundert}.\cite{nlpInAction}
+
 \subsection{Word2Vec}
 \setauthor{Lukas Starka}
 
@@ -417,6 +434,25 @@ Aus der Abbildung ~\ref{fig:whatlies-demo} kann man nun erkennen, dass die Wört
 Außerdem kann man daraus lesen, dass sich \texttt{man} zu \texttt{brother} ähnlich wie \texttt{woman} zu \texttt{sister} oder \texttt{puppy} zu \texttt{dog} sich ähnlich wie \texttt{kitten} zu \texttt{cat} verhält.
 Dies findet man dadurch heraus, dass man ein ähnliches Ergebnis bekommt, wenn man die zwei Unterschiede der Vektoren miteinander vergleicht.
 Man kann sich außerdem vorstellen, dass man zum Beispiel bei der Rechnung \texttt{King - Man + Woman = ?} als Ergebnis die Position des Wortes \texttt{Queen} erhält.
+
+Ein weiteres Beispiel wäre, dass durch Word Vectors Ähnlichkeiten gefunden werden können.
+Abbildung ~\ref{fig:geometry-word2vec} zeigt dabei, dass zum Beispiel eine Fußballmannschaft für Seattle gefunden werden kann, indem man die Vektoren Seattle plus der Mannschaft aus Portland minus Portland rechnet.
+In Vektorenschreibweise kommt man dabei auf den Vektor der \texttt{Seattle Sounders} ~\ref{fig:compute-word2vec}.\cite{nlpInAction}
+
+\begin{figure}[hbt!]
+    \centering
+    \includegraphics[scale=1]{pics/geometry-word2vec}
+    \caption{Whatlies Illustration~\cite{whatlies}}
+    \label{fig:geometry-word2vec}
+\end{figure}
+
+\begin{figure}[hbt!]
+    \centering
+    \includegraphics[scale=1]{pics/compute-word2vec}
+    \caption{Whatlies Illustration~\cite{whatlies}}
+    \label{fig:compute-word2vec}
+\end{figure}
+
 
 \subsection{F-Score}\label{F-Score}
 \setauthor{Lukas Starka}
