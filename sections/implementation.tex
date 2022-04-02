@@ -13,7 +13,7 @@ Unser System sieht folgendermaßen aus:
 Es gibt 2 Ubuntu VM's, eine für den Chat und eine für Rasa und das Backend, nachdem der Chat auf die HTL Leonding Seite kommt, wird dadurch nur noch eine VM benötigt.
 
 Unser Chat wird gerade mit NGINX gehostet, dieser kommuniziert mit Rasa direkt über REST, wenn der Benutzer eine Nachricht sendet, wird diese an Rasa gesendet und Rasa antwortet mit der passenden Antwort.
-Das Dashboard wird auf GH Pages gehostet, dieses kommuniziert mit dem Backend über REST, das Backend authentisiert sich bei Rasa X\ref{subsec:rasa-x} und holt sich alle Konversationen und bereitet diese auf und sendet sie an das Dashboard.
+Das Dashboard wird auf GH Pages gehostet, dieses kommuniziert mit dem Backend über REST, das Backend authentisiert sich bei Rasa X ~\ref{subsec:rasa-x} und holt sich alle Konversationen und bereitet diese auf und sendet sie an das Dashboard.
 
 \section{Backend}\label{sec:backend}
 \setauthor{Felix Dumfarth}
@@ -195,7 +195,7 @@ Beispielhaft ist die Regelstrecke ein Auto und die Fahrerin oder der Fahrer der 
 Dabei nimmt die Lenkerin oder der Lenker gewisse Parameter zur Hilfe, durch die entschieden wird, ob das Auto gelenkt, gebremst oder beschleunigt werden soll.
 Diese Signale sind beispielsweise die aktuelle Geschwindigkeit, die Position des Autos oder die Fahrbahnverhältnisse.
 Beim Regelkreis wird also eine Regelgröße über ein Eingangssignal der Regelstrecke zurückgeführt und auf einen gewünschten Wert gebracht.
-Der Regelkreis wird oft bei der Regelung von Heizungen eingesetzt ~\ref{heizungRegelKreis}.\cite{regelkreis, regelkreisBeispiel}
+Der Regelkreis wird oft bei der Regelung von Heizungen eingesetzt ~\ref{fig:heizungRegelKreis}.\cite{regelkreis, regelkreisBeispiel}
 
 \begin{figure}[hbt!]
     \centering
