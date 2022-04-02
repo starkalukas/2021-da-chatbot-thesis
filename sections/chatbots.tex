@@ -1,26 +1,23 @@
-\section{Allgemeines}
+\section{Allgemeines}\label{sec:overview}
 \setauthor{Lukas Starka}
 
-\subsection{Rasa Produkte}
+\subsection{Rasa Produkte}\label{sec:rasa-products}
 \setauthor{Lukas Starka}
 
 Der Rasa Stack wird in Rasa NLU und Rasa Core aufgeteilt.
 Diese sind so aufgebaut, dass sie unabhängig voneinander eingesetzt werden können.
 So besteht die Möglichkeit, nur einen Teil der Architektur auf Rasa aufzubauen und zusätzlich weitere Services mit einzubinden.
 
-\subsection{Rasa Core}
+\subsection{Rasa Core}\label{subsec:rasa-core}
 \setauthor{Lukas Starka}
 
-Rasa Core ist verantwortlich für den Conversation Flow, Context-Handling, Bot-Responses und das Session Management.
-Dabei kann auf der Rasa NLU oder anderen Services aufgebaut werden, die die Intent Recognition und Entity Extraction übernehmen und die Ergebnisse dem Rasa Core zur Verfügung stellen.\cite{rasaCore}
-
-Rasa Core bezieht sich dabei auf die Hauptkomponente, die die Nachrichten erhält und darauf antwortet.\cite{rasaCore}
+Rasa Core bezieht sich auf die Hauptkomponente, die die Nachrichten erhält und darauf antwortet.\cite{rasaCore}
 
 Der Rasa Core hält für jede Session, also für jeden User, einen Tracker.
-Dieser enthält den momentanen Zustand der Konversationen, der jeweiligen User.
-Bekommt der Bot nun eine Nachricht, wird zuerst der Interpreter durchlaufen, welcher den Originaltext als Eingabe bekommt, und die Eingabe, den Intent und die extrahierten Entities zurückgibt.
-Zusammen mit dem aktuellen Zustand des Trackers entscheidet die Policy Komponente nun, welche Action, also Antwort des Bots, als nächstes ausgeführt werden soll.
-Diese Entscheidung wird nicht durch einfache Regeln getroffen, sondern genauso wie Intents oder Entities, auf der Grundlage von einem, mit Machine Learning, trainierten Model.\cite{rasaCore, rasaCoreBook}
+Dieser enthält den momentanen Zustand der Konversationen der jeweiligen User.
+Bekommt der Bot nun eine Nachricht, wird zuerst der Interpreter durchlaufen, welcher den Originaltext als Eingabe bekommt und die Eingabe den Intent und die extrahierten Entities zurückgibt.
+Zusammen mit dem aktuellen Zustand des Trackers entscheidet die Policy ~\ref{subsec:policies} Komponente nun, welche Action ~\ref{subsec:actions}, also Antwort des Bots, als Nächstes ausgeführt werden soll.
+Diese Entscheidung wird nicht durch einfache Regeln getroffen, sondern genauso wie Intents ~\ref{subsec:Intents} oder Entities ~\ref{subsection:entities}, auf der Grundlage von einem, mit Machine Learning, trainierten Model.\cite{rasaCore, rasaCoreBook}
 
 \begin{figure}[hbt!]
     \centering
@@ -29,14 +26,13 @@ Diese Entscheidung wird nicht durch einfache Regeln getroffen, sondern genauso w
     \label{fig:rasa_core}
 \end{figure}
 
-\subsection{Policies}
+\subsection{Policies}\label{subsec:policies}
 \setauthor{Lukas Starka}
 
-Policies sind ein Teil von \textbf{Rasa Core} und der Assistent benützt Policies um zu entscheiden, welche Action als nächstes ausgeführt werden soll.
-Es gibt machine-learning und rule-based policies.\cite{policies}
+Policies sind ein Teil von \textbf{Rasa Core} ~\ref{subsec:rasa-core} und der Assistent benützt Policies um zu entscheiden, welche Action als Nächstes ausgeführt werden soll.
+Es gibt machine-learning und rule-based Policies.\cite{policies}
 
-Hierbei kann man die Policies beispielsweise ändern.
-Dies macht man in der \textbf{config.yml} Datei.
+Hierbei können die Policies geändert werden, indem man diese in der \textbf{config.yml} Datei ändert.
 
 Bei den Policies gibt es unterschiedliche Priorities, die dann zum Einsatz kommen, wenn mehrere Policies dieselbe Confidence vorhergesagt haben.\cite{policyPriority}
 
@@ -46,11 +42,10 @@ Bei den Policies gibt es unterschiedliche Priorities, die dann zum Einsatz komme
 Die TED Policy steht für Transformer Embedding Dialogue Policy und wird meistens standardmäßig verwendet.\cite{tedPolicy}
 
 Bei jedem Dialog bekommt die TED Policy drei Informationen als Input.
-Die Nachricht des Users, die vorherige Action die vorhergesagt wurde und Slots und aktive Forms.
-Dann werden diese in den Dialogue Transformer Encoder gepackt und anschließend werden sogenannte Dense Layer verwendet.
-Danach wird die Ähnlichkeit zwischen den System Actions und dem Dialogue Embedding berechnet und zum Schluss werden noch CRF Algorithmen verwendet, um Entities zu erkennen.\cite{tedPolicy}
+Die Nachricht des Users, die vorherige Action ~\ref{subsec:actions} die vorhergesagt wurde und Slots ~\ref{subsec:slots} und aktive Forms ~\ref{subsection:forms}.
+Danach wird die Ähnlichkeit zwischen den System Actions und dem eingegebenen Text berechnet und zum Schluss werden noch CRF ~\ref{subsec:crfentityextractor} Algorithmen verwendet, um Entities ~\ref{subsection:entities} zu erkennen.\cite{tedPolicy}
 
-\subsection{Rasa NLU}
+\subsection{Rasa NLU}\label{subsec:rasa-nlu}
 \setauthor{Lukas Starka}
 
 Rasa NLU hat grundsätzlich zwei Hauptaufgaben.
@@ -58,24 +53,22 @@ Rasa NLU hat grundsätzlich zwei Hauptaufgaben.
 Zum einen wäre da die Intent Recognition und die Entity Recognition.\cite{rasanlu, pretrainedVsSupervised}
 
 Die Intent Recognition, ist die Erkennung der Nutzer-Absichten.
-Dazu muss die NLU mit ausreichend Utterances, also Responses trainiert werden.
-Dabei gibt die NLU alle zugehörigen Intents geordnet nach dem Confidence Score zurück.
-Rasa verfügt demnach über ein Multi Intent Matching.\cite{rasanlu, pretrainedVsSupervised}
+Dazu muss die NLU mit ausreichend Utterances, also Responses ~\ref{subsec:Responses} trainiert werden.
+Dabei gibt die NLU alle zugehörigen Intents ~\ref{subsec:Intents} geordnet nach dem Confidence Score zurück.
+Dieser Score gibt an, wie sicher sich das Modell ist, dass die jeweilige Antwort die richtige Antwort für den Text der Benutzerin oder des Benutzers ist.
+Rasa verfügt demnach über ein \textbf{Multi Intent Matching}.\cite{rasanlu, pretrainedVsSupervised}
 
-Außerdem gibt es noch die Entity Recognition, die dafür zuständig ist Entities, also wichtige Informationen, aus natürlicher Sprache zu extrahieren.\cite{rasanlu}
+Außerdem gibt es noch die Entity Recognition, die dafür zuständig ist Entities ~\ref{subsection:entities}, also wichtige Informationen, aus natürlicher Sprache zu extrahieren.\cite{rasanlu}
 
-Der Aufbau der NLU ist vollständig konfigurierbar mithilfe der sogenannten Pipeline.\cite{howToChooseAPipeline}
+Der Aufbau der NLU ist vollständig konfigurierbar mithilfe der sogenannten Pipeline ~\ref{sec:pipeline}.\cite{howToChooseAPipeline}
 
-
-\section{Pipeline}
+\section{Pipeline}\label{sec:pipeline}
 \setauthor{Lukas Starka}
-\label{sec:pipeline}
 
-Rasa Open Source bietet bei der Initialisierung des Projekts eine Standard-NLU-Konfiguration.\cite{tuningYourModel}
+Rasa Open Source bietet bei der Initialisierung ~\ref{section:initialize} des Projekts eine Standard-NLU-Konfiguration.\cite{tuningYourModel}
 
-In Rasa Open Source werden eingehende Nachrichten von einer Reihe von Komponenten verarbeitet.
-Diese Komponenten werden nacheinander in einer sogenannten Processing Pipeline ausgeführt, die im config.yml File definiert ist.
-Wenn man eine NLU-Pipeline auswählt, kann man allerdings sein Model anpassen und an das Dataset verfeinern.\cite{howToChooseAPipeline}
+In Rasa Open Source werden eingehende Nachrichten von einer Reihe von Komponenten ~\ref{sec:components} verarbeitet.
+Diese Komponenten werden nacheinander in einer sogenannten Processing Pipeline ausgeführt, die im \texttt{config.yml} File definiert ist.\cite{howToChooseAPipeline}
 
 In der Abbildung ~\ref{fig:component_lifecycle} werden die Komponenten und ihre Lifecycle abgebildet.
 
@@ -86,13 +79,10 @@ In der Abbildung ~\ref{fig:component_lifecycle} werden die Komponenten und ihre 
     \label{fig:component_lifecycle}
 \end{figure}
 
-Bevor die erste Komponente mit der Create-Funktion erstellt wird, wird ein sogenannter Kontext erstellt (der nichts anderes als ein Python-dict ist).
-Dieser Kontext wird verwendet, um Informationen zwischen den Komponenten zu übergeben.
-Beispielsweise kann eine Komponente Merkmalsvektoren für die Trainingsdaten berechnen, diese im Kontext speichern und eine andere Komponente kann diese Merkmalsvektoren aus dem Kontext abrufen und eine Intent Klassifikation durchführen.\cite{componentLifecycle, componentLifecycleDoc}
+Bevor die erste Komponente mit der Create-Funktion erstellt wird, wird ein sogenannter Kontext erstellt.
+Dieser ist ein Python Dictionary, also ein Key-Value-Paar und er wird verwendet, um Informationen zwischen den Komponenten zu übergeben.\cite{componentLifecycle, componentLifecycleDoc}
 
-Zunächst wird der Kontext mit allen Konfigurationswerten gefüllt, die Pfeile im Bild zeigen die Aufrufreihenfolge und visualisieren den Pfad des übergebenen Kontexts.
-Nachdem alle Komponenten trainiert und beibehalten wurden, wird das finale context dictionary verwendet, um die Metadaten des Models beizubehalten.\cite{componentLifecycle, componentLifecycleDoc}
-
+Zunächst wird der Kontext mit allen Konfigurationswerten gefüllt, die Pfeile im Bild ~\ref{fig:pipeline_image} zeigen die Aufrufreihenfolge und visualisieren den Pfad des übergebenen Kontexts.\cite{componentLifecycle, componentLifecycleDoc}
 Dies ist in der Grafik ~\ref{fig:pipeline_image} zu erkennen.
 
 \begin{figure}[hbt!]
@@ -102,20 +92,21 @@ Dies ist in der Grafik ~\ref{fig:pipeline_image} zu erkennen.
     \label{fig:pipeline_image}
 \end{figure}
 
-\subsection{Arten von NLU Pipelines}
+\subsection{Arten von NLU Pipelines}\label{subsec:pipeline-types}
 \setauthor{Lukas Starka}
 
 Es gibt verschiedene bereits konfigurierte Pipelines.\cite{howToChooseAPipeline}
 
-Grundsätzlich ist zwischen Pipelines zu unterscheiden, indem man sich informiert, ob sie Pretrained Word Vectors verwenden oder nicht.
+Grundsätzlich ist zwischen Pipelines mit oder ohne Pretrained Word Vectors zu unterscheiden.
 
 \subsubsection{Beispiele für Pipelines mit Pretrained Word Vectors}
 
-Der Vorteil von Pipelines, die Pretrained Word Vectors verwendet ist, dass diese bereits aus der jeweiligen Sprache word vectors besitzen.
-Somit weiß das Model beispielsweise, dass Äpfel und Birnen ähnlich sind ohne, dass dies in den Intents irgendwo spezifiziert werden muss.\cite{differenceStackOverflow, rasaMasterclassPreConfiguredPipelines}
+Der Vorteil von Pipelines, die Pretrained Word Vectors verwenden sind, dass diese bereits aus der jeweiligen Sprache Vektoren für die Wörter ~\ref{subsubsec:word-vectors} besitzen.
+Somit weiß das Model beispielsweise, dass Äpfel und Birnen ähnlich sind, ohne dass dies in den Intents irgendwo spezifiziert werden muss, weil es bereits aus den Wordvektoren hervorgeht.\cite{differenceStackOverflow, rasaMasterclassPreConfiguredPipelines}
 
 Die Vorteile hierbei sind also, dass das Model weniger Trainingsdaten benötigt, um eine gute Performance zu besitzen.
-Außerdem geht der ganze Trainingsprozess in der Regel schneller und die sogenannten Iteration Times sind kürzer als bei Modellen ohne Pretrained Word Vectors.\cite{differenceStackOverflow, pretrainedVsSupervised, rasaMasterclassPreConfiguredPipelines}
+Außerdem geht der ganze Trainingsprozess in der Regel schneller und die Zeit, die benötigt wird, um die Trainingsdaten zu durchlaufen, ist kürzer als bei Modellen ohne Pretrained Word Vectors.\cite{differenceStackOverflow, pretrainedVsSupervised, rasaMasterclassPreConfiguredPipelines}
+Ein Beispiel für eine Pipeline mit vortrainierten Vektoren ist die \texttt{spacy\_sklearn} Pipeline, die man in der \texttt{config.yml} Datei, wie in Listing ~\ref{lst:spacy-sklearn-pipeline} definiert.
 
 \begin{lstlisting}[label={lst:spacy-sklearn-pipeline},caption={SpaCy Sklearn Pipeline}]{SpaCy Sklearn Pipeline}
 language: "de"
@@ -123,11 +114,12 @@ language: "de"
 pipeline: "spacy_sklearn"
 \end{lstlisting}
 
-Die SpaCy Pipeline verwendet Pretrained Word Vectors von GloVe oder fastText.\cite{spacySklearnPipeline, spacyNLP, rasaMasterclassPreConfiguredPipelines}
+Die SpaCy Pipeline verwendet Pretrained Word Vectors von GloVe oder fastText.
+Dies sind Algorithmen, die einen Textkorpus ~\ref{subsec:corpus} einer gewissen Sprache in Form von Vektoren einarbeiten.\cite{spacySklearnPipeline, spacyNLP, rasaMasterclassPreConfiguredPipelines}
 
 Es gibt außerdem auch noch Pipelines von MITIE.
-Diese verwendet MITIE als Source für die word vectors.
-Ein Vorteil von MITIE ist, dass man hier auch seine eigenen word vectors trainieren kann, indem man einen Corpus von Wikipedia oder ähnlichen Seiten verwendet.
+Diese verwenden MITIE als Source für die Word Vectors ~\ref{subsubsec:word-vectors}.
+Ein Vorteil von MITIE ist, dass man hier auch seine eigenen Word Vectors ~\ref{subsubsec:word-vectors} trainieren kann, indem man einen Korpus ~\ref{subsec:corpus} von Wikipedia oder ähnlichen Seiten verwendet.
 Allerdings wird MITIE meistens nicht empfohlen und es könnte auch sein, dass MITIE demnächst deprecated sein wird.
 Die MITIE Pipeline kann man wie in Listing ~\ref{lst:mitie-sklearn-pipeline} definieren.\cite{mitieNLP, mitieDeprecated}
 
@@ -137,16 +129,16 @@ language: "de"
 pipeline: "mitie_sklearn"
 \end{lstlisting}
 
-\subsubsection{Beispiele für Pipelines ohne Pretrained Word Vectors}
+\subsubsection{Beispiele für Pipelines ohne Pretrained Word Vectors}\label{subsubsec:pipeline-without-pretrained-word-vectors}
 
 Der Vorteil von Pipelines ohne Pretrained Word Vectors ist, dass diese speziell auf den Fachbereich angepasst sind, für den man den Chatbot entwickelt.\cite{pretrainedVsSupervised, tensorFlowEmbedding}
 
 Als Beispiel kann man die Wörter \texttt{balance} und \texttt{symmetry} aus dem Englischen sehen.
 Diese Wörter sind eng miteinander verwandt.
 Allerdings kann im Kontext von Banken das Wort \texttt{balance} auch mit \texttt{cash} verwandt sein.
-Bei einem vortrainierten Model würden diese Wortvektoren nicht nah aneinander liegen, aber wenn man einen Chatbot hat der nur Intents besitzt, die mit Banken und Rechnungswesen zu tun haben, werden diese zwei Wörter \texttt{balance} und \texttt{cash} ohne Pretrained Word Vectors als ähnlich erkannt werden.\cite{tensorFlowEmbedding}
+Bei einem vortrainierten Modell würden diese Wortvektoren nicht nah aneinander liegen, aber wenn ein Chatbot nur Intents besitzt, die mit Banken und Rechnungswesen zu tun haben, werden diese zwei Wörter \texttt{balance} und \texttt{cash} ohne Pretrained Word Vectors als ähnlich erkannt werden.\cite{tensorFlowEmbedding}
 
-Außerdem benutzen diese Pipelines kein sprach-spezifisches Model und somit kann man sie in allen Sprachen verwenden, die tokenisiert werden kann.
+Außerdem benutzen diese Pipelines kein sprach-spezifisches Modell und somit kann man sie in allen Sprachen verwenden, die tokenisiert ~\ref{lst:tokenization} werden können.
 Eine solche Pipeline kann man wie in Listing ~\ref{lst:tensorflow-embedding-pipeline} definieren.\cite{tensorFlowEmbedding}
 
 \begin{lstlisting}[label={lst:tensorflow-embedding-pipeline},caption={Tensorflow Embedding Pipeline}]{Tensorflow Embedding Pipeline}
@@ -155,15 +147,14 @@ language: "de"
 pipeline: "tensorflow_embedding"
 \end{lstlisting}
 
-Der Bag-of-word-vectors Ansatz ist zwar sehr gut aber leider auch nicht perfekt.
-Ein Problem davon ist, dass er oftmals keine fachspezifischen Begriffe kennt und außerdem können Typos nicht als Wortvektoren gelernt werden.
-Außerdem ist das Problem bei Pretrained Word Vectors, dass zehntausende Vektoren gespeichert werden, die vermutlich nie verwendet werden.\cite{tensorFlowEmbedding, choosingPipeline}
+Ein Problem von diesem Ansatz ist jedoch, dass er oftmals keine fachspezifischen Begriffe kennt und außerdem können Typos nicht als Wortvektoren gelernt werden.
+Außerdem ist das Problem bei Pretrained Word Vectors, dass Zehntausende Vektoren gespeichert werden, die vermutlich nie verwendet werden.\cite{tensorFlowEmbedding, choosingPipeline}
 
-Mit dem Tensorflow-Embedding macht man im Grunde genommen genau das Gegenteil.
-Diese Pipeline verwendet keine vortrainierten Vektoren und sollte mit jeder Sprache verwendet werden können.
-Diese Pipeline lernt Embeddings für die Intents und für die Wörter und die Embeddings werden verwendet um die Ähnlichkeit zwischen dem Input und den Intents zu ermitteln.\cite{tensorFlowEmbedding, choosingPipeline}
+Das Tensorflow-Embedding ist das genaue Pendant dazu.
+Diese Pipeline verwendet keine vortrainierten Vektoren, kann mit jeder Sprache verwendet werden.
+Sie lernt dabei Embeddings für die Intents ~\ref{subsec:Intents} und für die Wörter und die Embeddings werden verwendet um die Ähnlichkeit zwischen dem Input und den Intents ~\ref{subsec:Intents} zu ermitteln.\cite{tensorFlowEmbedding, choosingPipeline}
 
-Eine weitere Pipeline lautet wie folgt:
+Eine solche Pipeline wird wie in Listing ~\ref{lst:supervised-embedding} definiert.
 
 \begin{lstlisting}[label={lst:supervised-embedding},caption={Supervised Embedding Pipeline}]{Supervised Embedding Pipeline}
 language: "de"
@@ -171,9 +162,9 @@ language: "de"
 pipeline: "supervised_embedding"
 \end{lstlisting}
 
-\subsubsection{Supervised Embeddings vs. Pretrained Embeddings}
+\subsubsection{Supervised Embeddings vs. Pretrained Embeddings}\label{subsubsec:supervised-embedding-vs-pretrained-embedding}
 
-In der Grafik 5 sieht man ein Flussdiagramm, welches beschreibt, ob man Supervised Embeddings oder Pretrained Embeddings verwenden soll.
+In der Grafik ~\ref{fig:pre_trained_vs_supervised} ist ein Flussdiagramm abgebildet, welches beschreibt, wann Supervised Embeddings oder Pretrained Embeddings von Vorteil sind.
 
 \begin{figure}[hbt!]
     \centering
@@ -185,10 +176,9 @@ In der Grafik 5 sieht man ein Flussdiagramm, welches beschreibt, ob man Supervis
 \subsection{Konfigurierte Pipelines}\label{subsec:configured-pipelines}
 \setauthor{Lukas Starka}
 
-Es gibt also vordefinierte Pipelines von Rasa, die man nutzen kann.
+Es gibt vordefinierte Pipelines von Rasa, die benutzt werden können.
 
-Dabei kann man nun wieder entscheiden, ob man Pretrained Word Embeddings will oder nicht.
-Sollte man sich dafür entscheiden, kann man auf eine Pipeline mit SpaCy zurückgreifen, welche den SpacyFeaturizer verwendet und somit Pretrained Word Embeddings nutzt.
+Sollte man sich für Word Embeddings entscheiden, kann man auf eine Pipeline mit SpaCy zurückgreifen, welche den SpacyFeaturizer verwendet und somit Pretrained Word Embeddings nutzt.
 Diese ist in Listing ~\ref{lst:spacy-pipeline} zu sehen.\cite{startingPipelines, allComponents}
 
 \begin{lstlisting}[label={lst:spacy-pipeline},caption={Spacy Startpipeline}]{Spacy Startpipeline}
@@ -214,8 +204,9 @@ pipeline:
 
 \end{lstlisting}
 
-Wenn man sich dafür entscheidet keine vortrainierten Word Embeddings zu nutzen und somit sein Modell spezifischer auf den eigenen Anwendungsfall anpassen möchte, verwendet man die Standard Rasa Pipeline.
+Wenn man sich dafür entscheidet, keine vortrainierten Word Embeddings zu nutzen und somit sein Modell spezifischer auf den eigenen Anwendungsfall anpassen möchte, verwendet man die Standard Rasa Pipeline.
 Diese verwendet den CountVectorsFeaturizer, bei dem nur die Trainingsdaten, die zur Verfügung gestellt werden, trainiert werden.\cite{startingPipelines, allComponents, nluExamples}
+In der \texttt{config.yml} Datei würde die Pipeline ~\ref{sec:pipeline} somit wie in Listing ~\ref{lst:default-pipeline} aussehen.
 
 \begin{lstlisting}[label={lst:default-pipeline},caption={Default Pipeline}]{Default Pipeline}
 language: "de"  # Code für die Sprache
@@ -240,7 +231,8 @@ pipeline:
 \subsection{Verwendete Pipeline}\label{subsec:our-pipeline}
 \setauthor{Lukas Starka}
 
-Die für die Umsetzung des Chatbots verwendete Pipeline aus Listing ~\ref{lst:our-pipeline} beruht auf dieser Standard-Pipeline und die jeweiligen Komponenten werden in den folgenden Kapiteln genauer erläutert.
+Die für die Umsetzung des Chatbots verwendete Pipeline aus Listing ~\ref{lst:our-pipeline} beruht dabei auf dieser Standard-Pipeline.
+Die jeweiligen Komponenten davon werden in den folgenden Kapiteln ~\ref{sec:components} genauer erläutert.
 
 \begin{lstlisting}[label={lst:our-pipeline},caption={Unsere Pipeline}]{Unsere Pipeline}
 language: de
@@ -272,19 +264,19 @@ pipeline:
 \subsection{Pipelines vergleichen}\label{subsec:comparing-pipelines}
 \setauthor{Lukas Starka}
 
-Um die beste Leistung für seine definierte Trainingsdaten zu erzielen, kann man beispielsweise zwei verschieden Pipelines miteinander vergleichen.
-Dafür nutzt man den \texttt{rasa test} Befehl, der dabei eine Reihe von verschiedenen Schritten ausführt, wie in Listing ~\ref{lst:comparing-pipelines} zu sehen ist.
+Um die beste Leistung für definierte Trainingsdaten zu erzielen, gibt es die Möglichkeit zwei verschieden Pipelines miteinander vergleichen.
+Dafür wird der \texttt{rasa test} Befehl verwendet, der dabei eine Reihe von verschiedenen Schritten ausführt, wie in Listing ~\ref{lst:comparing-pipelines} zu sehen ist.
 
 \begin{enumerate}
-    \item Zunächst werden 80\% der Daten vom \texttt{data/nlu.yml} trainiert und 20\% getestet.
+    \item Zunächst werden 80 \% der Daten von der \texttt{data/nlu.yml} Datei trainiert und 20 \% getestet.
     \item Danach wird eine gewisse Prozentzahl von Daten ausgelassen.
     \item Die Modelle werden basierend auf den überbleibenden Daten trainiert.
     \item Eine Evaluation über das Modell mit den reduzierten Trainingsdaten wird erstellt.\cite{comparingNLUPipelines}
 \end{enumerate}
 
-Der 2\. Schritt wird dabei standardmäßig dreimal für jede übergebene Pipeline-Konfiguration ausgeführt.
+Der zweite Schritt wird dabei standardmäßig dreimal für jede übergebene Pipeline-Konfiguration ausgeführt.
 Dabei werden immer wieder neue Prozentzahlen gewählt.
-Wenn man diese selbst bestimmen möchte, kann man dies wie in Listing ~\ref{lst:comparing-pipelines-custom} machen.\cite{comparingNLUPipelines}
+Um diese zu verändern, gibt es die \texttt{--runs} Flag, die in Listing ~\ref{lst:comparing-pipelines-custom} zu sehen ist.\cite{comparingNLUPipelines}
 
 \begin{lstlisting}[label={lst:comparing-pipelines},caption={Unsere Pipeline}]{Unsere Pipeline}
 rasa test nlu --nlu data/nlu.yml
@@ -300,14 +292,14 @@ rasa test nlu --nlu data/nlu.yml
 \subsubsection{Evaluation der Ergebnisse}\label{subsubsec:evaluation-results}
 \setauthor{Lukas Starka}
 
-Nachdem nun ein ausführlicher Test aller NLU Daten durchgeführt wurde, bekommt man das Ergebnis in einem \texttt{results/} Ordner.\cite{interpretingTheOutput}
+Nachdem nun ein ausführlicher Test aller NLU Daten durchgeführt wurde, wird das Ergebnis in einem \texttt{results/} Ordner gespeichert.\cite{interpretingTheOutput}
 
-Dort bekommt man nun direkt im Ordner ein File mit dem Titel ~\texttt{nlu\_model\_comparision\_graph.pdf}.
-In der Abbildung ~\ref{fig:comparision_graph} kann man erkennen, dass hierbei nur 1 Konfigurationsfile genutzt wurde, bei dem es sich um unsere verwendete Pipeline handelt.
+Dort befindet sich nun direkt im Ordner ein File mit dem Titel ~\texttt{nlu\_model\_comparision\_graph.pdf}.
+In der Abbildung ~\ref{fig:comparision_graph} ist zu erkennen, dass hierbei nur 1 Konfigurationsfile genutzt wurde, bei dem es sich um die im Zuge der Arbeit gewählte Pipeline ~\ref{lst:our-pipeline} handelt.
 Auf der x-Achse befindet sich die Anzahl der Trainingsphrasen, die beim Training dabei waren.
-Hier ist zu sehen, dass je höher die Anzahl ist, desto genauer auch der F1-Score ~\ref{F-Score} ist.
+Hier ist zu sehen, dass je höher die Anzahl ist, desto genauer auch der F1-Score ~\ref{subsec:F-Score} ist.
 Vor allem aber sind die Abweichungen bei diesem Score viel kleiner, wenn mehr Trainingsphrasen gegeben sind.
-Dies beweist wie wichtig es ist viele Trainingsphrasen zu verwenden.
+Dies beweist, wie wichtig es ist, viele Trainingsphrasen zu verwenden.
 
 \begin{figure}[hbt!]
     \centering
@@ -316,16 +308,16 @@ Dies beweist wie wichtig es ist viele Trainingsphrasen zu verwenden.
     \label{fig:comparision_graph}
 \end{figure}
 
-Außerdem bekommt man noch ein \texttt{.json} File und Bilder für die jeweiligen Ergebnisse.
+Außerdem werden noch \texttt{.json} Dateien und Bilder für die jeweiligen Ergebnisse erzeugt.
 Für jeden Lauf wird dabei ein Ordner angelegt, in dem es Unterordner für die jeweilige Prozentzahl gibt, die von den Trainingsphrasen ausgeschlossen wurde.
-Dabei bekommt man eine sogenannte Konfusionsmatrix und ein Histogramm der Ergebnisse.
+Dabei findet sich jeweils eine sogenannte Konfusionsmatrix und ein Histogramm der Ergebnisse.
 
-Beim Histogramm wird die Anzahl der korrekt vorhergesagten Intents mit der der falsch vorhergesagten Intents verglichen.
+Beim Histogramm wird die Anzahl der korrekt vorhergesagten Intents ~\ref{subsec:Intents} mit der von den falsch vorhergesagten Intents ~\ref{subsec:Intents} verglichen.
 Dabei wird auch die Confidence, also die Sicherheit des Modells, angegeben, mit der sie vorhergesagt wurden.
 Im Optimalfall sind die Balken also bei den korrekten Intents weit oben mit einer hohen Confidence versehen und die Falschen mit einer niedrigen.
-Außerdem soll die Anzahl, die auf der x-Achse eingetragen ist, von den richtigen Intents höher sein, als die Anzahl der falschen Intents.
+Außerdem soll die Anzahl, die auf der x-Achse eingetragen ist, von den richtigen Intents höher sein als die Anzahl der falschen Intents.
 In Abbildung ~\ref{fig:histogram_0} ist ein Histogramm für 0\% Exklusion zu sehen und bei Abbildung ~\ref{fig:histogram_75} wurde 75\% Exklusion genutzt.
-Man kann erkennen, dass bei mehr Exklusion auch mehr Intents falsch vorhergesagt werden und die Zuversichtlichkeit des Modells dabei immer höher wird.
+Es ist zu erkennen, dass bei mehr Exklusion auch mehr Intents ~\ref{subsec:Intents} falsch vorhergesagt werden und die Zuversichtlichkeit, also die Confidence, des Modells dabei immer höher wird.
 
 \begin{figure}[hbt!]
     \centering
@@ -341,10 +333,10 @@ Man kann erkennen, dass bei mehr Exklusion auch mehr Intents falsch vorhergesagt
     \label{fig:histogram_75}
 \end{figure}
 
-Die Konfusionsmatrix hilft dabei festzustellen, wie viele Intents richtig und falsch erkannt wurden.
+Die Konfusionsmatrix hilft dabei festzustellen, wie viele Intents ~\ref{subsec:Intents} richtig und falsch erkannt wurden.
 Dabei wird auf einer Achse aufgetragen, welcher Intent vorhergesagt wurde, und welcher Intent tatsächlich erkannt hätte werden sollen.
 Im Optimalfall liegt bei der Konfusionsmatrix also eine Diagonale durch die Matrix vor.
-Bei der Konfusionsmatrix kann man nun anschaulich erkennen, welche Intents noch überarbeitet werden sollten, weil zu viele Intents falsch als dieser vorhergesagt wurden.\ref{analyzing-results}
+Bei der Konfusionsmatrix ist anschaulich zu erkennen, welche Intents noch überarbeitet werden sollten, weil zu viele Intents falsch als dieser vorhergesagt wurden.
 In Abbildung ~\ref{fig:confusion_matrix} kann man beispielsweise ablesen, dass zwei Intents, die eigentlich \texttt{chitchat/insult} sein sollten fälschlicherweise als \texttt{chitchat/ask\_creator} erkannt wurden.
 
 \begin{figure}[hbt!]
@@ -354,12 +346,12 @@ In Abbildung ~\ref{fig:confusion_matrix} kann man beispielsweise ablesen, dass z
     \label{fig:confusion_matrix}
 \end{figure}
 
-\subsection{WhitespaceTokenizer}
+\subsection{WhitespaceTokenizer}\label{subsec:whitespace-tokenizer}
 \setauthor{Lukas Starka}
 
-Ein WhitespaceTokenizer ist eine sehr einfache Art eines Tokenizers.
+Ein WhitespaceTokenizer ist eine sehr einfache Art eines Tokenizers ~\ref{lst:tokenization}.
 Hierbei wird, wie der Name bereits vermuten lässt, der Satz aufgeteilt in verschiedene Tokens.
-Ein Token kann zum Beispiel also ein Wort sein und beim WhitespaceTokenizer wird der Satz pro Whitespace also Leerzeichen aufgeteilt.\cite{whitespaceTokenizer, rasaMasterclassWhitespaceTokenizer, pipelineComponentsYoutube}
+Ein Token kann zum Beispiel also ein Wort sein und beim WhitespaceTokenizer wird der Satz pro Whitespace, also pro Leerzeichen, aufgeteilt.\cite{whitespaceTokenizer, rasaMasterclassWhitespaceTokenizer, pipelineComponentsYoutube}
 
 \begin{figure}[hbt!]
     \centering
@@ -369,20 +361,18 @@ Ein Token kann zum Beispiel also ein Wort sein und beim WhitespaceTokenizer wird
 \end{figure}
 
 Es gibt auch komplexere Tokenizer und Tokenizer, die speziell an Sprachen angepasst sind und die besonderen Regeln, die in diesen Sprachen gelten, beachten.
-Außerdem kann man natürlich auch selber einen Tokenizer schreiben.\cite{whitespaceTokenizer, rasaMasterclassWhitespaceTokenizer, pipelineComponentsYoutube}
+Außerdem besteht die Möglichkeit, einen Tokenizer selbst zu implementieren.\cite{whitespaceTokenizer, rasaMasterclassWhitespaceTokenizer, pipelineComponentsYoutube}
+Tokenizer sollten generell weit am Anfang einer Pipeline ~\ref{sec:pipeline}, wenn nicht sogar die erste Komponente, sein.
 
-Tokenizer sollten generell weit am Anfang einer Pipeline sein, wenn nicht sogar die erste Komponente.
-
-\subsection{RegexFeaturizer}
+\subsection{RegexFeaturizer}\label{subsec:regex-featurizer}
 \setauthor{Lukas Starka}
 
 Einen RegexFeaturizer kann man verwenden, um die EntityExtraction zu erleichtern.
-Bei diesem werden Regular Expressions und Lookup Tables verwendet und der RegexFeaturizer gibt an, ob ein Wort von den Regular Expressions oder Lookup Tables erkannt wurde.
-Der EntityExtractor nimmt dann diese Tokens als Input und produziert Named Entity Recognition Ergebnisse.\cite{rasaMasterclassRegexFeaturizer, pipelineComponentsYoutube, regexFeaturizerCrf}
+Bei diesem werden Regular Expressions ~\ref{subsubsec:regex-featurizer-regex} und Lookup Tables ~\ref{subsubsec:lookup-tables} verwendet und der RegexFeaturizer gibt an, ob ein Wort von den Regular Expressions oder Lookup Tables erkannt wurde.\cite{rasaMasterclassRegexFeaturizer, pipelineComponentsYoutube, regexFeaturizerCrf}
 
-\subsubsection{Regular Expressions}
+\subsubsection{Regular Expressions}\label{subsubsec:regex-featurizer-regex}
 
-Regular Expressions können verwendet werden, um Muster eines Strings zu beschreiben und können hier bei dem Beispiel von Chatbots beispielsweise verwendet werden, um Zahlen zu beschreiben.\cite{rasaMasterclassRegexFeaturizer, pipelineComponentsYoutube, regexFeaturizerCrf}
+Regular Expressions können verwendet werden, um Muster eines Strings zu beschreiben und können hier bei dem Beispiel von Chatbots verwendet werden, um Zahlen zu beschreiben, wie in Abbildung ~\ref{fig:Regular Expression Beispiel} zu sehen ist.\cite{rasaMasterclassRegexFeaturizer, pipelineComponentsYoutube, regexFeaturizerCrf}
 
 \begin{figure}[hbt!]
     \centering
@@ -391,7 +381,7 @@ Regular Expressions können verwendet werden, um Muster eines Strings zu beschre
     \label{fig:Regular Expression Beispiel}
 \end{figure}
 
-\subsubsection{Lookup Tables}
+\subsubsection{Lookup Tables}\label{subsubsec:lookup-tables}
 
 Lookup Tables können verwendet werden, wenn eine Entity vordefinierte Werte haben kann.
 Zum Beispiel kann eine Entity mit dem Namen \texttt{country} 194 verschiedene Länder annehmen.\cite{rasaMasterclassRegexFeaturizer, pipelineComponentsYoutube, regexFeaturizerCrf}
@@ -408,12 +398,12 @@ Der RegexFeaturizer muss vor dem EntityExtractor in der Pipeline platziert werde
 \subsection{CRFEntityExtractor}\label{subsec:crfentityextractor}
 \setauthor{Lukas Starka}
 
-Eine Möglichkeit um Entities aus der Nachricht des Benutzers zu extrahieren ist über den CRFEntityExtractor.\cite{crfEntityExtractor}
+Eine Möglichkeit, um Entities ~\ref{subsection:entities} aus der Nachricht des Benutzers zu extrahieren ist über den CRFEntityExtractor.\cite{crfEntityExtractor}
 
 CRF steht hierbei für Conditional Random Field.
-Dieses Modell lernt, welche Komponenten eines Satzes Entities sind und welche Entities diese sind.\cite{crfEntityExtractor, pipelineComponentsYoutube, regexFeaturizerCrf}
-\ci
-Dies macht der CRFEntityExtractor, indem er die Sequenzen der Tokens beobachtet.
+Dieses Modell lernt, welche Komponenten eines Satzes Entities ~\ref{subsection:entities} sind und welche Entities ~\ref{subsection:entities} diese sind.\cite{crfEntityExtractor, pipelineComponentsYoutube, regexFeaturizerCrf}
+
+Dies macht der CRFEntityExtractor, indem er die Sequenzen der Tokens ~\ref{lst:tokenization} beobachtet.
 Es wird also ein Token aus dem Satz herausgepickt, und anschließend wird geschaut, ob die Wörter danach und davor zum Kontext des Worts beitragen, um zu erkennen, ob es sich hierbei um eine Entity handelt.
 Dabei schaut der Extractor auf Eigenschaften, wie beispielsweise, ob das Wort groß- oder kleingeschrieben ist, ob es einen Prefix hat, ob es eine Zahl ist oder ob es ein speziell definiertes Wort für die Entities ist.
 Dies wird auch mit den Wörtern davor und danach gemacht.\cite{crfEntityExtractor, pipelineComponentsYoutube, regexFeaturizerCrf}
@@ -426,13 +416,13 @@ Dies wird auch mit den Wörtern davor und danach gemacht.\cite{crfEntityExtracto
 \end{figure}
 
 Der CRFEntityExtractor produziert anschließend als Output, welche Wörter in einem Satz Entities sind und welche Entities diese sind, also was ihre Labels sind.
-Außerdem wird noch produziert, wie sicher das Modell war, dass diese Entities korrekt sind, also die sogenannte Confidence wird ausgegeben und welches Modell verwendet wurde.\cite{crfEntityExtractor, pipelineComponentsYoutube, regexFeaturizerCrf}
+Außerdem wird noch produziert, wie sicher das Modell war, dass diese Entities korrekt sind, also wird die sogenannte Confidence ausgegeben und welches Modell verwendet wurde.\cite{crfEntityExtractor, pipelineComponentsYoutube, regexFeaturizerCrf}
 
-\subsection{LexicalSyntacticFeaturizer}
+\subsection{LexicalSyntacticFeaturizer}\label{subsec:lexical-syntactic-featurizer}
 \setauthor{Lukas Starka}
 
-Ein Featurizer generell wird verwendet, um Features von den Tokens zu extrahieren.
-Diese können dann von dem Intent-Klassifikations-Modell genutzt werden, um Muster zu erkennen und anschließend den korrekten Intent vorherzusagen.\cite{lexicalSyntacticFeaturizer, pipelineComponentsYoutube, pipelineConfigurationVideo}
+Ein Featurizer wird generell verwendet, um Features von den Tokens zu extrahieren.
+Diese können dann von dem Intent-Klassifikations-Modell genutzt werden, um Muster zu erkennen und anschließend den korrekten Intent ~\ref{subsec:Intents} vorherzusagen.\cite{lexicalSyntacticFeaturizer, pipelineComponentsYoutube, pipelineConfigurationVideo}
 
 \begin{figure}[hbt!]
     \centering
@@ -441,15 +431,11 @@ Diese können dann von dem Intent-Klassifikations-Modell genutzt werden, um Must
     \label{fig:Featurizer}
 \end{figure}
 
-Der LexicalSyntacticFeaturizer bekommt als Input einen Token und erstellt dann Features für die Entity Extraktion.
-Dabei verwendet er ein sogenanntes Sliding Window, welches über jeden Token in der Nachricht des Benutzers verwendet wird.\cite{lexicalSyntacticFeaturizer, pipelineComponentsYoutube, pipelineConfigurationVideo}
-
-\subsection{CountVectorsFeaturizer}
+\subsection{CountVectorsFeaturizer}\label{subsec:count-vectors-featurizer}
 \setauthor{Lukas Starka}
 
-Der CountVectorsFeaturizer erstellt Bag-of-Words.
-Dabei wird gezählt, wie oft ein bestimmtes Wort aus den Trainingsdaten in der Nachricht des Benutzers vorkommt.
-Dies wird dann als Input dem Intent-Classification-Model übergeben.\cite{countVectorsFeaturizer, pipelineConfigurationVideo, pipelineComponentsYoutube, rasaMasterclassCountVectorsFeaturizer}
+Der CountVectorsFeaturizer erstellt Bag-of-Words ~\ref{subsec:bag-of-words}.
+Dabei wird gezählt, wie oft ein bestimmtes Wort aus den Trainingsdaten in der Nachricht des Benutzers vorkommt.\cite{countVectorsFeaturizer, pipelineConfigurationVideo, pipelineComponentsYoutube, rasaMasterclassCountVectorsFeaturizer}
 
 \begin{figure}[hbt!]
     \centering
@@ -458,7 +444,7 @@ Dies wird dann als Input dem Intent-Classification-Model übergeben.\cite{countV
     \label{fig:CountVectorsFeaturizer}
 \end{figure}
 
-Beim CountVectorsFeaturizer kann man außerdem angeben, dass statt Wörtern sogenannte n-grams verwendet werden sollen.
+Beim CountVectorsFeaturizer kann außerdem angeben werden, dass statt Wörtern sogenannte n-grams ~\ref{subsec:bag-of-ngrams} verwendet werden sollen.
 Dies macht das Modell in der Regel robuster gegen Typos allerdings erhöht sich damit auch die Zeit, die das Modell zum Trainieren benötigt.\cite{countVectorsFeaturizer, pipelineConfigurationVideo, pipelineComponentsYoutube, rasaMasterclassCountVectorsFeaturizer}
 
 \begin{lstlisting}[label={lst:count-vectors-featurizer},caption={CountVectorsFeaturizer}]{CountVectorsFeaturizer}
@@ -487,8 +473,8 @@ pipeline:
 
 Der Output des DIETClassifier kann wie in Listing ~\ref{lst:dietclassifier-output} aussehen.
 Dabei wird zunächst der Intent angeführt, der mit der höchsten Wahrscheinlichkeit (Confidence) vorhergesagt wurde.
-Alle anderen Intents, die das Modell in Betracht gezogen hat, werden nach ihrer Confidence absteigend sortiert, ausgegeben.
-Zusätzlich sind noch alle Entities, die erkannt wurden mit deren Wert angeführt, inklusive der Stelle in der Eingabe des Users, an der die jeweiligen Entities erkannt wurden.
+Alle anderen Intents, die das Modell in Betracht gezogen hat, werden nach ihrer Confidence absteigend sortiert ausgegeben.
+Zusätzlich sind noch alle Entities, die erkannt wurden, mit deren Wert angeführt, inklusive der Stelle in der Eingabe des Users, an der die jeweiligen Entities erkannt wurden.
 
 \begin{lstlisting}[label={lst:dietclassifier-output},caption={Output des DIETClassifiers ~\cite{dietClassifier}}]{DietClassifierOutput}
 {
@@ -514,12 +500,12 @@ Zusätzlich sind noch alle Entities, die erkannt wurden mit deren Wert angeführ
 }
 \end{lstlisting}
 
-\subsection{EntitySynonymMapper}
+\subsection{EntitySynonymMapper}\label{subsec:entitysynonymmapper}
 \setauthor{Lukas Starka}
 
-Der EntitySynonymMapper erwartet als Input einen Extractor von den Entity Extractors und liefert als Ausgabe modifizierte Werte für die Entities, die bereits vorher erkannt wurden.
+Der EntitySynonymMapper erwartet als Input einen Extractor von den verschiedenen Entity Extraktoren und liefert als Ausgabe modifizierte Werte für die Entities, die bereits vorher erkannt wurden.
 Wenn beim EntitySynonymMapper also eine Entity überliefert wird und in den Trainingsdaten Synonyme für diese Entity vorhanden sind, wird der Wert der Entity auf den Wert, der in den Trainingsdaten angegeben ist, gesetzt.
-Wenn also beispielsweise in einem Satz des Benutzers New York City oder NYC vorkommt, werden diese beide auf den selben Wert nyc gesetzt.\cite{entitySynonymMapper}
+Wenn also beispielsweise in einem Satz des Benutzers New York City oder NYC vorkommt, werden diese beide auf denselben Wert nyc gesetzt.\cite{entitySynonymMapper}
 
 \begin{lstlisting}[label={lst:entity-synonym-mapper},caption={Entity Synonym Mapper}]{Entity Synonym Mapper}
 [
@@ -546,10 +532,10 @@ Wenn also beispielsweise in einem Satz des Benutzers New York City oder NYC vork
 ]
 \end{lstlisting}
 
-\subsection{ResponseSelector}
+\subsection{ResponseSelector}\label{subsec:response-selector}
 \setauthor{Lukas Starka}
 
-Ein Selector sagt die korrekte Response voraus aus einer Menge von möglichen Responses.
+Ein Selector sagt die korrekte Response ~\ref{subsec:Responses} voraus aus einer Menge von möglichen Responses.
 Beim ResponseSelector wird als Ausgabe ein Key-Value Paar ausgegeben.
 Als Key wird hierbei der Retrieval Intent ausgegeben und das Value ist die vorhergesagte Response und die Confidence, mit der diese vorhergesagt wurde.\cite{responseSelector}
 
@@ -591,7 +577,7 @@ Als Key wird hierbei der Retrieval Intent ausgegeben und das Value ist die vorhe
 
 Bei einem Retrieval Intent handelt es sich um einen speziellen Intent, der weiter aufgeteilt werden kann in sogenannte Sub-Intents.
 Dies kann man zum Beispiel nutzen, wenn man einen Retrieval Intent für FAQ und für Chitchat hat, bei denen dann jede individuelle Frage einen Sub-Intent darstellt.\cite{retrievalIntent}
-Verwendet wird dies, wenn der Bot zum Beispiel bei FAQ oder Chitchat sowieso immer mit der selben Antwort auf die Frage antworten soll, unabhängig von dem was vorher geschrieben wurde.\cite{chitchatAndFaqs}
+Verwendet wird dies, wenn der Bot zum Beispiel bei FAQ oder Chitchat sowieso immer mit derselben Antwort auf die Frage antworten soll, unabhängig von dem, was vorher geschrieben wurde.\cite{chitchatAndFaqs}
 
 Bei der Arbeit wurde dieser Ansatz ebenfalls gewählt, wie in ~\ref{lst:response-selector-2} zu sehen ist.
 
@@ -604,16 +590,16 @@ Bei der Arbeit wurde dieser Ansatz ebenfalls gewählt, wie in ~\ref{lst:response
      retrieval_intent: chitchat
 \end{lstlisting}
 
-\subsection{FallbackClassifier}
+\subsection{FallbackClassifier}\label{subsec:fallback-classifier}
 \setauthor{Lukas Starka}
 
-Der FallbackClassifier ist standardmäßig nicht in der Rasa Pipeline enthalten und wurde von uns hinzugefügt.\cite{startingPipelines}
+Der FallbackClassifier ist standardmäßig nicht in der Rasa Pipeline enthalten.\cite{startingPipelines}
 
-Diesen verwendet man, um mit Nachrichten umzugehen, bei denen nur eine sehr niedrige Confidence vorhergesagt wurde.
+Dieser wird verwendet, um mit Nachrichten umzugehen, bei denen nur eine sehr niedrige Confidence vorhergesagt wurde.
 In diesem Fall wird dann ein Intent mit dem Namen \texttt{nlu\_fallback} vorhergesagt, welchen man dann behandeln kann, indem man beispielsweise als Antwort immer definiert, dass der User seine Nachricht neu formulieren soll.
-Die Confidence wird hierbei auf den Wert gesetzt welcher im Threshold angegeben wird.\cite{fallbackClassifier, nluFallback}
-Man kann außerdem einen sogenannten \texttt{ambiguity\_threshold} angeben.
-Bei diesem wird der \texttt{nlu\_fallback} Intent vorhergesagt, wenn die zwei als wahrscheinlichst empfundenen Intents sich um weniger, als den ambiguity\_threshold in der Confidence unterscheiden.\cite{fallbackClassifier}
+Die Confidence wird hierbei auf den Wert gesetzt, welcher im \texttt{Threshold} angegeben wird.\cite{fallbackClassifier, nluFallback}
+Außerdem gibt es die Option einen sogenannten \texttt{ambiguity\_threshold} anzugeben.
+Bei diesem wird der \texttt{nlu\_fallback} Intent vorhergesagt, wenn die zwei als wahrscheinlichst empfundenen Intents sich um weniger als den ambiguity\_threshold in der Confidence unterscheiden.\cite{fallbackClassifier}
 
 \begin{lstlisting}[label={lst:fallback-classifier},caption={Fallback Classifier}]{Fallback Classifier}
 pipeline:
@@ -623,7 +609,7 @@ pipeline:
 \end{lstlisting}
 
 
-\section{Welche Rolle spielen neuronale Netze in Rasa}
+\section{Welche Rolle spielen neuronale Netze in Rasa}\label{sec:neural-networks}
 \setauthor{Lukas Starka}
 
 Rasa selbst definiert 5 Stufen von AI, wie in Abbildung ~\ref{fig:5_levels_of_ai} zu sehen ist.\@.\cite{ai5Levels}
@@ -637,13 +623,13 @@ Rasa selbst definiert 5 Stufen von AI, wie in Abbildung ~\ref{fig:5_levels_of_ai
 
 \textbf{Level 1: Notifications}
 
-Auf Level 1 geht es darum simple Aufgaben zu erfüllen, wie man sie möglicherweise von seinem Smartphone kennt.
-Darunter fällt zum Beispiel das Anlegen von Terminen und anderen Benachrichtigungen, die man dann zu der eingestellten Uhrzeit bekommt.\cite{rasaMasterclass5Levels,ai5Levels,ai5LevelsVideo}
+Auf Level 1 geht es darum, simple Aufgaben zu erfüllen, wie man sie möglicherweise von seinem Smartphone kennt.
+Darunter fällt zum Beispiel das Anlegen von Terminen und anderen Benachrichtigungen, die man dann zu einer eingestellten Uhrzeit bekommt.\cite{rasaMasterclass5Levels,ai5Levels,ai5LevelsVideo}
 
 \textbf{Level 2: "Chatbots" \& FAQs}
 
-Auf Level 2 geht es darum, dass der Benutzer einfache Fragen stellen kann und anschließend der Chatbot auf diese antwortet.
-Diese Stufe findet man sehr oft, allerdings sind diese sehr fehleranfällig, weil hier nur eine Menge an Regeln angelegt wird, an die sich der Chatbot hält.
+Auf Level 2 geht es darum, dass die Benutzerin oder der Benutzer einfache Fragen stellen kann und anschließend der Chatbot auf diese antwortet.
+Diese Art von Chatbots findet man sehr oft, allerdings sind diese sehr fehleranfällig, weil hier nur eine Menge an Regeln angelegt wird, an die sich der Chatbot hält.
 Dies wird sehr oft in Form von FAQs genutzt und auch ein paar kleine Follow-up Fragen können hierbei schon definiert sein.\cite{rasaMasterclass5Levels,ai5Levels,ai5LevelsVideo}
 
 \textbf{Level 3: Contextual AI Assistants}
@@ -651,14 +637,13 @@ Dies wird sehr oft in Form von FAQs genutzt und auch ein paar kleine Follow-up F
 Dieses Level wird derzeit von Rasa unterstützt.
 Zusätzlich zu normalen FAQs wird hierbei auch der Kontext beachtet.
 Es macht nämlich einen Unterschied, wann, wie und in welcher Situation ein Benutzer etwas gesagt hat.
-Bei Contextual Assistants wird der Kontext, also was bereits zuvor gesagt wurde, auch beachtet.
+Bei Contextual Assistants wird der Kontext also was bereits zuvor gesagt wurde, auch beachtet.
 Außerdem lenken sie Konversationen in die gewünschte Richtung und werden mit der Zeit immer besser, wenn man sie trainiert.\cite{rasaMasterclass5Levels,ai5Levels,ai5LevelsVideo}
 
-
-\section{Komponenten}
+\section{Komponenten}\label{sec:components}
 \setauthor{Lukas Starka}
 
-In der sogenannten Domain werden alle Intents, Entities, Slots, Responses, Forms und Actions angegeben, die der Bot kennt.
+In der sogenannten Domain werden alle Intents ~\ref{subsec:Intents}, Entities ~\ref{subsection:entities}, Slots ~\ref{subsec:slots}, Responses ~\ref{subsec:Responses}, Forms ~\ref{subsection:forms} und Actions ~\ref{subsec:actions} angegeben, die der Bot kennt.
 Diese ganzen Informationen befinden sich in der \textbf{domain.yml} Datei.\cite{domain}
 
 \subsection{Intents}\label{subsec:Intents}
@@ -667,7 +652,7 @@ Diese ganzen Informationen befinden sich in der \textbf{domain.yml} Datei.\cite{
 Intents sind die Absichten hinter der Nachricht des Benutzers.
 Als Intents werden also alle möglichen Beispielsätze definiert, die ein Benutzer sagen könnte, um eine bestimmte Absicht auszudrücken.\cite{intents}
 
-Intents werden in dem \textbf{nlu.yml} File wie folgt angegeben:
+Intents werden in dem \textbf{nlu.yml} File wie in Listing ~\ref{lst:intent-example} angegeben:
 
 \begin{lstlisting}[label={lst:intent-example},caption={Intents Beispiel}]{Intents Beispiel}
 ## intent:<name des intents>
@@ -676,12 +661,12 @@ Intents werden in dem \textbf{nlu.yml} File wie folgt angegeben:
 - <phrase 3>
 \end{lstlisting}
 
-\subsection{Responses}
+\subsection{Responses}\label{subsec:Responses}
 \setauthor{Lukas Starka}
 
 Responses sind die Antworten, die vom Bot gegeben werden, wenn ein bestimmter Intent erkannt wurde.\cite{responses}
 
-Responses fügt man in seinem \textbf{domain.yml} File wie folgt ein:
+Responses fügt man in der \textbf{domain.yml} Datei in der Form, wie in Listing ~\ref{lst:responses-example} gezeigt, ein.
 
 \begin{lstlisting}[label={lst:responses-example},caption={Responses Beispiel}]{Responses Beispiel}
 responses:
@@ -710,16 +695,16 @@ utter_chitchat/what_are_you_doing:
           payload: "Wie spät ist es?"
 \end{lstlisting}
 
-\subsection{Stories}
+\subsection{Stories}\label{subsec:Stories}
 \setauthor{Lukas Starka}
 
-Stories werden als Trainingsdaten verwendet, die zum Trainieren des Models des Bots verwendet werden.
-Stories können dabei genutzt werden, um Models zu trainieren, bei denen auch unvorhersehbare Konversationspfade behandelt werden und unterscheiden sich in dieser Hinsicht von den Rules.\cite{stories}
+Stories werden als Trainingsdaten verwendet, die zum Trainieren des Modells des Bots verwendet werden.
+Stories können dabei genutzt werden, um Modelle zu trainieren, bei denen auch unvorhersehbare Konversationspfade behandelt werden und die sich unterscheiden von den Rules ~\ref{subsec:Rules}.\cite{stories}
 
 Bei einer Story wird also die Unterhaltung zwischen einem Benutzer und dem Bot dargestellt.
-Dabei wird die Eingabe des Benutzers als Intent angegeben und die Antwort, mit der der Bot antworten soll, als Name der Action.\cite{stories}
+Dabei wird die Eingabe des Benutzers als Intent ~\ref{subsec:Intents} angegeben und die Antwort, mit der der Bot antworten soll, als Name der Action ~\ref{subsec:actions}.\cite{stories}
 
-Stories können wie folgt aussehen und sind im \textbf{stories.yml} File anzugeben:
+Stories können wie in ~\ref{lst:stories-example} aufgezeigt aussehen und sind im \textbf{stories.yml} File anzugeben:
 
 \begin{lstlisting}[label={lst:stories-example},caption={Stories Beispiel}]{Stories Beispiel}
 stories:
@@ -741,18 +726,18 @@ stories:
       - action: utter_happy
 \end{lstlisting}
 
-\subsubsection{Checkpoints und OR-Statements}
+\subsubsection{Checkpoints und OR-Statements}\label{subsubsec:Checkpoints}
 
-Man kann seine Stories außerdem mit Checkpoints und OR-Statements versehen.
-Bei diesen sollte man aber grundsätzlich aufpassen und sie nur bedacht verwenden, weil in den meisten Fällen die gewünschten Resultate besser mit \textbf{Rules} oder einem \textbf{ResponseSelector} zu erzielen sind.\cite{checkpointsor}
+Stories können außerdem mit Checkpoints und OR-Statements versehen werden.
+Bei diesen sollte aber grundsätzlich aufgepasst werden und diese sollten nur bedacht verwendet werden, weil in den meisten Fällen die gewünschten Resultate besser mit \textbf{Rules} ~\ref{subsec:Rules} oder einem \textbf{ResponseSelector} ~\ref{subsec:response-selector} zu erzielen sind.\cite{checkpointsor}
 
-Checkpoints können genutzt werden, um seine Trainingsdaten zu vereinfachen, indem man einen Checkpoint in einer Story setzt und auf diesen in einer anderen Story wieder ansetzt.
+Checkpoints können genutzt werden, um seine Trainingsdaten zu vereinfachen, indem ein Checkpoint in einer Story gesetzt wird und auf diesen in einer anderen Story wieder angesetzt wird.
 Von diesen sollte man allerdings nicht zu viele machen, weil sonst die Stories sehr leicht schwer zu lesen und unübersichtlich sind und außerdem die Trainingszeit dadurch erhöht wird.\cite{checkpoints}
 
-Man definiert einen Checkpoint am Ende seiner Story, wenn man diesen Teil der Story auch wieder als Voraussetzung für eine weitere Story setzt.
-In der nächsten Story beginnt man dann mit seinem Checkpoint, also dem Punkt auf den man anknüpfen möchte und die Teile der Konversation, die für diese Story ebenfalls vorausgesetzt werden sollen.
+Ein Checkpoint wird am Ende der Story definiert, wenn dieser Teil der Story auch wieder als Voraussetzung für eine weitere Story gesetzt sein soll.
+In der nächsten Story wird dann mit dem Checkpoint, also dem Punkt, auf den angeknüpft wird, begonnen.
 
-Im folgenden Beispiel werden Checkpoints von Stories verwendet, um an anderen Stories anzuknüpfen\cite{checkpoints}:
+In Listing ~\ref{lst:checkpoints-example} werden Checkpoints von Stories verwendet, um an anderen Stories anzuknüpfen\cite{checkpoints}:
 
 \begin{lstlisting}[label={lst:checkpoints-example},caption={Checkpoints Beispiel}]{Checkpoint Beispiel}
 stories:
@@ -785,7 +770,7 @@ stories:
 
 OR-Statements können dafür verwendet werden, wenn man auf mehrere Intents innerhalb einer Story gleich reagieren möchte.\cite{orStatements}
 
-Man schreibt also anstelle von einem Intent in der Story ein \textbf{or} und gibt darunter alle Intents an, von denen einer eintreffen muss, damit die Story zutrifft.
+Hierbei wird also anstelle von einem Intent in der Story ein \textbf{or} geschrieben und darunter werden alle Intents angegeben, von denen einer eintreffen muss, damit die Story zutrifft.
 
 \begin{lstlisting}[label={lst:or-example},caption={OR Beispiel}]{OR Beispiel}
 stories:
@@ -799,14 +784,14 @@ stories:
   - action: action_handle_affirmation
 \end{lstlisting}
 
-\subsection{Rules}
+\subsection{Rules}\label{subsec:Rules}
 \setauthor{Lukas Starka}
 
-Rules werden angegeben, um kleine Teile von Unterhaltungen anzugeben, die immer wieder gleich behandelt werden sollen.
-Diese sollten allerdings nicht allzu häufig verwendet werden, weil man nie alle Konversationen vorhersagen kann.
-Um Rules verwenden zu können, muss man die \textbf{RulePolicy} in der Policy Konfiguration eintragen.\cite{rules}
+Rules werden angegeben, um kleine Teile von Unterhaltungen anzugeben, die immer wieder gleichbehandelt werden sollen.
+Diese sollten allerdings nicht allzu häufig verwendet werden, weil nie alle Konversationen vorhergesagt werden können.
+Um Rules verwenden zu können, muss die \textbf{RulePolicy} in der Policy Konfiguration eingetragen sein.\cite{rules}
 
-Um eine Rule zu verwenden, schreibt man folgendes in sein \textbf{rules.yml} File:
+Eine Rule wird wie in Listing ~\ref{lst:rules-example} beschrieben in der Datei \texttt{rules.yml} angegeben.
 
 \begin{lstlisting}[label={lst:rules-example},caption={Rules Beispiel}]{Rules Beispiel}
 rules:
@@ -817,11 +802,11 @@ rules:
   - action: utter_greet
 \end{lstlisting}
 
-\subsection{Slots}
+\subsection{Slots}\label{subsec:slots}
 \setauthor{Lukas Starka}
 
 Slots sind sozusagen das Gedächtnis des Bots.
-Diese sind als key-value Paare dargestellt und können dazu verwendet werden, damit Information, die der Benutzer bereitstellt, gespeichert werden können, ähnlich zu Entities.
+Diese sind als Key-Value-Paare dargestellt und können dazu verwendet werden, damit Information, die der Benutzer bereitstellt, gespeichert werden können, ähnlich zu Entities.
 Diese Informationen können beispielsweise der Name des Benutzers sein oder Informationen, die für den generellen Kontext des Gesprächs wichtig sind.\cite{slots}
 
 \begin{lstlisting}[label={lst:slots-example},caption={Slots Beispiel}]{Slots Beispiel}
@@ -845,7 +830,7 @@ slots:
 Entities sind strukturierte Stücke von Informationen, die sich innerhalb der Nachricht eines Benutzers befinden.
 Solche Entities können beispielsweise ein Ort, ein Beruf oder ein Name sein.\cite{entities}
 
-Um Entities zu erstellen schreibt man folgendes in sein \textbf{domain.yml} File:
+Entities werden wie in Listing ~\ref{lst:entities-domain-example} in der Datei \texttt{domain.yml} angegeben.
 
 \begin{lstlisting}[label={lst:entities-domain-example},caption={Entities in der Domain}]{Entities in der Domain}
 entities:
@@ -864,31 +849,30 @@ entities:
 \end{lstlisting}
 
 Diese Entities müssen dann noch in den Intents angegeben werden, in denen sie vorkommen sollen.
-Dies macht man, indem man folgende Syntax bei den Trainingssätzen im \textbf{nlu.yml} File verwendet und ergänzt:
+Dies wird dadurch erreicht, dass folgende Syntax von Listing ~\ref{lst:entities-nlu-example} bei den Trainingssätzen im \textbf{nlu.yml} File ergänzt wird.
 
 \begin{lstlisting}[label={lst:entities-nlu-example},caption={Entities Beispiel}]{Entities Beispiel}
 Hallo mein Name ist [Lukas](name).
 Ich hätte gerne eine [kleine](size) [Pizza](meal)
 \end{lstlisting}
 
-\subsubsection{Entity Roles}
+\subsubsection{Entity Roles}\label{subsubsec:entity-roles}
 
 Entity Roles können sinnvoll in manchen Szenarien sein.
-Zum Beispiel bei folgendem Satz:
 
 \begin{lstlisting}[label={lst:entity-roles-example},caption={Entity Roles Beispiel}]{Entity Roles Beispiel}
 Buche einen Flug von [Linz](city) nach [London](city).
 \end{lstlisting}
 
-In diesem Fall sind sowohl Linz als auch London zwar richtig gekennzeichnet als city Entity, allerdings reicht diese Information noch nicht aus, damit der Chatbot richtig reagieren kann.
-Hierbei wäre es praktisch, wenn man noch angibt, welche dieser zwei Städte das Ziel und welche der Abflugsort ist.
-Dies macht man mit Entity Roles.\cite{entityRolesGroups}
+In dem Fall von ~\ref{lst:entity-roles-example} sind sowohl Linz als auch London zwar richtig gekennzeichnet als Entity mit dem Namen \texttt{city}, allerdings reicht diese Information noch nicht aus, damit der Chatbot richtig reagieren kann.
+Hierbei wäre es praktisch, wenn noch angegeben wird, welche dieser zwei Städte das Ziel und welche der Abflugort ist.
+Dies wird mit Entity Roles erreicht.\cite{entityRolesGroups}
 
-\subsubsection{Entity Groups}
+\subsubsection{Entity Groups}\label{subsubsec:entity-groups}
 
-Entity Groups können genutzt werden, wenn man Entities miteinander gruppieren möchte.\cite{entityRolesGroups}
+Entity Groups können genutzt werden, wenn Entities miteinander gruppiert werden sollen.\cite{entityRolesGroups}
 
-Dies kann zum Beispiel hier sinnvoll sein:
+Im Beispiel von ~\ref{lst:entity-groups-example} kann dies von Vorteil sein.
 
 \begin{lstlisting}[label={lst:entity-groups-example},caption={Entity Groups Beispiel}]{Entity Groups Beispiel}
 Ich hätte gerne eine kleine [Pizza](meal) mit [Pilzen](topping) und eine [Salami](topping) [Pizza](meal).
@@ -902,16 +886,16 @@ Group 1: [Pizza](meal) [Pilzen](topping)
 Group 2: [Salami](topping) [Pizza](meal)
 \end{lstlisting}
 
-Um Entity Groups oder Entity Roles nutzen zu können muss in der Pipeline entweder der CRFEntityExtractor ~\ref{subsec:crfentityextractor} oder der DIETClassifier ~\ref{subsec:dietclassifier} verwendet werden.
+Um Entity Groups oder Entity Roles nutzen zu können, muss in der Pipeline entweder der CRFEntityExtractor ~\ref{subsec:crfentityextractor} oder der DIETClassifier ~\ref{subsec:dietclassifier} verwendet werden.
 Diese sind die einzigen Entity Extraktoren, die Role und Group Labels erkennen können.\cite{entityRolesGroups}
 
-\subsection{Forms}
+\subsection{Forms}\label{subsection:forms}
 \setauthor{Lukas Starka}
 
 Um mehrere Informationen von einem Benutzer zu bekommen, eignen sich Forms.
 Um Forms zu verwenden, muss die \textbf{RulePolicy} in der Policy Konfiguration eingetragen sein.\cite{forms}
 
-Wenn man ein Formular hinzuzufügen will, muss man dies in der forms Section in dem \textbf{domain.yml} File angeben.
+Wenn ein Formular hinzugefügt werden soll, muss dies in der forms Sektion in dem \textbf{domain.yml} File angegeben sein.
 
 \begin{lstlisting}[label={lst:forms-example},caption={Forms Beispiel}]{Forms Beispiel}
 forms:
@@ -925,13 +909,13 @@ forms:
             entity: number
 \end{lstlisting}
 
-\subsection{Synonyms}
+\subsection{Synonyms}\label{subsection:synonyms}
 \setauthor{Lukas Starka}
 
-Mithilfe von Synonymen kann man extrahierten Entities einen anderen Wert geben, als sie eigentlich vorher hatten, wenn diese in der Bedeutung gleich sind.
-Wenn man also mit verschiedenen Wörtern dasselbe meint, kann man sich Synonyms zur Hilfe nehmen.\cite{synonyms}
+Mithilfe von Synonymen können extrahierten Entities einen anderen Wert annehmen, als sie eigentlich vorher hatten, wenn diese in der Bedeutung gleich sind.
+Wenn also mit verschiedenen Wörtern dasselbe gemeint ist, können Synonyme zur Hilfe genommen werden.\cite{synonyms}
 
-Ein Beispiel dafür wäre folgendes im \textbf{nlu.yml} File:
+Ein Beispiel dafür wäre ~\ref{lst:synonym-example} im \textbf{nlu.yml} File.
 
 \begin{lstlisting}[label={lst:synonym-example},caption={Synonym Beispiel}]{Synonym Beispiel}
 - synonym: Medientechnik
@@ -941,26 +925,26 @@ Ein Beispiel dafür wäre folgendes im \textbf{nlu.yml} File:
     - Medientechnologie
 \end{lstlisting}
 
-\subsection{Actions}
+\subsection{Actions}\label{subsec:actions}
 \setauthor{Lukas Starka}
 
 Es gibt 2 verschiedene Arten von Messages:
 
 \begin{enumerate}
     \item \textbf{Static Messages}: Diese sind unabhängig vom User Input und benötigen keinen Action Server\cite{actionsVid}
-    \item \textbf{Dynamic Messages}: Diese sind abhängig vom User Input und benötigen einen Action Server\cite{actionsVid}
+    \item \textbf{Dynamic Messages}: Diese sind abhängig vom User Input und benötigen einen Action Server ~\ref{subsec:custom-actions}\cite{actionsVid}
 \end{enumerate}
 
-Der Rasa Action Server führt sogenannte Custom Actions für einen Rasa Open Source Conversation assistent aus.
+Der Rasa Action Server führt sogenannte Custom Actions ~\ref{subsec:custom-actions} für einen Rasa Open Source Conversation Assistent aus.
 
-Wenn der Assistant eine gewisse Custom Action vorhersagt, sendet der Rasa Server einen POST request an den Actionserver mit einer JSON Payload mit dem Namen der vorhergesagten Action, der Conversation ID, den Inhalten des Trackers und den Inhalten der Domain.\cite{actions}
+Wenn der Assistant eine gewisse Custom Action vorhersagt, sendet der Rasa Server einen POST-Request an den Actionserver mit einer JSON Payload mit dem Namen der vorhergesagten Action, der Conversation ID, den Inhalten des Trackers und den Inhalten der Domain.\cite{actions}
 
-\subsection{Custom Actions}
+\subsection{Custom Actions}\label{subsec:custom-actions}
 \setauthor{Lukas Starka}
 
-Neben normalen Responses kann man auch Custom Actions definieren.
-Diese sind in Python zu schreiben und dabei kann man seinen eigenen Code für Berechnungen oder dergleichen verwenden.
-Hierbei muss man eine Klasse implementieren, die Kind der Klasse \texttt{Action} ist und eine Methode \texttt{name} und \texttt{run} besitzt.
+Neben normalen Responses können auch Custom Actions definiert werden.
+Diese sind in Python zu schreiben und dabei kann eigener Code für Berechnungen oder dergleichen verwendet werden.
+Hierbei muss eine Klasse implementiert werden, die Kind der Klasse \texttt{Action} ist und eine Methode \texttt{name} und \texttt{run} besitzt.
 Eine Custom Action wird beim Leobot beispielsweise für die Ausgabe des aktuellen Datums genutzt, wie bei Listing ~\ref{lst:custom-date-action} zu sehen ist.
 
 \begin{lstlisting}[label={lst:custom-date-action},caption={Custom Action für die Ausgabe des aktuellen Datums}]{Custom Action}
@@ -984,27 +968,27 @@ class ActionWhatDateIsIt(Action):
         return []
 \end{lstlisting}
 
-Nun muss man die Custom Actions in seiner \textbf{domain.yml} Datei definieren, wie in ~\ref{lst:domain-custom-action}.
+Nun muss die Custom Action in der \textbf{domain.yml} Datei definiert werden, wie in Listing ~\ref{lst:domain-custom-action} zu sehen ist.
 
 \begin{lstlisting}[label={lst:domain-custom-action},caption={Custom Actions in Domain definiert}]{Custom Action Domain}
 actions:
   - action_what_date_is_it
 \end{lstlisting}
 
-\section{Initialisieren}
+\section{Initialisieren}\label{section:initialize}
 \setauthor{Lukas Starka}
 
-\subsection{Rasa Init}
+\subsection{Rasa Init}\label{subsec:rasa-init}
 \setauthor{Lukas Starka}
 
-Einen neuen Rasa Assistant kann man mithilfe des Init-Befehls in der Konsole anlegen.
-Der Befehl dafür lautet wie in Listing ~\ref{lst:init-example} zu sehen ist.
+Ein neuer Rasa Assistant kann mithilfe des Init-Befehls in der Konsole erstellt werden.
+Der Befehl dafür lautet, wie in Listing ~\ref{lst:init-example} zu sehen ist.
 
 \begin{lstlisting}[language=bash,label={lst:init-example},caption={Befehl fürs Initialisieren}]{Rasa Init Befehl}
 rasa init
 \end{lstlisting}
 
-Bei diesem Befehl wird man gefragt, ob man direkt ein voreingestelltes Model trainieren möchte.
+Bei diesem Befehl wird man gefragt, ob man direkt ein voreingestelltes Modell trainieren möchte.
 Dieses Modell wird basierend auf den Demodaten, die von jedem neu erstellten Rasa Projekt zur Verfügung gestellt werden, trainiert.
 
 \begin{figure}[hbt!]
@@ -1014,7 +998,7 @@ Dieses Modell wird basierend auf den Demodaten, die von jedem neu erstellten Ras
     \label{fig:rasa_init}
 \end{figure}
 
-Nachdem dieser Befehl ausgeführt wurde, bekommt man folgende Files, die für einen Chatbot benötigt werden.
+Nachdem dieser Befehl ausgeführt wurde, wird eine Struktur, wie in Abbildung ~\ref{fig:file_tree} erzeugt.
 
 \begin{figure}[hbt!]
     \centering
@@ -1024,21 +1008,22 @@ Nachdem dieser Befehl ausgeführt wurde, bekommt man folgende Files, die für ei
 \end{figure}
 
 
-\section{Trainieren}
+\section{Trainieren}\label{section:train}
 \setauthor{Lukas Starka}
 
-\subsection{Rasa Train}
+\subsection{Rasa Train}\label{subsec:rasa-train}
 \setauthor{Lukas Starka}
 
-Um das Modell nun zu trainieren, nützt man den \texttt{Rasa train} Befehl.
-Dabei werden nur die Komponenten (Core oder NLU) trainiert, die sich auch geändert haben im Vergleich zu dem letzten Modell.
-Man kann aber auch selbstständig angeben, dass man nur \texttt{core} oder \texttt{nlu} trainieren möchte.
+Um das Modell nun zu trainieren, wird der \texttt{Rasa train} Befehl benützt.
+Dabei werden nur die Komponenten (Core ~\ref{subsec:rasa-core} oder NLU ~\ref{subsec:rasa-nlu}) trainiert, die sich auch geändert haben im Vergleich zu dem letzten Modell.
+Es kann aber auch selbstständig angeben werden, dass nur \texttt{core} oder \texttt{nlu} trainieren werden soll.
 Nach dem Trainieren wird das Modell in den Pfad gespeichert, der beim \texttt{--out} definiert wurde und standardmäßig \texttt{/models} ist.
-Dabei wird als Modellname der aktuelle Zeitstempel gewählt, außer man verwendet die \texttt{--fixed-model-name} Flag.
-Wenn man andere Pipelines oder Policies verwenden möchte, kann man auch ein anderes config-File, in dem diese gespeichert sind, angeben, indem man \texttt{-c} schreibt.
-Ab Rasa 2.2 hat man außerdem die Möglichkeit eine Feinabstimmung an einem bereits bestehenden Modell vorzunehmen.
+Dabei wird als Modellname der aktuelle Zeitstempel gewählt, außer es wird die \texttt{--fixed-model-name} Flag verwendet.
+Wenn andere Pipelines oder Policies verwendet werden sollen, kann auch ein anderes config-File angegeben werden, in dem diese gespeichert sind.
+Dies wird mit \texttt{-c} erreicht.
+Ab Rasa 2.2 gibt es außerdem die Möglichkeit eine Feinabstimmung an einem bereits bestehenden Modell vorzunehmen.
 Dies macht man, wenn man neue Trainingsdaten bei bereits bestehenden Intents hinzugefügt hat.
-Hierbei ergibt sich eine viel kürzere Trainingszeit, als wenn das Modell nochmal von vorne trainiert würde und man gibt dabei den Pfad zum Modell an, wenn man nicht, wie standardmäßig definiert, das neueste trainieren möchte.\cite{rasaTrain}
+Hierbei ergibt sich eine viel kürzere Trainingszeit, als wenn das Modell noch einmal von vorne trainiert würde und dabei wird der Pfad zum Modell angegeben, wenn nicht, wie standardmäßig definiert, das neueste trainiert werden soll.\cite{rasaTrain}
 
 \begin{lstlisting}[language=bash,label={lst:rasa-train},caption={Rasa Train Befehle}]{Rasa Train}
 rasa train
@@ -1051,15 +1036,15 @@ rasa train --finetune models/20220211-094939.tar.gz #Finetune eines bestehenden 
 \end{lstlisting}
 
 
-\section{Interagieren}
+\section{Interagieren}\label{sec:interact}
 \setauthor{Lukas Starka}
 
-\subsection{Rasa Shell}
+\subsection{Rasa Shell}\label{subsec:rasa-shell}
 \setauthor{Lukas Starka}
 
-Wenn man sich nun mit seinem Bot unterhalten möchte, kann man eine Chat Session über die Konsole mit dem \texttt{rasa train} Befehl.
+Wenn man sich nun mit seinem Bot unterhalten möchte, kann man eine ChatSession über die Konsole mit dem \texttt{rasa train} Befehl.
 Normalerweise wird dabei das aktuellste Modell genommen.
-Sollte man dies allerdings nicht wollen, kann man mit \texttt{--model} auch den Pfad zum richtigen Modell angeben.
+Allerdings kann auch mit der \texttt{--model} Flag auch der Pfad zum richtigen Modell angegeben werden.
 
 \begin{lstlisting}[language=bash,label={lst:shell-command},caption={Rasa Shell Befehle}]{Rasa Shell}
 rasa shell
@@ -1067,8 +1052,8 @@ rasa shell --model models/20220211-094939.tar.gz #Das Modell, das verwendet werd
 rasa shell --debug #Debug-Modus aktivieren
 \end{lstlisting}
 
-Für detailliertere Ausgaben kann man außerdem das \texttt{--debug} Flag verwenden.
-Die Ausgabe dabei sieht wie in Abbildung~\ref{fig:rasa_shell} aus:
+Für detailliertere Ausgaben kann außerdem die \texttt{--debug} Flag verwendet werden.
+Die Ausgabe dabei sieht wie in Abbildung ~\ref{fig:rasa_shell} aus:
 
 \begin{figure}[hbt!]
     \centering
@@ -1077,13 +1062,13 @@ Die Ausgabe dabei sieht wie in Abbildung~\ref{fig:rasa_shell} aus:
     \label{fig:rasa_shell}
 \end{figure}
 
-\subsection{Rasa Interactive}
+\subsection{Rasa Interactive}\label{subsec:rasa-interactive}
 \setauthor{Lukas Starka}
 
-Um eine interaktive Session mit dem Bot zu starten, kann man den Befehl \texttt{rasa interactive} nutzen.
+Um eine interaktive Session mit dem Bot zu starten, kann der Befehl \texttt{rasa interactive} genutzt werden.
 Dabei wird zunächst ein Modell trainiert und anschließend startet eine interaktive Shell Session.
-Dabei kann man dann alle vorhergesagten Aktionen vom Assistant korrigieren.
-Wenn man nur das Core Model testen möchte, kann man dies spezifizieren.
+Dabei hat die Benutzerin oder der Benutzer die Möglichkeit, alle vorhergesagten Aktionen vom Assistant zu korrigieren.
+Wenn nur das Core Model getestet werden soll, kann dies spezifiziert werden.
 
 \begin{lstlisting}[language=bash,label={lst:interactive-command},caption={Interaktive Trainingssession starten}]{Rasa Interactive}
 rasa interactive
@@ -1091,7 +1076,7 @@ rasa interactive --model models/20220211-094939.tar.gz #Das Modell, das verwende
 rasa interactive core #Interaktive Session für das Core Modell starten
 \end{lstlisting}
 
-Bei dieser Trainingssession hat man die Möglichkeit jedes Mal anzugeben, ob der vorhergesagte Intent und die daraus resultierende Antwort die richtige sind.
+Bei dieser Trainingssession hat man die Möglichkeit, jedes Mal anzugeben, ob der vorhergesagte Intent und die daraus resultierende Antwort die Richtige sind.
 Außerdem wird die gesamte Chat History visualisiert und ausgegeben, wie in Abbildung ~\ref{fig:rasa_interactive} zu sehen ist.
 
 \begin{figure}[hbt!]

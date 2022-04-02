@@ -1,7 +1,7 @@
-\section{Text Analysis}
+\section{Text Analysis}\label{sec:text-analysis}
 \setauthor{Lukas Starka}
 
-\subsection{Text analysis vs. Text Mining vs. Text Analytics}
+\subsection{Text analysis vs. Text Mining vs. Text Analytics}\label{subsec:text-analysis-vs-text-mining-vs-text-analytics}
 \setauthor{Lukas Starka}
 
 Meistens werden die Begriffe Text Analysis und Text Mining im selben Zusammenhang verwendet.
@@ -18,14 +18,14 @@ Es können also dann Informationen herausgefiltert werden, wie beispielsweise, o
 Auf der anderen Seite werden bei Text Analytics verschiedene Muster aus einer großen Menge an Nachrichten herausgefiltert, welche dann in Graphen, Tabellen oder Berichten gezeigt werden können.
 Bei Text Analytics geht es also darum, Muster und Entwicklungen von numerischen Ergebnissen herauszufinden, bei denen dann Informationen herausgefiltert werden können, wie beispielsweise die Prozentzahl der positiven Bewertungen.\cite{textAnalysisMonkeylearn, machineLearningTextAnalysis}
 
-\subsection{Warum Text Analysis?}
+\subsection{Warum Text Analysis?}\label{subsec:why-text-analysis}
 \setauthor{Lukas Starka}
 
 Im Gegensatz zum manuellen Aufbereiten von Texten kann man durch Machine Learning Texte rund um die Uhr und zur Echtzeit bearbeiten.
 Zusätzlich werden durch die Verwendung von Text Analysis Arbeitskräfte, die für das Aufbereiten der Texte und deren Bedeutung verantwortlich wären, eingespart.
 Durch Algorithmen werden außerdem Fehler reduziert, die bei manuellem Bearbeiten leicht auftreten können und Daten können genauer aufbereitet werden.\cite{textAnalysisMonkeylearn}
 
-\subsection{Machine Learning mit Text Analysis}
+\subsection{Machine Learning mit Text Analysis}\label{subsec:machine-learning-with-text-analysis}
 \setauthor{Lukas Starka}
 
 Ein Text Analysis Tool besteht grundsätzlich aus drei verschiedenen Schritten.
@@ -40,21 +40,21 @@ Ein Text Analysis Tool besteht grundsätzlich aus drei verschiedenen Schritten.
     Diesen kann man entweder komplett selber implementieren oder man nimmt sich Libraries zur Hilfe.\cite{machineLearningTextAnalysis}
 \end{enumerate}
 
-\section{Natural Language Processing (NLP)}\label{subsec:natural-language-processing}
+\section{Natural Language Processing (NLP)}\label{sec:natural-language-processing}
 \setauthor{Lukas Starka}
 
 Natural Language Processing, oft auch als Akronym \textbf{NLP} abgekürzt, sorgt dafür, dass Computer Text auf dieselbe Art und Weise verstehen, wie wir es als Menschen tun.
 NLP vereint dabei die Modellierung der menschlichen Sprache mit statistischen Machine Learning und Deep Learning Modellen.
 Dies ermöglicht der Maschine, die menschliche Sprache in Form von Text- oder Sprachdaten zu verarbeiten und sozusagen die komplette Bedeutung und Absicht der Benutzerin oder des Benutzers zu verstehen.\cite{naturalLanguageProcessingIBM}
 
-\subsection{Corpus}
+\subsection{Corpus}\label{subsec:corpus}
 \setauthor{Lukas Starka}
 
 Unter dem Corpus werden die Daten bezeichnet, die verwendet werden, um das NLP Modell zu trainieren, damit dieses Modell menschliche Sprache versteht und damit arbeiten kann.
 Der Textkorpus ist also eine Menge von strukturierten Texten, die für den Computer lesbar sind.\cite{corpus}
 
 
-\subsection{Tokenization}
+\subsection{Tokenization}\label{subsec:tokenization}
 \setauthor{Lukas Starka}
 
 Bei der Tokenization repräsentiert jeder Token eine sinnvolle Einheit.
@@ -91,7 +91,7 @@ In dem Beispiel ~\ref{lst:tokenization} wirkt es womöglich so, als könnte man 
 8: "
 \end{lstlisting}
 
-\subsection{Part-of-speech-Tagging (POS-Tagging)}
+\subsection{Part-of-speech-Tagging (POS-Tagging)}\label{subsec:pos-tagging}
 \setauthor{Lukas Starka}
 
 Beim Part-of-speech-Tagging geht es um das Zuordnen von Wörtern mit deren zugehörigem Teil der Sprache.
@@ -114,10 +114,10 @@ the: Article
 U.K.: Noun
 \end{lstlisting}
 
-\subsection{Named-entity recognition (NER)}
+\subsection{Named-entity recognition (NER)}\label{subsec:ner}
 \setauthor{Lukas Starka}
 
-Named-entity recognition ist eine der wichtigsten Säulen von Natural Language Processing ~\ref{subsec:natural-language-processing}.
+Named-entity recognition ist eine der wichtigsten Säulen von Natural Language Processing ~\ref{sec:natural-language-processing}.
 Entities sind strukturierte Stücke von Informationen, die sich innerhalb der Nachricht einer Benutzerin oder eines Benutzers befinden.
 Dabei werden Entities aus Texten erkannt und anschließend mit einem Tag der zugehörigen Kategorie versehen.\cite{namedEntityRecognition}
 
@@ -173,7 +173,7 @@ mag ---> mögen
 
 \end{lstlisting}
 
-\subsection{Parsing}
+\subsection{Parsing}\label{subsec:parsing}
 \setauthor{Lukas Starka}
 
 Parsing ist eine Art, um einen Satz auseinanderzuteilen, um die Struktur des Satzes besser zu verstehen.
@@ -242,7 +242,7 @@ Der Textbaustein \texttt{I} wurde als Substantiv (NP) erkannt und \texttt{saw a 
 Darunter sind die Regeln angeführt, die dazu führten, dass hierbei erkannt wurde, dass es sich um eine Nominalphrase und eine Verbalphrase handelt.
 Diese Regeln werden durch die Grammatik der Sprache erstellt und so sagt beispielsweise die Regel \texttt{S → NPVP} aus, dass ein ganzer Satz (S) durch eine Nominalphrase (NP) und eine Verbalphrase (VP) entsteht.\cite{dependencyVsConstituencyParsing}
 
-\subsection{Stopwords}
+\subsection{Stopwords}\label{subsec:stopwords}
 \setauthor{Lukas Starka}
 
 Unter Stopwords oder Stoppwörtern werden Wörter verstanden, die häufig in einem Satz vorkommen, aber nicht wirklich zum Informationsgehalt des Textes beitragen.
@@ -266,7 +266,7 @@ Deutsche Stoppwörter sind zum Beispiel:\cite{germanStopwords}
     \item dürfen
 \end{itemize}
 
-\subsection{Vectorization}
+\subsection{Vectorization}\label{subsec:vectorization}
 \setauthor{Lukas Starka}
 
 Durch Machine Learning können Systeme basierend auf vorherigen Eingaben und Mustern Dinge voraussagen.
@@ -274,10 +274,10 @@ Diese Systeme benötigen allerdings Trainingsdaten, um ihre Präzision dabei zu 
 Wenn nun also ein System trainiert werden soll, wird eine Darstellungsform, die auch von Maschinen verstanden werden kann, benötigt.
 Hierbei kommen nun Vektoren zum Einsatz, weil das System dadurch die wichtigsten Informationen extrahieren und daraus lernen kann.
 
-\subsection{Skalarprodukt}
+\subsection{Skalarprodukt}\label{subsec:scale-product}
 \setauthor{Lukas Starka}
 
-Beim Natural Language Processing ~\ref{subsec:natural-language-processing} wird sehr oft das sogenannte Skalarprodukt benötigt.
+Beim Natural Language Processing ~\ref{sec:natural-language-processing} wird sehr oft das sogenannte Skalarprodukt benötigt.
 Dieses kann auch als inneres Produkt oder Punktprodukt bezeichnet werden.
 Das Skalarprodukt ordnet zwei Vektoren eine Zahl zu.
 Ein Skalarprodukt wird wie in ~\ref{fig:dot-product} berechnet.
@@ -315,7 +315,7 @@ Um die Überlappungen von Bag of Words zu berechnen, wird das Skalarprodukt der 
 Bei diesem Skalarprodukt kommt dann immer ein Wert (Skalar) als Ergebnis heraus.
 
 
-\subsection{Bag of n-grams}
+\subsection{Bag of n-grams}\label{subsec:bag-of-ngrams}
 \setauthor{Lukas Starka}
 
 Ein Bag of n-grams ist ähnlich zu einem Bag of Words ~\ref{subsec:bag-of-words}.
@@ -338,7 +338,7 @@ Dies ist ein Bag of Words Beispiel.
 8: Beispiel <end>
 \end{lstlisting}
 
-\subsection{Term Frequency times Inverse Document Frequency (TF-IDF)}
+\subsection{Term Frequency times Inverse Document Frequency (TF-IDF)}\label{subsec:tf-idf}
 \setauthor{Lukas Starka}
 
 TF-IDF steht für Term Frequency times Inverse Document Frequency und dies ist die meist verwendete Technik, um die Vorkommen von Wörtern innerhalb eines Satzes zu zählen.
@@ -378,7 +378,7 @@ Dies bedeutet, dass dieses Wort vermutlich wichtig für die Bedeutung des Satzes
 Bei der Text Analysis mit Machine Learning werden solche TF-IDF Algorithmen verwendet, um Daten in Kategorien einzuordnen und wichtige Schlüsselwörter zu extrahieren.
 Auch Suchmaschinen wie Google verwenden diese Technologien, um aus dem Suchbegriff des Users die zentrale Aussage herauszufinden und die Suchergebnisse nach ihrer Relevanz zu sortieren.\cite{tfIdf}
 
-\subsubsection{Word Vectors}
+\subsubsection{Word Vectors}\label{subsubsec:word-vectors}
 \setauthor{Lukas Starka}
 
 Zurzeit wurde der Kontext von Wörtern in einem Satz neben dem zu analysierenden Wort ignoriert.
@@ -386,7 +386,7 @@ Tatsächlich tragen die Wortnachbarn aber viel zur Bedeutung eines Wortes bei.
 Mit Word Vectors kann man beispielsweise Synonyme (Wörter mit gleicher Bedeutung), Antonyme (Wörter mit gegenseitiger Bedeutung) oder auch Wörter, die zu derselben Kategorie zählen, erkennen.
 Word Vectors im Allgemeinen sind numerische Repräsentationen von Wortmerkmalen oder der Bedeutung von Wörtern.
 
-\subsubsection{Wofür benötigt man Word Vectors}
+\subsubsection{Wofür benötigt man Word Vectors}\label{subsubsec:why-word-vectors}
 
 Word Vectors sind hilfreich, um Wörter zu finden, welche sich aus der Bedeutung verschiedener Wörter zusammensetzen.
 Ein Beispiel dafür ist die Phrase: \texttt{Eine Frau, die in Europa im frühen 20. Jahrhundert im Bereich der Physik etwas erfunden hat.}
@@ -395,7 +395,7 @@ Sobald allerdings die korrekte Antwort definiert wurde, kann es sein, dass beim 
 Bei der Verwendung von Word Vectors ist das Prinzip dasselbe.
 Dabei kann nach einem Wort gesucht werden, welches die Begriffe \texttt{Physik}, \texttt{weiblich} oder \texttt{Europa 20. Jahrhundert}.\cite{nlpInAction}
 
-\subsection{Word2Vec}
+\subsection{Word2Vec}\label{subsec:word2vec}
 \setauthor{Lukas Starka}
 
 Word2Vec ist das berühmteste Model für Word Embedding.
@@ -438,7 +438,7 @@ In Vektorenschreibweise ist das Ergebnis dabei der Vektor der \texttt{Seattle So
 \end{figure}
 
 
-\subsection{F-Score}\label{F-Score}
+\subsection{F-Score}\label{subsec:F-Score}
 \setauthor{Lukas Starka}
 
 Der F-Score wird oft auch als F1-Score oder F-measure bezeichnet und dieser ist ein Maß für die Genauigkeit eines Tests.
@@ -471,7 +471,7 @@ Je näher der F-Score dann insgesamt bei 1 liegt, desto besser ist das Modell un
     \label{fig:precision}
 \end{figure}
 
-\subsection{NLP und NLU Tools}
+\subsection{NLP und NLU Tools}\label{subsec:NLP-NLU-Tools}
 \setauthor{Lukas Starka}
 
 Ein paar Beispiele für berühmte Tools, die für Natural Language Understanding (NLU) und Natural Language Processing (NLP) genutzt werden, sind:
@@ -495,7 +495,7 @@ Ein paar Beispiele für berühmte Tools, die für Natural Language Understanding
 \end{itemize}
 
 
-\subsection{NLP in Rasa}
+\subsection{NLP in Rasa}\label{subsec:NLP-in-Rasa}
 \setauthor{Lukas Starka}
 
 In Rasa kann man sich die verschiedenen Schritte vom Natural Language Processing ansehen, indem man sich die \hyperref[sec:pipeline]{Pipeline} ansieht.
