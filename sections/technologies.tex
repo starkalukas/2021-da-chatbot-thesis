@@ -53,7 +53,7 @@ Unser Chat Widget\ref{sec:chat-widget} und unser Dashboard\ref{sec:dashboard} wu
 \subsection{Angular Elements}\label{subsec:angular-elements}
 ''Webkomponenten sind eine Gruppe von Web-Technologien, die es ermöglichen, benutzerdefinierte, wiederverwendbare HTML Elemente zu erstellen, deren Funktionalität gekapselt ist und damit vollständig getrennt von anderem Code.''\cite{webcomponents}
 
-Um unsre Chatkomponente auf die Wordpress Seite zu bringen, wurde entschieden, dass die Komponente mithilfe von Angular Elements als Webkomponente zu exportieren um somit eine einfache einbindung auf die Schulhomepage zu ermöglichen.
+Um unsre Chatkomponente auf die Wordpress Seite zu bringen, wurde entschieden, dass die Komponente mithilfe von Angular Elements als Webkomponente exportiert wird um somit eine einfache einbindung auf die Schulhomepage zu ermöglichen.
 
 Eine Webkomponente wird in Angular Elements in 3 Javascript Files erstellt und zwar
 
@@ -67,11 +67,13 @@ Diese können jedoch ohne bedenken zu einem einzelnen Javascript File zusammenge
 
 Um die Webkomponente in HTML zu benutzen, muss man alle JS files einbinden und schon kann man seine eigene Komponente wie jedes andere Element benutzen.
 \begin{lstlisting}[language=html,label={lst:webcomponent},caption={HTML File}]{HTML File}]
+...
 <name-der-komponente></name-der-komponente>
 
 <script src="./runtime.js"></script>
 <script src="./polyfills.js"></script>
 <script src="./main.js"></script>
+...
 \end{lstlisting}
 
 \section{Werkzeuge}
@@ -79,7 +81,7 @@ Um die Webkomponente in HTML zu benutzen, muss man alle JS files einbinden und s
 
 \subsection{Rasa X}\label{subsec:rasa-x}
 Rasa X ist ein Werkzeug um Conversation-Driven Development\ref{cdd} in die Tat umzusetzen\cite{rasax}.
-Rasa X liegt über Rasa und liefert dadurch erweiterte Funktionalitäten, die man nur mit Rasa nicht hätte.
+Rasa X liegt über Rasa und liefert dadurch erweiterte Funktionalitäten, die man nur mit Rasa alleine nicht hätte.
 Rasa X wurde mit Docker Compose\cite{rasaxDocker} auf der VM installiert\ref{sec:systemarchitektur}.
 
 Rasa X kommt mit einer grafischen Weboberfläche, auf dieser kann man sich seine Intents, Responses und so weiter verändern und ansehen.
@@ -95,7 +97,7 @@ url: ${RASA_X_HOST}/api
 rest:
 \end{lstlisting}
 
-Etwas nachdem sehr lange gesucht werden musste war, wie es möglich ist das Rasa X mit https lauft.
+Etwas für das sehr viel Zeit in anspruch ging, war es wie es möglich ist das Rasa X mit https lauft.
 
 Es wird ein Zertifikat benötigt, es ist möglich sich ein Zertifikat zu erstellen mithilfe des Certbots\cite{certbot}, diese Zertifikate müssen dann in den certs Ordner gegeben werden.
 
@@ -107,8 +109,8 @@ sudo cp /etc/letsencrypt/live/vm45.htl-leonding.ac.at/fullchain.pem /etc/rasa/ce
 sudo chmod 640 certs/privkey.pem
 \end{lstlisting}
 
-Außerdem müssen beim nginx server noch einstellungen vorgenommen werden.
-In dem File "nginx-config-files/rasax.nginx.template" muss die Zeile mit include auskommentiert werden.
+Außerdem müssen beim nginx server noch diverse Einstellungen vorgenommen werden.
+In dem File "nginx-config-files/rasax.nginx.template" muss die Zeile mit ``include'' auskommentiert werden.
 \begin{lstlisting}[language=yaml,label={lst:rasaxnginxtemplate},caption={rasax.nginx.template}]{rasax.nginx.template}]
 ...
 server {
@@ -119,8 +121,6 @@ server {
 
 Und in ``nginx-config-files/ssl.conf.template'' müssen folgende Zeilen auskommentiert werden:
 \begin{lstlisting}[language=yaml,label={lst:sslconftemplate},caption={ssl.conf.template}]{ssl.conf.templatte}]
-# This is an example SSL configuration
-# Uncomment and adapt for your deployment as needed
 listen                  8443 ssl;
 
 # server_name           example.com;
@@ -128,7 +128,7 @@ ssl_certificate         /etc/certs/fullchain.pem;
 ssl_certificate_key     /etc/certs/privkey.pem;
 \end{lstlisting}
 
-Nun muss Rasa X gestoppt und wieder hochgefahren werden um die neuen Einstellungen zu übernehmen.
+Nun muss Rasa X gestoppt und wieder hochgefahren, werden um die neuen Einstellungen zu übernehmen.
 
 \subsection{IntelliJ IDEA}
 IntelliJ ist ein IDE welche eine Vielzahl von Programmiersprachen unterstützt und hauptsächlich für diese Arbeit verwendet wird.
@@ -147,9 +147,9 @@ Ein Workflow besteht aus einem oder mehreren Jobs, wobei ein Job aus einem oder 
     \label{fig:impl:ghActions}
 \end{figure}
 
-Die Jobs werden abgearbeitet, meistens wird richtung Ende des Workflows das Produkt wohin gepushed.
+Die Jobs werden abgearbeitet, meistens wird richtung Ende des Workflows das Produkt wohin ge-pushed.
 
-Bei jeder Action wird Standardmäßig eigentlich Checkout benutzt:
+Bei jeder Action wird Standardmäßig Checkout benutzt:
 
 \begin{lstlisting}[language=yaml,label={lst:checkout},caption={In der Action}]{In der Action}]
 ...
@@ -163,8 +163,9 @@ jobs:
 \end{lstlisting}
 
 Checkout sorgt dafür das der Workflow auf das Projekt zugreifen kann.
+
 \subsection{Docker}
-Docker ist einer der bekanntesten Container-Manager.
+Docker ist ein Container-Manager, dies erlaubt dir Anwendungen zu Isolieren in sogenannten DockernContainern.
 
 \subsection{Wordpress}
 WordPress ist ein freies und open-source Content-Management-System, das in PHP geschrieben ist.
@@ -172,7 +173,8 @@ Für die Speicherung der Daten wird entweder eine MySQL oder eine MariaDB Datenb
 WordPress verwendet Plugins für die Erweiterung der Funktionalitäten und Themes für die Anpassung des Designs.
 Das CMS wurde ursprünglich für das Erstellen von Blogs benutzt, hat sich jedoch inzwischen zu einem System für das Verwalten verschiedenster Web-Inhalte entwickelt.
 Mit einem Marktanteil von 42,8\% der 10 Millionen meistbesuchten Websites ist WordPress das beliebteste Content-Management-System.
-Die HTL Leonding Schulhoempage wurde mithilfe von Wordpress gemacht, deshalb war es wichtig das unser Chatbot auch mit Wordpress kompatibel ist.
+
+Die HTL Leonding Schulhomepage wurde mithilfe von Wordpress gemacht, deshalb war es wichtig das unser Chatbot auch mit Wordpress kompatibel ist.
 
 
 \begin{figure}[hbt!]
@@ -193,7 +195,7 @@ Auf Wordpress kann man ganz einfach Beiträge verfassen:
 \end{figure}
 
 
-Diese Beiträge kann man in einem eigenen Editor, der viele Elemente bereits zur Verfügung hat verfassen:
+Diese Beiträge kann man in einem eigenen Editor, der viele vorgefertigte Elemente bereits zur Verfügung hat verfassen:
 
 \begin{figure}[hbt!]
     \centering

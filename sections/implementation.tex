@@ -1,6 +1,6 @@
 \section{Systemarchitektur}\label{sec:systemarchitektur}
 
-Es gibt 3 große Services, das Chat Widget auf der Schulhompage, das Dashboard und das Backend.
+Es gibt 3 große Services, das Chat Widget auf der Schulhomepage, das Dashboard und das Backend.
 Unser System sieht folgendermaßen aus:
 
 \begin{figure}[hbt!]
@@ -31,25 +31,25 @@ Unser Backend besitzt folgende Endpoints:
     \item PUT /api/file/{filename}
 \end{itemize}
 
-Bei den beiden ``conversations'' endpoints muss man sich aber zuerst authentisieren und sich einen Bearer Token von Rasa x holen damit man auf die anderen Rasa X endpoints zugreifen kann .
+Bei den beiden ``conversations'' endpoints muss man sich aber zuerst authentisieren und sich einen Bearer Token von Rasa x holen damit man auf die anderen Rasa X endpoints zugreifen kann.
 
 \subsection{GET /api/conversations}
 Der Endpoint ruft zuerst die getAuth() funktion auf, um den Bearer Token zu erhalten.
 
-Danach wird der Rasa X GET Endpoint /api/conversations aufgerufen mit dem Bearer Token im Header.
-Von diesem Endpoint wird ein JSON Objekt zurückgegeben, das die Konversationen enthält, aber zusätzlich noch viele andere unrelevante Daten, deshalb holt sich das Backend wirklich nur ID des Senders, die Zeit und die Anzahl von Nachrichten der Unterhaltungen.
+Danach wird der Rasa X GET Endpoint ``/api/conversations'' aufgerufen, mit dem Bearer Token im Header.
+Von diesem Endpoint wird ein JSON Objekt zurückgegeben, das die Konversationen enthält, aber zusätzlich noch viele andere unrelevante Daten, deshalb filtert sich das Backend wirklich nur ID des Senders, die Zeit und die Anzahl von Nachrichten der Unterhaltungen heraus und gibt diese zurück.
 
 \subsection{GET /api/conversations/{id}}
 Der Endpoint /api/conversations/{id} ruft zuerst die getAuth() funktion auf, um den Bearer Token zu erhalten.
 
-Um nur von einer gezielten Unterhaltung die Nachrichten zu erhalten wird der Rasa X Endpint /api/conversations/{id}/messages aufgerufen mit dem Bearer Token im Header.
+Um nur von einer gezielten Unterhaltung die Nachrichten zu erhalten wird der Rasa X Endpoint ``/api/conversations/{id}/messages'' aufgerufen, mit dem Bearer Token im Header.
 Die Response wird auch in dieser Form schon zurückgeben, da die Response keine unwichtigen Daten enthält.
 
 \subsection{POST /api/feedback}
 Der Endpoint /api/feedback erhält ein JSON Objekt mit den Daten des Feedback Formulars und speichert diese in die Datenbank.
 
 \subsection{GET /api/feedback}
-Der Endpoint /api/feedback liest alle Feedbacks aus der Datenbank und gibt diese zurück.
+Der Endpoint /api/feedback liest alle Feedbacks aus der Datenbank aus und gibt diese zurück.
 
 \subsection{GET /api/file/{filename}}
 Der Endpoint /api/file/{filename} liest die im URL angegeben Datei aus dem Filesystem aus und gibt diese zurück.
@@ -67,32 +67,35 @@ Die möglichen Dateinamen sind:
 Der Endpoint /api/file/{filename} erhält den Inhalt aus dem File welches auch im URL angegeben wurde und überschreibt dieses dann im Filesystem.
 
 \section{Chat Widget}\label{sec:chat-widget}
-Der Chatbot der HTL Leonding sollte auf der Schulhomepage als Chatblase angezeigt werden, und verschiedene Elemente wie Buttons und Links unterstzützen.
+Der Chatbot der HTL Leonding sollte auf der Schulhomepage als Chatblase angezeigt werden, und verschiedene Elemente wie Buttons und Links unterstützen.
 
 \subsection{Konzept}
-Während den Anfängen der vorliegenden Arbeit wurde ein Konzept erstellt, um das mögliche Aussehen festzulegen. Lange Zeit wurde der Chatbot unter den Namen Leon geführt.
-Dies wurde jedoch im späteren verlauf geändert und Leon wurde Teil des langjährigen Leonie Projektes der HTL Leonding.
-Ursprünglich war das Symbol des Chatbots, wie man am Konzept sehen kann, ein Bot. Durch den wechsel in die Leonie Familie wurde dieses Logo jedoch gegen Leonie getauscht.
+Während den Anfängen der vorliegenden Arbeit wurde ein Konzept erstellt, um das mögliche Aussehen festzulegen.
+Lange Zeit wurde der Chatbot, während der Entwicklung, unter den Namen Leon geführt.
+Dies wurde jedoch im späteren Verlauf geändert und Leon wurde Teil des langjährigen Leonie Projektes der HTL Leonding.
+
 \begin{figure}[hbt!]
     \centering
-    \includegraphics[scale=0.2]{pics/conceptBotClosed.png}
+    \includegraphics[scale=0.2]{pics/conceptBotClosed}
     \caption{Konzept Chatbot geschlossen}
     \label{fig:impl:conceptBotClosed}
 \end{figure}
 \begin{figure}[hbt!]
     \centering
-    \includegraphics[scale=0.2]{pics/conceptBotOpen.png}
+    \includegraphics[scale=0.2]{pics/conceptBotOpen}
     \caption{Konzept Chatbot geöffnet}
     \label{fig:impl:conceptBotOpen}
 \end{figure}
 
 \subsection{Umsetzung}
-Umgesetzt wurde das Frontend mithilfe von Angular. Die Chatblase ist eine eigene Komponente, die durch CSS immer rechts unten fixiert ist. Die Farben des Chatbots sollten natürlich an die HTL Leonding erinnern, deshalb wurde ein Farbverlauf aus Farben des HTL Logos erstellt.
+Umgesetzt wurde das Frontend mithilfe von Angular.
+Die Chatblase ist eine eigene Komponente, die durch CSS immer rechts unten fixiert ist.
+Die Farben des Chatbots sollten natürlich an die HTL Leonding erinnern, deshalb wurde ein Farbverlauf aus Farben des HTL Logos erstellt.
 
 Jedoch begann der Chatbot sehr anders, zu begin wurde der Bot zuerst als ganze Seite entwickelt und nicht nur als Chatblase.
 \begin{figure}[hbt!]
     \centering
-    \includegraphics[scale=0.2]{pics/fullPageBot.png}
+    \includegraphics[scale=0.2]{pics/fullPageBot}
     \caption{Chatbot auf einer ganzen Seite}
     \label{fig:impl:conceptBotFullPage}
 \end{figure}
@@ -109,24 +112,44 @@ Um das Gespräch in eine Richtung zu lenken wurden Buttons eingeführt, die nach
     \label{fig:impl:bot}
 \end{figure}
 
+Die Buttons werden von Rasa mit der Antwort auf die Frage mitgeschickt, wenn ein Benutzter auf einen der Buttons drückt wird nicht der Text des Buttons an Rasa geschickt sondern direkt die Bezeichnung des Intents mit einem ``/'' davor, da Rasa dies auch erkennt.
+
 Um Bewertungen von echten Benutzern zu holen wurde außerdem eine Feedback Seite eingeführt, in dieser kann der Benutzer eine 1 bis 5 Sterne bewertung und einen Text absenden.
 
 \begin{figure}[hbt!]
     \centering
-    \includegraphics[scale=0.2]{pics/feedback}
+    \includegraphics[scale=0.3]{pics/feedback}
     \caption{Feedback Fenster}
     \label{fig:impl:feedback}
 \end{figure}
 
-Das Chatfenster wurde in 3 Bereiche geteilt.
+Das Chatfenster wurde in wesentliche 3 Bereiche geteilt.
 
 \begin{figure}[hbt!]
     \centering
-    \includegraphics[scale=0.2]{pics/chatWidgetStructure}
+    \includegraphics[scale=0.4]{pics/chatWidgetStructure}
     \caption{Aufbau vom Chat Fenster}
     \label{fig:impl:chatWidget}
 \end{figure}
 
+\subsubsection{Avatar}
+Wie bereits erwähnt existiert der Virtuelle Avatar der Leonie bereits in Form einer 3D Pyramide und einer Webseite mit einem 3D Modell, das Interessierte Person nicht mit zu vielen virtuellen ``Personen'' verwirrt werden wurde entschieden das unser Chatbot auch als ``Leonie'' bekannt sein soll.
+Die alte Leonie war ein 3D Model, dies würde aber nicht ganz zu einem Profilbild im Chat passen.
+\begin{figure}[hbt!]
+    \centering
+    \includegraphics[scale=0.5]{pics/AvatarLeonie}
+    \caption{3D Leonie}
+    \label{fig:impl:leonie}
+\end{figure}
+
+Es würde mit ``Adobe Illustrator'' eine 2D Grafik erstellt, die eine färbige Silhouette der 3D Leonie darstellt.
+
+\begin{figure}[hbt!]
+    \centering
+    \includegraphics[scale=0.3]{pics/LeonieTrans}
+    \caption{2D Leonie}
+    \label{fig:impl:leonieTrans}
+\end{figure}
 
 \section{Dashboard}\label{sec:dashboard}
 
