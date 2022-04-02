@@ -37,7 +37,7 @@ Bei den beiden ``conversations'' endpoints muss man sich aber zuerst authentisie
 Der Endpoint ruft zuerst die getAuth() funktion auf, um den Bearer Token zu erhalten.
 
 Danach wird der Rasa X GET Endpoint ``/api/conversations'' aufgerufen, mit dem Bearer Token im Header.
-Von diesem Endpoint wird ein JSON Objekt zurückgegeben, das die Konversationen enthält, aber zusätzlich noch viele andere unrelevante Daten, deshalb filtert sich das Backend wirklich nur ID des Senders, die Zeit und die Anzahl von Nachrichten der Unterhaltungen heraus und gibt diese zurück.
+Von diesem Endpoint wird ein JSON Objekt zurückgegeben, das die Konversationen enthält, aber zusätzlich noch viele andere irrelevante Daten, deshalb filtert sich das Backend wirklich nur ID des Senders, die Zeit und die Anzahl von Nachrichten der Unterhaltungen heraus und gibt diese zurück.
 
 \subsection{GET /api/conversations/{id}}
 Der Endpoint /api/conversations/{id} ruft zuerst die getAuth() funktion auf, um den Bearer Token zu erhalten.
@@ -103,7 +103,7 @@ Jedoch begann der Chatbot sehr anders, zu begin wurde der Bot zuerst als ganze S
 Natürlich war dies nicht das endgültige Ziel so wurde der Bot schnell zur Chatblase umgewandelt.
 Zum Testen war die HTL Leonding Seite mithilfe eines IFrames eingebunden und zusätzlich die Chatblasen Komponente.
 
-Um das Gespräch in eine Richtung zu lenken wurden Buttons eingeführt, die nach fast jeder Antwort mögliche folge Fragen vorschlagen.
+Um das Gespräch in eine Richtung zu lenken, wurden Buttons eingeführt, die nach fast jeder Antwort mögliche folge Fragen vorschlagen.
 
 \begin{figure}[hbt!]
     \centering
@@ -133,7 +133,7 @@ Das Chatfenster wurde in wesentliche 3 Bereiche geteilt.
 \end{figure}
 
 \subsubsection{Avatar}
-Wie bereits erwähnt existiert der Virtuelle Avatar der Leonie bereits in Form einer 3D Pyramide und einer Webseite mit einem 3D Modell, das Interessierte Person nicht mit zu vielen virtuellen ``Personen'' verwirrt werden wurde entschieden das unser Chatbot auch als ``Leonie'' bekannt sein soll.
+Wie bereits erwähnt existiert der virtuelle Avatar der Leonie in Form einer 3D Pyramide und einer Webseite mit einem 3D Modell, das interessierte Person nicht mit zu vielen virtuellen “Personen” verwirrt werden, wurde entschieden das unser Chatbot auch als ``Leonie'' bekannt sein soll.
 Die alte Leonie war ein 3D Model, dies würde aber nicht ganz zu einem Profilbild im Chat passen.
 \begin{figure}[hbt!]
     \centering
@@ -142,7 +142,7 @@ Die alte Leonie war ein 3D Model, dies würde aber nicht ganz zu einem Profilbil
     \label{fig:impl:leonie}
 \end{figure}
 
-Es würde mit ``Adobe Illustrator'' eine 2D Grafik erstellt, die eine färbige Silhouette der 3D Leonie darstellt.
+Es würde mit ``Adobe Illustrator'' eine 2D Grafik erstellt, die eine färbige Silhouette der 3D Leonie darstellt, diese wurde zum Gesicht der ``neuen'' Leonie.
 
 \begin{figure}[hbt!]
     \centering
@@ -153,7 +153,7 @@ Es würde mit ``Adobe Illustrator'' eine 2D Grafik erstellt, die eine färbige S
 
 \section{Dashboard}\label{sec:dashboard}
 
-Um alle Gespräche und die Bewertungen der Benutzer anzuzeigen wurde ein Dashboard eingeführt, wo nur dies möglich war.
+Um alle Gespräche und die Bewertungen der Benutzer anzuzeigen, wurde ein Dashboard eingeführt, wo nur dies möglich war.
 Im Laufe der Arbeit wurde dieses dann erweitert, um für den Leobot Conversation Cycle als Seite zu dienen.
 
 \subsection{Conversation-Driven Development}\label{cdd}
@@ -162,8 +162,7 @@ Aber was ist CDD?
 
 CDD beschreibt eine Entwicklungsstrategie, in der du deinen Chatbot nach Konversationen mit echten Usern verbesserst.
 
-Bei CDD wird empfohlen, dass man seinen Chatbot möglichst früh echten Benutzern zur verfügung stehlt und so beobachten kann was die echten Benutzer alles für Intents erwarten und wie sie ihre Anfragen formulieren und kann diese bei Bedarf hinzufügen.
-
+Bei CDD wird empfohlen, dass man seinen Chatbot möglichst früh echten Benutzern zur Verfügung stehlt und so beobachten kann, was die echten Benutzer alles für Intents erwarten und wie sie ihre Anfragen formulieren und kann diese bei Bedarf hinzufügen.
 
 
 \subsection{Leobot Conversation Cycle}
@@ -194,17 +193,17 @@ Diese Unterhaltungen werden dann alle gespeichert.
 
 \subsubsection{Überprüfen}
 
-Überprüfen ist der zweite Schritt des Leobot Conversation Cycles, in diesem Schritt wird der Bot vom Schulpersonal oder Verantwortlichen überprüft, ob dieser die Fragen richtig beantwortet und erkannt hat oder ob Verbesserungspotential besteht
+Überprüfen ist der zweite Schritt des Leobot Conversation Cycles, in diesem Schritt wird der Bot vom Schulpersonal oder Verantwortlichen überprüft, ob dieser die Fragen richtig beantwortet und erkannt hat oder ob Verbesserungspotenzial besteht
 
 \subsubsection{Verbessern}
-Verbessern ist der dritte Schritt des Leobot Conversation Cycles, in diesem Schritt wird der Bot verbessert, das heißt die Fehler werden versucht zu beheben.
-Je nachdem was der fehler des Bots war muss hier anders gearbeitet werden.
+Verbessern ist der dritte Schritt des Leobot Conversation Cycles, in diesem Schritt wird der Bot verbessert, das heißt, die Fehler werden versucht zu beheben.
+Je nachdem was der Fehler des Bots war, muss hier anders gearbeitet werden.
 Wenn er einen Intent den er eigentlich kennt aber die Formulierung des Benutzers so war das er diesen nicht erkannt hat, wird die Eingabe des Benutzers zu den Trainingsdaten hinzugefügt.
 
-Falls jemand aber eine Frage stellt zu der es keinen Intent gibt und sich die Verantwortlichen denken es wäre ein guter Intent so wird der ganze Intent zu den Trainingsdaten hinzugefügt.
+Falls jemand aber eine Frage stellt, zu der es keinen Intent gibt und sich die Verantwortlichen denken es wäre ein guter Intent so wird der ganze Intent zu den Trainingsdaten hinzugefügt.
 
 \subsubsection{Trainieren}
-Trainieren ist der vierte Schritt des Leobot Conversation Cycles, in diesem Schritt werden die Trainingsdaten an den Bot übergeben und dieser Trainiert, nachdem er fertig trainiert wurde, wechselt auf das neu trainierte Model.
+Trainieren ist der vierte Schritt des Leobot Conversation Cycles, in diesem Schritt werden die Trainingsdaten an den Bot übergeben und dieser trainiert, nachdem er fertig trainiert wurde, wechselt auf das neu trainierte Model.
 
 Und nun beginnt der Leobot Conversation Cycle wieder von vorne.
 
@@ -244,15 +243,15 @@ Dies stellt dabei die Stelleinrichtung des Regelkreises dar und der Kreislauf ka
 
 \subsection{Warum das Dashboard}
 \setauthor{Felix Dumfarth}
-Rasa X bietet sehr viele Möglichkeiten auf einen Platz aber zu viele für Verwaltungspersonal das nicht unbedingt aus Programmierern besteht.
-Die Oberfläche von Rasa X bietet Möglichkeiten Sachen zu verändern die man als normale Verwaltungsperson nicht unbedingt benötigt wie zum Beispiel Zugriff auf die Pipeline, Git und die ganzen trainierten Modele.
-Das sind alles Funktionen die man als Verwaltungsperson nicht benötigt, man sollte wirklich nur das sehen was man auch verändern muss.
+Rasa X bietet sehr viele Möglichkeiten auf einen Platz, aber zu viele für Verwaltungspersonal das nicht unbedingt aus Programmierern besteht.
+Die Oberfläche von Rasa X bietet Möglichkeiten Sachen zu verändern, die man als normale Verwaltungsperson nicht unbedingt benötigt wie zum Beispiel Zugriff auf die Pipeline, Git und die ganzen trainierten Modele.
+Das sind alles Funktionen, die man als Verwaltungsperson nicht benötigt, man sollte wirklich nur das sehen, was man auch verändern muss.
 
 \subsection{Umsetzung}
 
 \subsubsection{Authentifizierung}
-Da nicht jeder auf das ``Gehirn'' des Bots zugreifen soll ist das Dashboard Benutzer und Passwort geschützt.
-Außerdem soll in der Zukunft die Möglichkeit offen sein das manche Userrollen nur auf gewisse Inhalte zugriff haben.
+Da nicht jeder auf das ``Gehirn'' des Bots zugreifen soll, ist das Dashboard Benutzer und Passwort geschützt.
+Außerdem soll in der Zukunft die Möglichkeit offen sein, dass manche Userrollen nur auf gewisse Inhalte zugriff haben.
 
 Die Authentifizierung wird über das Backend mit property file based authentication\cite{authentication} durchgeführt.
 
@@ -296,13 +295,13 @@ Im Editor wurden auch Code Vorschläge benutzt um etwas an Tipparbeit sparen zu 
     \label{fig:impl:dashboardCodeSuggestionMade}
 \end{figure}
 
-Wir hoben uns für einen Editor entschieden und kein Fomular oder etwas ähnliches für die Verbesserung der Unterhaltungen, da ein Formular in dem Zustand das man den Bot so frei verändern kann wie mit dem Editor den Rahmen der Diplomarbeit gesprengt hätte.
+Wir hoben uns für einen Editor entschieden und kein Formular, oder etwas ähnliches, für die Verbesserung der Unterhaltungen, da ein Formular, in dem Zustand das man den Bot so frei verändern kann wie mit dem Editor, den Rahmen der Diplomarbeit gesprengt hätte.
 
 \section{Einbindung in Wordpress}
-Die HTL Leonding Webseite ist eine Wordpress Seite, deshalb musste der Chatbot als Webkomponente mit Angular Elements\ref{subsec:angular-elements} exportiert werden dass er dort eingebunden werden kann.
+Die HTL Leonding Webseite ist eine Wordpress Seite, deshalb musste der Chatbot als Webkomponente mit Angular Elements\ref{subsec:angular-elements} exportiert werden, dass er dort eingebunden werden kann.
 
 Auf Wordpress wurde das Plugin ``Shortcoder''\cite{shortcoder} installiert, dieses ermöglicht es Code Teile zu speichern.
-Im Shortcoder Menu wurde ein neuer Shortcode mit unserer Webkomponente erstellt.
+Im Shortcoder Menü wurde ein neuer Shortcode mit unserer Webkomponente erstellt.
 
 \begin{figure}[hbt!]
     \centering
@@ -616,7 +615,7 @@ Danach wird mit der action ``garygrossgarten/github-action-scp@release'' das Mod
 Mit dem ``remote'' Argument wird der Pfad auf die VM angegeben, hier ``/home/chatadm/leobot/models''.
 Außerdem wurden Secret Variablen ``SSH\_HOST'', ``SSH\_USER'' und ``SSH\_KEY'' definiert, diese werden mit ``secrets.SSH\_HOST'', ``secrets.SSH\_USER'' und ``secrets.SSH\_KEY'' angegeben.
 Danach wird der Host ``staging'' mit dem User ``chatadm'' und der Private Key ``staging.key''angelegt
-Mit diesen Host wird dann in dem Task ``Copy model to Rasa X'' wird in den /home/chatadm/leobot/models Ordner gewechselt, wo zuvor das Model hingeladen wurde.
+Mit diesen Host wird dann in dem Task ``Copy model to Rasa X'' wird in den /home/chatadm/leobot/models Ordner gewechselt, wo zuvor das Model hochgeladen wurde.
 Dann wird das Shell Script ``upload-latest-model.sh'' ausgeführt.
 Dieses Shell Skript beinhaltet eine veränderte Version des Befehls, der das Model auf Rasa X über die API\footnote{API Token zur Sicherheit im Kapitel entfernt} lädt.
 
