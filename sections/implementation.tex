@@ -111,10 +111,12 @@ Um das Gespräch in eine Richtung zu lenken wurden Buttons eingeführt, die nach
 
 Um Bewertungen von echten Benutzern zu holen wurde außerdem eine Feedback Seite eingeführt, in dieser kann der Benutzer eine 1 bis 5 Sterne bewertung und einen Text absenden.
 
-%TODO: Bilder zum Feedback
-
-
-Die Chatblase wurde in einem eigenen Modul entwickelt, um die Komponenten zu verstecken und zu verbergen.
+\begin{figure}[hbt!]
+    \centering
+    \includegraphics[scale=0.2]{pics/feedback}
+    \caption{Feedback Fenster}
+    \label{fig:impl:feedback}
+\end{figure}
 
 Das Chatfenster wurde in 3 Bereiche geteilt.
 
@@ -179,7 +181,7 @@ Wenn er einen Intent den er eigentlich kennt aber die Formulierung des Benutzers
 Falls jemand aber eine Frage stellt zu der es keinen Intent gibt und sich die Verantwortlichen denken es wäre ein guter Intent so wird der ganze Intent zu den Trainingsdaten hinzugefügt.
 
 \subsubsection{Trainieren}
-Trainieren ist der vierte Schritt des Leobot Conversation Cycles, in diesem Schritt werden die Trainingsdaten an den Bot übergeben und dieser Trainiert und wechselt auf das neu trainierte Model.
+Trainieren ist der vierte Schritt des Leobot Conversation Cycles, in diesem Schritt werden die Trainingsdaten an den Bot übergeben und dieser Trainiert, nachdem er fertig trainiert wurde, wechselt auf das neu trainierte Model.
 
 Und nun beginnt der Leobot Conversation Cycle wieder von vorne.
 
@@ -217,15 +219,43 @@ Der Sollwert wird also in den Regler eingegeben und anschließend wird das Model
 Dies stellt dabei die Stelleinrichtung des Regelkreises dar und der Kreislauf kann von vorne beginnen, sollte erneut eine Störgröße auftreten oder die Sollgröße verändert werden.
 
 
+\subsection{Warum das Dashboard}
+\setauthor{Felix Dumfarth}
+Rasa X bietet sehr viele Möglichkeiten auf einen Platz aber zu viele für Verwaltungspersonal das nicht unbedingt aus Programmierern besteht.
+Die Oberfläche von Rasa X bietet Möglichkeiten Sachen zu verändern die man als normale Verwaltungsperson nicht unbedingt benötigt wie zum Beispiel Zugriff auf die Pipeline, Git und die ganzen trainierten Modele.
+Das sind alles Funktionen die man als Verwaltungsperson nicht benötigt, man sollte wirklich nur das sehen was man auch verändern muss.
+
 \subsection{Umsetzung}
 
-Einerseits kann man sich die vergangenen Unterhaltungen ansehen, so wie die nlu.yml, stories.yml, rules.yml, domain.yml direkt im Monaco Editor bearbeiten und speichern.
+\subsubsection{Authentifizierung}
+Da nicht jeder auf das ``Gehirn'' des Bots zugreifen soll ist das Dashboard Benutzer und Passwort geschützt.
+Außerdem soll in der Zukunft die Möglichkeit offen sein das manche Userrollen nur auf gewisse Inhalte zugriff haben.
+
+Die Authentifizierung wird über das Backend mit property file based authentication\cite{authentication} durchgeführt.
+
+\begin{figure}[hbt!]
+    \centering
+    \includegraphics[scale=0.2]{pics/signin}
+    \caption{Anmeldefenster}
+    \label{fig:impl:signin}
+\end{figure}
+
+Einerseits kann man sich alle vergangenen Unterhaltungen ansehen, so wie die nlu.yml, stories.yml, rules.yml, domain.yml direkt im Monaco Editor bearbeiten und speichern.
 
 \begin{figure}[hbt!]
     \centering
     \includegraphics[scale=0.2]{pics/dashboardConvo}
     \caption{Dashboard}
     \label{fig:impl:dashConv}
+\end{figure}
+
+Die Unterhaltungen kann man zur Übersicht auch nach Datum filtern:
+
+\begin{figure}[hbt!]
+    \centering
+    \includegraphics[scale=0.2]{pics/dashboardDate}
+    \caption{Dashboard nach Datum gefiltert}
+    \label{fig:impl:dashboardDate}
 \end{figure}
 
 Im Editor wurden auch Code Vorschläge benutzt um etwas an Tipparbeit sparen zu können.
@@ -243,10 +273,36 @@ Im Editor wurden auch Code Vorschläge benutzt um etwas an Tipparbeit sparen zu 
     \label{fig:impl:dashboardCodeSuggestionMade}
 \end{figure}
 
-
+Wir hoben uns für einen Editor entschieden und kein Fomular oder etwas ähnliches für die Verbesserung der Unterhaltungen, da ein Formular in dem Zustand das man den Bot so frei verändern kann wie mit dem Editor den Rahmen der Diplomarbeit gesprengt hätte.
 
 \section{Einbindung in Wordpress}
-%tODO
+Die HTL Leonding Webseite ist eine Wordpress Seite, deshalb musste der Chatbot als Webkomponente mit Angular Elements\ref{subsec:angular-elements} exportiert werden dass er dort eingebunden werden kann.
+
+Auf Wordpress wurde das Plugin ``Shortcoder''\cite{shortcoder} installiert, dieses ermöglicht es Code Teile zu speichern.
+Im Shortcoder Menu wurde ein neuer Shortcode mit unserer Webkomponente erstellt.
+
+\begin{figure}[hbt!]
+    \centering
+    \includegraphics[scale=0.2]{pics/shortcoder}
+    \caption{Shortcoder in Wordpress Plugin Manager}
+    \label{fig:impl:shortcoder}
+\end{figure}
+
+Auf der Wordpress Seite wird nun der Shortcode eingefügt und somit der Chatbot eingebunden.
+
+\begin{figure}[hbt!]
+    \centering
+    \includegraphics[scale=0.2]{pics/wordpressedit}
+    \caption{Wordpress Editor}
+    \label{fig:impl:wordpressedit}
+\end{figure}
+
+\begin{figure}[hbt!]
+    \centering
+    \includegraphics[scale=0.2]{pics/wordpresspage}
+    \caption{Wordpress Seite mit Chatbot}
+    \label{fig:impl:wordpresspage}
+\end{figure}
 
 \section{Deployment}
 
@@ -254,7 +310,6 @@ Im Editor wurden auch Code Vorschläge benutzt um etwas an Tipparbeit sparen zu 
 
 Die praktische Arbeit besteht aus sehr vielen einzelnen Projekten, wie dem Chat, Dashboard und Rasa selbst, diese haben alle verschiedenen Funktionen, bei vielen der GitHub Projekte wurde mithilfe von GitHub Actions\ref{subsec:github-actions} das Deployment automatisiert.
 
-% TODO
 \subsubsection{Action Server}
 Unser Rasa Custom Action Server wird mithilfe von GitHub Actions auf das LeoCloud Docker Registry geladen.
 
@@ -296,6 +351,22 @@ jobs:
 Um den Action Server zu bauen, wird die ``RasaHQ/action-server-gha@main'' Action\cite{actionServerAction} benutzt.
 
 Unsre genutzten Argumente sind:
+
+%\begin{center}
+%    \begin{tabular}{ |c|c| }
+%        \hline
+%        actions\_directory & Der Ordner in dem sich die Actions befinden \\
+%        docker\_registry & Das Docker Registry wohin der Action Server hochgeladen werden soll \\
+%        requirements\_file & Der Pfad zur requirements.txt Datei \\
+%        docker\_image\_name & Der Name des Docker Images \\
+%        docker\_registry\_login & Dein Username für das Docker Registry, am besten in einem Secret \\
+%        docker\_registry\_password & Dein Passwort für das Docker Registry, am besten in einem Secret \\
+%        docker\_image\_tag & der Tag des Docker Images \\
+%        docker\_registry\_push & True oder False ob das Docker Image auf das Docker Registry hochgeladen werden soll \\
+%        \hline
+%    \end{tabular}
+%\end{center}
+
 \begin{itemize}
     \item actions\_directory: Der Ordner in dem sich die Actions befinden.
     \item docker\_registry: Das Docker Registry wohin der Action Server hochgeladen werden soll.
@@ -414,3 +485,134 @@ Diese Action hat zwei Jobs, und zwar ``build'' und ``deploy''.
 Die verschiedenen Tasks in Build, laden zuerst eine Node Version herunter, installieren die Dependencies, builden das Angular Projekt und schließlich wird dist in die Github Actions Artifacts gespeichert.
 
 Beim Deploy Task wird dist von den Artefakten  heruntergeladen und wird in den Zweig ``gh-pages'' des Repositories gespeichert.
+
+\subsubsection{Rasa}
+\setauthor{Felix Dumfarth}
+
+Wenn in das GH Repo etwas gepushed wird, wird mithilfe einer GitHub Action Rasa trainiert und das Model auf die VM geladen.
+
+\begin{lstlisting}[language=yaml,label={lst:rasadeployyml},caption={rasa\_deploy.yml}]{rasa\_deploy.yml}]
+name: Deploy Rasa to vm
+
+on:
+  push:
+    branches:
+      - 'main'
+    paths:
+      - 'rasa-docker-prototype/**'
+  pull_request:
+    branches:
+      - 'main'
+
+  workflow_dispatch:
+
+jobs:
+  branch:
+    name: Deploy 🚀
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+      - name: Deploy to Branch
+        uses: JamesIves/github-pages-deploy-action@releases/v3
+        with:
+          GITHUB_TOKEN: ${{ secrets.TOKEN }}
+          BRANCH: rasa-chatbot
+          FOLDER: rasa-docker-prototype
+  tests:
+    name: Train and Test Rasa
+    runs-on: ubuntu-latest
+    needs: branch
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          ref: rasa-chatbot
+      - name: Train and Test Rasa
+        uses: RasaHQ/rasa-train-test-gha@main
+        with:
+          test_type: all
+          rasa_version: 2.8.12-full
+          data_validate: true
+          test_args: --fail-on-prediction-errors
+          rasa_train: true
+          rasa_test: true
+      - name: Upload model
+        uses: actions/upload-artifact@master
+        with:
+          name: model
+          path: models
+  deploy:
+    name: "Deploy to vm"
+    runs-on: ubuntu-latest
+    needs: tests
+    steps:
+      - name: Download model
+        uses: actions/download-artifact@v2
+        with:
+          name: model
+          path: models
+      - name: Copy model to vm
+        uses: garygrossgarten/github-action-scp@release
+        with:
+          local: models
+          remote: /home/chatadm/leobot/models
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          privateKey: ${{ secrets.SSH_KEY }}
+      - name: Configure SSH
+        run: |
+          mkdir -p ~/.ssh/
+          echo "$SSH_KEY" > ~/.ssh/staging.key
+          chmod 600 ~/.ssh/staging.key
+          cat >>~/.ssh/config <<END
+          Host staging
+            HostName $SSH_HOST
+            User $SSH_USER
+            IdentityFile ~/.ssh/staging.key
+            StrictHostKeyChecking no
+          END
+        env:
+          SSH_USER: ${{ secrets.SSH_USER }}
+          SSH_KEY: ${{ secrets.SSH_KEY }}
+          SSH_HOST: ${{ secrets.SSH_HOST }}
+      - name: Copy model to Rasa X
+        run: ssh staging 'cd /home/chatadm/leobot/models && ./upload-latest-model.sh'
+\end{lstlisting}
+
+Es wir zu erst geschaut ob der push wirklich auf den Branch ``main'' geschickt wurde und dort im Ordner ``raser-dokcer-prototype'' sich etwas verändert hat, wenn dies zutrifft wird der Workflow ausgeführt.
+
+Im Job Branch wird zuerst der Ordner der mithilfe des ``FOLDER:'' Arguments angegeben wurde, also ``rasa-docker-prototype'' auf den BRACNH, der mit ``BRANCH:'' angegeben wurde, also ``rasa-chatbot'' geladen
+
+Im Job tests wird zuerst definiert das der Job ``branch'' benötigt wird bevor tests ausgeführt werden kann, dies wird mit dem ``needs:'' Argument definiert.
+Beim Checkout wird nun bei ``ref:'' der Branch angegeben, da wir nun mit dem, auf den zuvor gepushed, Branch ``rasa-chatbot'' arbeiten wollen.
+Nun wird die ``rasa-train-test-gha@main'' Action geladen, dieses Action trainiert das Model und testet dieses dann gleich.
+Nachdem das Model trainiert und getestet wurde, wird das Model mit dem Job ``upload-artifact'' in die Artefakte hochgeladen.
+
+Nun wird im deploy Job zuerst das model heruntergeladen.
+Danach wird mit der action ``garygrossgarten/github-action-scp@release'' das Model über SSH auf die VM geladen.
+Mit dem ``remote'' Argument wird der Pfad auf die VM angegeben, hier ``/home/chatadm/leobot/models''.
+Außerdem wurden Secret Variablen ``SSH\_HOST'', ``SSH\_USER'' und ``SSH\_KEY'' definiert, diese werden mit ``secrets.SSH\_HOST'', ``secrets.SSH\_USER'' und ``secrets.SSH\_KEY'' angegeben.
+Danach wird der Host ``staging'' mit dem User ``chatadm'' und der Private Key ``staging.key''angelegt
+Mit diesen Host wird dann in dem Task ``Copy model to Rasa X'' wird in den /home/chatadm/leobot/models Ordner gewechselt, wo zuvor das Model hingeladen wurde.
+Dann wird das Shell Script ``upload-latest-model.sh'' ausgeführt.
+Dieses Shell Skript beinhaltet eine veränderte Version des Befehls, der das Model auf Rasa X über die API\footnote{API Token zur Sicherheit im Kapitel entfernt} lädt.
+
+In der Rasa X Oberfläche findet man den Befehl bei die Modele oben rechts.
+
+\begin{figure}[hbt!]
+    \centering
+    \includegraphics[scale=0.2]{pics/rasaxapimodel}
+    \caption{Rasa X Oberfläche mit dem Befehl zum Model upload}
+    \label{fig:impl:rasaxapimodel}
+\end{figure}
+
+\begin{lstlisting}[language=bash,label={lst:uploadlatestmodelshdefault},caption={Befehl zum Model Upload von Rasa X }]{Rasa X API Model Upload}
+curl -k -F "model=@my_model.tar.gz" "http://leobot.htl-leonding.ac.at:4200/api/projects/default/models?api_token=TOKEN"
+\end{lstlisting}
+
+Dieser Befehl wurde angepasst sodass er immer das neuste Model hochlädt:
+
+\begin{lstlisting}[language=bash,label={lst:uploadlatestmodelsh},caption={upload-latest-model.sh}]{upload-latest-model.sh}]
+curl -k -F "model=@$(ls -t *tar.gz | head -1)" "localhost:4200/api/projects/default/models?api_token=TOKEN"
+\end{lstlisting}
+

@@ -50,7 +50,7 @@ Angular ist ein auf TypeScript basierendes Framework für Webseiten.
 Gedacht ist es für Single Page Applications.
 Unser Chat Widget\ref{sec:chat-widget} und unser Dashboard\ref{sec:dashboard} wurden mit Angular umgesetzt
 
-\subsection{Angular Elements}
+\subsection{Angular Elements}\label{subsec:angular-elements}
 ''Webkomponenten sind eine Gruppe von Web-Technologien, die es ermöglichen, benutzerdefinierte, wiederverwendbare HTML Elemente zu erstellen, deren Funktionalität gekapselt ist und damit vollständig getrennt von anderem Code.''\cite{webcomponents}
 
 Um unsre Chatkomponente auf die Wordpress Seite zu bringen, wurde entschieden, dass die Komponente mithilfe von Angular Elements als Webkomponente zu exportieren um somit eine einfache einbindung auf die Schulhomepage zu ermöglichen.
@@ -95,9 +95,40 @@ url: ${RASA_X_HOST}/api
 rest:
 \end{lstlisting}
 
-Etwas nachdem sehr lange gesucht werden musste war wie es möglich ist das Rasa X auf https lauft.
+Etwas nachdem sehr lange gesucht werden musste war, wie es möglich ist das Rasa X mit https lauft.
 
+Es wird ein Zertifikat benötigt, es ist möglich sich ein Zertifikat zu erstellen mithilfe des Certbots\cite{certbot}, diese Zertifikate müssen dann in den certs Ordner gegeben werden.
 
+\begin{lstlisting}[language=bash,label={lst:certbot},caption={Install certbot and create certificates}]{certbot}]
+sudo ln -s /snap/bin/certbot /usr/bin/certbot
+sudo certbot certonly -d vm45.htl-leonding.ac.at
+sudo cp /etc/letsencrypt/live/vm45.htl-leonding.ac.at/privkey.pem /etc/rasa/certs/
+sudo cp /etc/letsencrypt/live/vm45.htl-leonding.ac.at/fullchain.pem /etc/rasa/certs/
+sudo chmod 640 certs/privkey.pem
+\end{lstlisting}
+
+Außerdem müssen beim nginx server noch einstellungen vorgenommen werden.
+In dem File "nginx-config-files/rasax.nginx.template" muss die Zeile mit include auskommentiert werden.
+\begin{lstlisting}[language=yaml,label={lst:rasaxnginxtemplate},caption={rasax.nginx.template}]{rasax.nginx.template}]
+...
+server {
+    listen            8080;
+    include           /etc/nginx/conf.d/ssl.conf;
+    ...
+\end{lstlisting}
+
+Und in ``nginx-config-files/ssl.conf.template'' müssen folgende Zeilen auskommentiert werden:
+\begin{lstlisting}[language=yaml,label={lst:sslconftemplate},caption={ssl.conf.template}]{ssl.conf.templatte}]
+# This is an example SSL configuration
+# Uncomment and adapt for your deployment as needed
+listen                  8443 ssl;
+
+# server_name           example.com;
+ssl_certificate         /etc/certs/fullchain.pem;
+ssl_certificate_key     /etc/certs/privkey.pem;
+\end{lstlisting}
+
+Nun muss Rasa X gestoppt und wieder hochgefahren werden um die neuen Einstellungen zu übernehmen.
 
 \subsection{IntelliJ IDEA}
 IntelliJ ist ein IDE welche eine Vielzahl von Programmiersprachen unterstützt und hauptsächlich für diese Arbeit verwendet wird.
@@ -117,7 +148,23 @@ Ein Workflow besteht aus einem oder mehreren Jobs, wobei ein Job aus einem oder 
 \end{figure}
 
 Die Jobs werden abgearbeitet, meistens wird richtung Ende des Workflows das Produkt wohin gepushed.
+
+Bei jeder Action wird Standardmäßig eigentlich Checkout benutzt:
+
+\begin{lstlisting}[language=yaml,label={lst:checkout},caption={In der Action}]{In der Action}]
+...
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+...
+\end{lstlisting}
+
+Checkout sorgt dafür das der Workflow auf das Projekt zugreifen kann.
 \subsection{Docker}
 Docker ist einer der bekanntesten Container-Manager.
 
 \subsection{Wordpress}
+% TODO
