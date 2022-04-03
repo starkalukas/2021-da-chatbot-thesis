@@ -1,7 +1,7 @@
 \section{Systemarchitektur}\label{sec:systemarchitektur}
 
-Es gibt 3 große Services, das Chat Widget auf der Schulhomepage, das Dashboard und das Backend.
-Unser System sieht folgendermaßen aus:
+Es gibt 3 große Services, das Chat Widget ~\ref{sec:chat-widget} auf der Schulhomepage, das Dashboard ~\ref{sec:dashboard} und das Backend ~\ref{sec:backend}.
+Das System, das im Zuge der Arbeit entstand, sieht dabei folgendermaßen aus:
 
 \begin{figure}[hbt!]
     \centering
@@ -10,17 +10,20 @@ Unser System sieht folgendermaßen aus:
     \label{fig:impl:architektur}
 \end{figure}
 
-Es gibt 2 Ubuntu VM's, eine für den Chat und eine für Rasa und das Backend, nachdem der Chat auf die HTL Leonding Seite kommt, wird dadurch nur noch eine VM benötigt.
+Es gibt zwei virtuelle Ubuntu Maschinen, eine für den Chat und eine für Rasa und das Backend.
+Dadurch, dass der Chat auf die HTL Leonding Seite kommt, wird dadurch nur noch eine VM benötigt.
 
-Unser Chat wird gerade mit NGINX gehostet, dieser kommuniziert mit Rasa direkt über REST, wenn der Benutzer eine Nachricht sendet, wird diese an Rasa gesendet und Rasa antwortet mit der passenden Antwort.
-Das Dashboard wird auf GH Pages gehostet, dieses kommuniziert mit dem Backend über REST, das Backend authentisiert sich bei Rasa X ~\ref{subsec:rasa-x} und holt sich alle Konversationen und bereitet diese auf und sendet sie an das Dashboard.
+Der Chat wird dabei gerade mit NGINX gehostet.
+Dieser Server kommuniziert mit Rasa direkt über REST, wenn der Benutzer eine Nachricht sendet, wird diese an Rasa gesendet und Rasa antwortet mit der passenden Antwort.
+Das Dashboard ~\ref{sec:dashboard} wird auf GH Pages gehostet, dieses kommuniziert mit dem Backend über REST.
+Das Backend authentisiert sich dabei bei Rasa X ~\ref{subsec:rasa-x} und holt sich alle Konversationen, bereitet diese auf und sendet sie an das Dashboard.
 
 \section{Backend}\label{sec:backend}
 \setauthor{Felix Dumfarth}
 
-Unser Quarkus ~\ref{quarkus} Backend hat die Aufgabe mit Rasa X zu kommunizieren und die Konversationsdaten für das Dashboard aufzubereiten und zu senden.
+Das Quarkus ~\ref{quarkus} Backend hat die Aufgabe mit Rasa X zu kommunizieren und die Konversationsdaten für das Dashboard aufzubereiten und zu senden.
 
-Unser Backend besitzt folgende Endpoints:
+Dieses Backend besitzt folgende Endpoints:
 
 \begin{itemize}
     \item GET /api/conversations
@@ -31,7 +34,7 @@ Unser Backend besitzt folgende Endpoints:
     \item PUT /api/file/{filename}
 \end{itemize}
 
-Bei den beiden ``conversations'' endpoints muss man sich aber zuerst authentisieren und sich einen Bearer Token von Rasa x holen damit man auf die anderen Rasa X endpoints zugreifen kann.
+Bei den beiden \texttt{conversations} Endpoints muss man sich aber zunächst authentisieren und sich einen Bearer Token von Rasa x holen, damit auf die anderen Rasa X Endpoints zugegriffen werden kann.
 
 \subsection{GET /api/conversations}
 Der Endpoint ruft zuerst die getAuth() funktion auf, um den Bearer Token zu erhalten.
@@ -40,19 +43,19 @@ Danach wird der Rasa X GET Endpoint ``/api/conversations'' aufgerufen, mit dem B
 Von diesem Endpoint wird ein JSON Objekt zurückgegeben, das die Konversationen enthält, aber zusätzlich noch viele andere irrelevante Daten, deshalb filtert sich das Backend wirklich nur ID des Senders, die Zeit und die Anzahl von Nachrichten der Unterhaltungen heraus und gibt diese zurück.
 
 \subsection{GET /api/conversations/{id}}
-Der Endpoint /api/conversations/{id} ruft zuerst die getAuth() funktion auf, um den Bearer Token zu erhalten.
+Der Endpoint \texttt{/api/conversations/{id}} ruft zuerst die \texttt{getAuth()} Funktion auf, um den Bearer Token zu erhalten.
 
-Um nur von einer gezielten Unterhaltung die Nachrichten zu erhalten wird der Rasa X Endpoint ``/api/conversations/{id}/messages'' aufgerufen, mit dem Bearer Token im Header.
-Die Response wird auch in dieser Form schon zurückgeben, da die Response keine unwichtigen Daten enthält.
+Um nur von einer gezielten Unterhaltung die Nachrichten zu erhalten wird der Rasa X Endpoint \texttt{/api/conversations/{id}/messages} aufgerufen, mit dem Bearer Token im Header.
+Die Response wird auch in dieser Form schon zurückgeben.
 
 \subsection{POST /api/feedback}
-Der Endpoint /api/feedback erhält ein JSON Objekt mit den Daten des Feedback Formulars und speichert diese in die Datenbank.
+Der Endpoint \texttt{/api/feedback} erhält ein JSON Objekt mit den Daten des Feedback-Formulars und speichert diese in die Datenbank.
 
 \subsection{GET /api/feedback}
-Der Endpoint /api/feedback liest alle Feedbacks aus der Datenbank aus und gibt diese zurück.
+Der Endpoint \texttt{/api/feedback} liest alle Feedbacks aus der Datenbank aus und gibt diese zurück.
 
 \subsection{GET /api/file/{filename}}
-Der Endpoint /api/file/{filename} liest die im URL angegeben Datei aus dem Filesystem aus und gibt diese zurück.
+Der Endpoint \texttt{/api/file/{filename}} liest die im URL angegeben Datei aus dem Filesystem aus und gibt diese zurück.
 Die möglichen Dateinamen sind:
 
 \begin{itemize}
@@ -64,7 +67,7 @@ Die möglichen Dateinamen sind:
 \end{itemize}
 
 \subsection{PUT /api/file/{filename}}
-Der Endpoint /api/file/{filename} erhält den Inhalt aus dem File welches auch im URL angegeben wurde und überschreibt dieses dann im Filesystem.
+Der Endpoint \texttt{/api/file/{filename}} erhält den Inhalt aus dem File welches auch im URL angegeben wurde und überschreibt dieses dann im Filesystem.
 
 \section{Chat Widget}\label{sec:chat-widget}
 Der Chatbot der HTL Leonding sollte auf der Schulhomepage als Chatblase angezeigt werden, und verschiedene Elemente wie Buttons und Links unterstützen.
@@ -90,9 +93,11 @@ Dies wurde jedoch im späteren Verlauf geändert und Leon wurde Teil des langjä
 \subsection{Umsetzung}
 Umgesetzt wurde das Frontend mithilfe von Angular.
 Die Chatblase ist eine eigene Komponente, die durch CSS immer rechts unten fixiert ist.
-Die Farben des Chatbots sollten natürlich an die HTL Leonding erinnern, deshalb wurde ein Farbverlauf aus Farben des HTL Logos erstellt.
+Die Farben des Chatbots sollten dabei an die HTL Leonding erinnern, deshalb wurde ein Farbverlauf aus Farben des HTL Logos erstellt.
 
-Jedoch begann der Chatbot sehr anders, zu begin wurde der Bot zuerst als ganze Seite entwickelt und nicht nur als Chatblase.
+Jedoch begann der Chatbot ganz anders und zu Beginn wurde der Bot zuerst als ganze Seite entwickelt und nicht nur als Chatblase.
+Dies ist auf der Abbildung ~\ref{fig:impl:conceptBotFullPage} zu sehen.
+
 \begin{figure}[hbt!]
     \centering
     \includegraphics[scale=0.2]{pics/fullPageBot}
@@ -100,10 +105,11 @@ Jedoch begann der Chatbot sehr anders, zu begin wurde der Bot zuerst als ganze S
     \label{fig:impl:conceptBotFullPage}
 \end{figure}
 
-Natürlich war dies nicht das endgültige Ziel so wurde der Bot schnell zur Chatblase umgewandelt.
+Dabei war dies nicht das endgültige Ziel und so wurde der Bot schnell zur Chatblase umgewandelt.
 Zum Testen war die HTL Leonding Seite mithilfe eines IFrames eingebunden und zusätzlich die Chatblasen Komponente.
 
-Um das Gespräch in eine Richtung zu lenken, wurden Buttons eingeführt, die nach fast jeder Antwort mögliche folge Fragen vorschlagen.
+Um das Gespräch in eine Richtung zu lenken wurden Buttons eingeführt, die nach fast jeder Antwort mögliche folge Fragen vorschlagen.
+Solche Vorschläge sind auf der Abbildung ~\ref{fig:impl:bot} zu sehen.
 
 \begin{figure}[hbt!]
     \centering
@@ -112,9 +118,11 @@ Um das Gespräch in eine Richtung zu lenken, wurden Buttons eingeführt, die nac
     \label{fig:impl:bot}
 \end{figure}
 
-Die Buttons werden von Rasa mit der Antwort auf die Frage mitgeschickt, wenn ein Benutzter auf einen der Buttons drückt wird nicht der Text des Buttons an Rasa geschickt sondern direkt die Bezeichnung des Intents mit einem ``/'' davor, da Rasa dies auch erkennt.
+Die Buttons werden von Rasa mit der Antwort auf die Frage mitgeschickt.
+Wenn eine Benutzterin oder ein Benutzer auf einen der Buttons drückt, wird nicht der Text des Buttons an Rasa geschickt, sondern direkt die Bezeichnung des Intents mit einem ``/'' davor, da Rasa dies auch erkennt.
 
-Um Bewertungen von echten Benutzern zu holen wurde außerdem eine Feedback Seite eingeführt, in dieser kann der Benutzer eine 1 bis 5 Sterne bewertung und einen Text absenden.
+Um Bewertungen von echten Benutzern zu holen wurde außerdem eine Feedback-Seite eingeführt.
+Auf dieser kann die Benutzerin oder der Benutzer eine 1 bis 5 Sterne bewertung und einen Text absenden.
 
 \begin{figure}[hbt!]
     \centering
@@ -123,7 +131,7 @@ Um Bewertungen von echten Benutzern zu holen wurde außerdem eine Feedback Seite
     \label{fig:impl:feedback}
 \end{figure}
 
-Das Chatfenster wurde in wesentliche 3 Bereiche geteilt.
+Das Chatfenster wurde in wesentliche 3 Bereiche geteilt, die in Abbildung ~\ref{fig:impl:chatWidget} zu sehen sind.
 
 \begin{figure}[hbt!]
     \centering
@@ -133,16 +141,18 @@ Das Chatfenster wurde in wesentliche 3 Bereiche geteilt.
 \end{figure}
 
 \subsubsection{Avatar}
-Wie bereits erwähnt existiert der virtuelle Avatar der Leonie in Form einer 3D Pyramide und einer Webseite mit einem 3D Modell, das interessierte Person nicht mit zu vielen virtuellen “Personen” verwirrt werden, wurde entschieden das unser Chatbot auch als ``Leonie'' bekannt sein soll.
-Die alte Leonie war ein 3D Model, dies würde aber nicht ganz zu einem Profilbild im Chat passen.
+Wie bereits erwähnt, existiert der virtuelle Avatar der Leonie in Form einer 3D Pyramide und einer Website mit einem 3D Modell.
+Um Verwirrung zu vermeiden, wurde entschieden, dass der Chatbot auch in ``Leonie'' umbenannt werden soll.
+Bei der ursprünglichen Leonie handelt es sich um ein 3D Model (Abbildung ~\ref{fig:impl:leonie}).
+Da dies aber nicht ganz zu einem Profilbild in einem Chat passen würde, wurde mit ``Adobe Illustrator'' eine 2D-Grafik erstellt.
+Diese besteht aus einer färbigen Silhouette, welche die 3D-Leonie darstellt (Abbildung ~\ref{fig:impl:leonieTrans}).
+
 \begin{figure}[hbt!]
     \centering
     \includegraphics[scale=0.5]{pics/AvatarLeonie}
     \caption{3D Leonie}
     \label{fig:impl:leonie}
 \end{figure}
-
-Es würde mit ``Adobe Illustrator'' eine 2D Grafik erstellt, die eine färbige Silhouette der 3D Leonie darstellt, diese wurde zum Gesicht der ``neuen'' Leonie.
 
 \begin{figure}[hbt!]
     \centering
@@ -152,20 +162,23 @@ Es würde mit ``Adobe Illustrator'' eine 2D Grafik erstellt, die eine färbige S
 \end{figure}
 
 \section{Dashboard}\label{sec:dashboard}
+\setauthor{Felix Dumfarth}
 
-Um alle Gespräche und die Bewertungen der Benutzer anzuzeigen, wurde ein Dashboard eingeführt, wo nur dies möglich war.
-Im Laufe der Arbeit wurde dieses dann erweitert, um für den Leobot Conversation Cycle als Seite zu dienen.
+Um alle Gespräche und die Bewertungen der Benutzerinnen und Benutzer anzuzeigen, wurde ein Dashboard eingeführt, wo nur diese Funktionalitäten gegeben sind.
+Im Laufe der Arbeit wurde dieses dann erweitert, um für den Leobot Conversation Cycle ~\ref{subsec:leobot-conversation-cycle} als Seite zu dienen.
 
 \subsection{Conversation-Driven Development}\label{cdd}
+\setauthor{Felix Dumfarth}
+
 Rasa empfiehlt für die Entwicklung von Chatbots ``Conversation-Driven Development'', kurz CDD.\cite{cdd}
-Aber was ist CDD?
+CDD beschreibt dabei eine Entwicklungsstrategie, in der der Chatbot nach Konversationen mit echten Usern verbessert wird.
 
-CDD beschreibt eine Entwicklungsstrategie, in der du deinen Chatbot nach Konversationen mit echten Usern verbesserst.
+Bei CDD wird empfohlen, dass man seinen Chatbot möglichst früh Personen zur Verfügung stehlt und so beobachten kann, welche Intents die echten Benutzerinnen und Benutzer erwarten und wie sie ihre Anfragen formulieren.
+Als Entwicklerin oder Entwickler kann man diese nun bei Bedarf hinzufügen.
 
-Bei CDD wird empfohlen, dass man seinen Chatbot möglichst früh echten Benutzern zur Verfügung stehlt und so beobachten kann, was die echten Benutzer alles für Intents erwarten und wie sie ihre Anfragen formulieren und kann diese bei Bedarf hinzufügen.
 
-
-\subsection{Leobot Conversation Cycle}
+\subsection{Leobot Conversation Cycle}\label{subsec:leobot-conversation-cycle}
+\setauthor{Felix Dumfarth}
 
 \begin{figure}[hbt!]
     \centering
@@ -174,9 +187,9 @@ Bei CDD wird empfohlen, dass man seinen Chatbot möglichst früh echten Benutzer
     \label{fig:impl:ConversationCycle}
 \end{figure}
 
-CDD ~\ref{cdd} wird mithilfe unsres Leobot Conversation Cycle um, der Leobot Conversation Cycle ist ein Workflow, der dazu dient, den Leobot zu überprüfen und zu erweitern.
-
-Der Workflow besteht aus folgenden Schritten:
+CDD ~\ref{cdd} wird mithilfe des Leobot Conversation Cycle umgesetzt.
+Der Leobot Conversation Cycle ist ein Workflow, der dazu dient, den Leobot zu überprüfen und zu erweitern.
+Der Workflow besteht dabei aus folgenden Schritten:
 
 \begin{itemize}
     \item Unterhalten
@@ -188,22 +201,28 @@ Der Workflow besteht aus folgenden Schritten:
 Diese 4 Schritte werden immer wieder durchgeführt, um den Chatbot dauerhaft zu verbessern.
 
 \subsubsection{Unterhalten}
-Unterhalten ist der erste Schritt des Leobot Conversation Cycles, in diesem Schritt werden dem Bot Fragen über die HTL Leonding und deren Produktangebot gestellt, die er beantworten muss, dies passiert während Unterhaltungen im Chat auf der Schulhomepage mit echten Personen.
+Unterhalten ist der erste Schritt des Leobot Conversation Cycles.
+In diesem Schritt werden dem Bot Fragen über die HTL Leonding und deren Produktangebot gestellt, die er beantworten soll.
+Dies passiert während Unterhaltungen im Chat auf der Schulhomepage mit echten Personen.
 Diese Unterhaltungen werden dann alle gespeichert.
 
 \subsubsection{Überprüfen}
 
-Überprüfen ist der zweite Schritt des Leobot Conversation Cycles, in diesem Schritt wird der Bot vom Schulpersonal oder Verantwortlichen überprüft, ob dieser die Fragen richtig beantwortet und erkannt hat oder ob Verbesserungspotenzial besteht
+Überprüfen ist der zweite Schritt des Leobot Conversation Cycles.
+In diesem Schritt wird der Bot vom Schulpersonal oder Verantwortlichen überprüft, ob dieser die Fragen richtig beantwortet und erkannt hat oder ob Verbesserungspotenzial besteht
 
 \subsubsection{Verbessern}
-Verbessern ist der dritte Schritt des Leobot Conversation Cycles, in diesem Schritt wird der Bot verbessert, das heißt, die Fehler werden versucht zu beheben.
+Verbessern ist der dritte Schritt des Leobot Conversation Cycles.
+In diesem Schritt wird der Bot verbessert, das bedeutet, dass versucht wird, dass die Fehler verbessert werden.
 Je nachdem was der Fehler des Bots war, muss hier anders gearbeitet werden.
-Wenn er einen Intent den er eigentlich kennt aber die Formulierung des Benutzers so war das er diesen nicht erkannt hat, wird die Eingabe des Benutzers zu den Trainingsdaten hinzugefügt.
+Wenn er einen Intent den er eigentlich kennt, aber die Formulierung des Users so anders war, dass er diesen nicht erkannt hat, wird die Eingabe des Users zu den Trainingsdaten hinzugefügt.
 
 Falls jemand aber eine Frage stellt, zu der es keinen Intent gibt und sich die Verantwortlichen denken es wäre ein guter Intent so wird der ganze Intent zu den Trainingsdaten hinzugefügt.
 
 \subsubsection{Trainieren}
-Trainieren ist der vierte Schritt des Leobot Conversation Cycles, in diesem Schritt werden die Trainingsdaten an den Bot übergeben und dieser trainiert, nachdem er fertig trainiert wurde, wechselt auf das neu trainierte Model.
+Trainieren ist der vierte Schritt des Leobot Conversation Cycles.
+In diesem Schritt werden die Trainingsdaten an den Bot übergeben und dieser wird trainiert.
+Nachdem er fertig trainiert wurde, wechselt er auf das neu trainierte Model.
 
 Und nun beginnt der Leobot Conversation Cycle wieder von vorne.
 
