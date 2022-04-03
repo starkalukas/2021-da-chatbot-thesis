@@ -2,6 +2,7 @@
 \setauthor{Felix Dumfarth}
 
 \subsection{Java}
+\setauthor{Felix Dumfarth}
 
 \begin{figure}[hbt!]
     \centering
@@ -11,67 +12,82 @@
 \end{figure}
 
 Für das Backend wurde sich für Java entschieden.
-Java ist laut dem TIOBE-Index\cite{tiobe} eine der populärsten Programmiersprachen.
-Java ist eine für Menschen sehr einfach lesbare Sprache, aber das Maschinen sie lesen können braucht man den Java-Compiler der den Code zu einem Java-Bytecode umwandelt.
-Ohne diesen Vorgang kann der Code nicht aufgeführt werden.
-Java wird mit Attributen wie Einfachheit, Vertrautheit, Robustheit, Sicherheit, Leistungsfähigkeit und Architekturneutralität assoziiert.
+Java ist laut dem TIOBE-Index ~\cite{tiobe} eine der populärsten Programmiersprachen.
+Java ist eine für Menschen sehr einfach lesbare Sprache, aber damit Maschinen sie auch lesen können, wird ein Java-Compiler der den Code zu einem Java-Bytecode umwandelt, benötigt.
+Ohne diesen Vorgang kann der Code nicht ausgeführt werden.
 Java ist eine objektorientierte Programmiersprache und besitzt dadurch Klassen und Vererbung\cite{java}.
+
 \subsection{Python}
-Python ist eine Programmiersprache die mehrere Arten der Programmierung unterstützt wie zum Beispiel die objektorientierte, die aspektorientierte und die funktionale Programmierung.
+\setauthor{Felix Dumfarth}
+
+Python ist eine Programmiersprache, die mehrere Arten der Programmierung unterstützt, wie zum Beispiel die objektorientierte, die aspektorientierte und die funktionale Programmierung.
 Es handelt sich hier um eine Programmiersprache, die versucht einen knappen und dadurch gut lesbaren Programmierstil zu besitzen.
-Dadurch das Python mit nur wenigen Schlüsselwörtern auskommt und die Syntax reduziert ist, ist eine gute Übersichtlichkeit und eine optimierte Simplizität gegeben.
-Python wird oft für Machine Learning verwendet, auch bei uns kommt Python bei Rasa zum Einsatz.
-Zum einen ist Rasa ein Python framework zum anderen werden die Custom-Actions mit Python umgesetzt.
+Dadurch, dass Python mit nur wenigen Schlüsselwörtern auskommt und die Syntax reduziert ist, ist eine gute Übersichtlichkeit und eine optimierte Simplizität gegeben.
+Python wird oft für Machine Learning verwendet, auch bei dieser Arbeit wurde Python zusammen mit Rasa verwendet.
+Zum einen ist Rasa ein Python-Framework und zum anderen werden die Custom Actions ~\ref{subsec:custom-actions} mit Python umgesetzt.
 
 \subsection{Typescript}
 Typescript ist eine im Jahr 2012 von Microsoft entwickelte Programmiersprache, die eine kompakte und einfache Syntax zur Programmierung von Webseiten und Anwendungen bietet.
 Typescript baut auf Javascript auf und hilft zum Beispiel beim frühzeitigen Erkennen von Fehlern.
 Bei TypeScript wird mit Unterstützung von Modulen das Kapseln von Klassen, Interfaces, Funktionen und Variablen in eigene Namensräume ermöglicht.
-Es gibt hierbei eine Unterscheidung von internen und externen Modulen.
+Es gibt hierbei eine Unterscheidung zwischen internen und externen Modulen.
 
 \section{Technologien}
 \setauthor{Felix Dumfarth}
 
 \subsection{REST Service}
+\setauthor{Felix Dumfarth}
+
 REST steht für Representational State Transfer.
 REST Anfragen sind CRUD – Operationen (Create, Read, Update, Delete).
 Diese sind GET, POST, PUT und DELETE Requests.
-Außerdem gibt es noch OPTIONS, PATCH, HEAD, TRACE
-und CONNECT diese werden aber in der vorliegenden Arbeit nicht benutzt.
-
-* Die GET Methode ist zum Abfragen da, es soll ein Request geschickt werden und nur Daten zurückgeben werden, es soll jedoch auf dem Server wohin die Anfrage geschickt worden ist nichts geschehen außer Daten lesen.
-
-* Bei POST sollen Daten hinzugefügt werden, im Standardfall ist in der Respone der URI der neu gespeicherten Daten
-
-* Bei PUT sollen Daten hinzugefügt werden, falls diese schon existieren werden Sie upgedatet und falls nicht, wird ein neuer Eintrag erstellt.
-
-* Bei DELETE sollen Daten gelöscht werden.
-
-\subsection{Quarkus}\label{quarkus}
-Quarkus ist ein Framework für Java welches sich auf die REST-Service-API ausrichtet.
-Das Backend\ref{sec:backend} wurde mit Quarkus umgesetzt.
-
-\subsection{Angular}
-Angular ist ein auf TypeScript basierendes Framework für Webseiten.
-Gedacht ist es für Single Page Applications.
-Unser Chat Widget\ref{sec:chat-widget} und unser Dashboard\ref{sec:dashboard} wurden mit Angular umgesetzt
-
-\subsection{Angular Elements}\label{subsec:angular-elements}
-''Webkomponenten sind eine Gruppe von Web-Technologien, die es ermöglichen, benutzerdefinierte, wiederverwendbare HTML Elemente zu erstellen, deren Funktionalität gekapselt ist und damit vollständig getrennt von anderem Code.''\cite{webcomponents}
-
-Um unsre Chatkomponente auf die Wordpress Seite zu bringen, wurde entschieden, dass die Komponente mithilfe von Angular Elements als Webkomponente exportiert wird um somit eine einfache einbindung auf die Schulhomepage zu ermöglichen.
-
-Eine Webkomponente wird in Angular Elements in 3 Javascript Files erstellt und zwar
+Außerdem gibt es noch OPTIONS, PATCH, HEAD, TRACE und CONNECT\@.
+Diese werden aber in der vorliegenden Arbeit nicht benutzt.
 
 \begin{itemize}
+    \item Die GET Methode ist zuständig für das Abfragen von Daten.
+    Dabei soll ein Request geschickt werden und es werden nur Daten zurückgeben.
+    Auf dem Server, zu dem die Anfrage geschickt wird, soll nichts geschehen außer das Lesen von Daten und das anschließende Zurückgeben dieser.
+    \item Bei POST sollen Daten hinzugefügt werden.
+    Im Normalfalls ist in der Response der URI der neu gespeicherten Daten.
+    \item Bei PUT sollen Daten hinzugefügt werden.
+    Falls diese schon existieren, werden sie upgedatet und falls nicht, wird ein neuer Eintrag erstellt.
+    \item Bei DELETE sollen Daten gelöscht werden.
+\end{itemize}
+
+\subsection{Quarkus}\label{quarkus}
+\setauthor{Felix Dumfarth}
+
+Quarkus ist ein Framework für Java, welches sich auf die REST-Service-API ausrichtet.
+Das Backend ~\ref{sec:backend} wurde mit Quarkus umgesetzt.
+
+\subsection{Angular}
+\setauthor{Felix Dumfarth}
+
+Angular ist ein auf TypeScript basierendes Framework für Webseiten.
+Dieses ist ausgelegt für Single Page Applications.
+Das Chat Widget ~\ref{sec:chat-widget} und das Dashboard ~\ref{sec:dashboard} wurden mit Angular umgesetzt
+
+\subsection{Angular Elements}\label{subsec:angular-elements}
+\setauthor{Felix Dumfarth}
+
+''Webkomponenten sind eine Gruppe von Web-Technologien, die es ermöglichen, benutzerdefinierte, wiederverwendbare HTML Elemente zu erstellen, deren Funktionalität gekapselt ist und damit vollständig getrennt von anderem Code.''\cite{webcomponents}
+
+Um die Chatkomponente auf die Wordpress Seite zu bringen, wurde entschieden, dass die Komponente mithilfe von Angular Elements als Webkomponente exportiert wird um somit eine einfache Einbindung auf die Schulhomepage zu ermöglichen.
+
+Eine Webkomponente wird in Angular Elements in 3 Javascript Files erstellt.
+Diese sind
+
+\begin{enumerate}
     \item main.js
     \item polyfills.js
     \item runtime.js
-\end{itemize}
+\end{enumerate}
 
-Diese können jedoch ohne bedenken zu einem einzelnen Javascript File zusammengefasst werden.
+Dabei können diese drei Komponenten jedoch ohne Bedenken zu einem einzelnen Javascript File zusammengefasst werden.
 
-Um die Webkomponente in HTML zu benutzen, muss man alle JS files einbinden und schon kann man seine eigene Komponente wie jedes andere Element benutzen.
+Um die Webkomponente in HTML zu benutzen, müssen alle JS-Dateien eingebunden werden und schon kann die eigene Komponente wie jedes andere Element benutzt werden.
+
 \begin{lstlisting}[language=html,label={lst:webcomponent},caption={HTML File}]{HTML File}]
 ...
 <name-der-komponente></name-der-komponente>
@@ -86,16 +102,17 @@ Um die Webkomponente in HTML zu benutzen, muss man alle JS files einbinden und s
 \setauthor{Felix Dumfarth}
 
 \subsection{Rasa X}\label{subsec:rasa-x}
-Rasa X ist ein Werkzeug um Conversation-Driven Development\ref{cdd} in die Tat umzusetzen\cite{rasax}.
-Rasa X liegt über Rasa und liefert dadurch erweiterte Funktionalitäten, die man nur mit Rasa alleine nicht hätte.
-Rasa X wurde mit Docker Compose\cite{rasaxDocker} auf der VM installiert\ref{sec:systemarchitektur}.
+Rasa X ist ein Werkzeug um Conversation-Driven Development ~\ref{cdd} in die Tat umzusetzen.\cite{rasax}
+Rasa X liegt über Rasa und liefert dadurch erweiterte Funktionalitäten, die nur mit Rasa alleine nicht gegeben sind.
+Rasa X wurde mit Docker Compose ~\cite{rasaxDocker} auf der VM installiert ~\ref{sec:systemarchitektur}.
 
-Rasa X kommt mit einer grafischen Weboberfläche, auf dieser kann man sich seine Intents, Responses und so weiter verändern und ansehen.
-Man kann auch sein Model trainieren oder ein Model hochladen.
+Rasa X kommt mit einer grafischen Weboberfläche, auf dieser können Intents ~\ref{subsec:Intents}, Responses ~\ref{subsec:Responses} und so weiter verändert und angesehen werden.
+Außerdem besteht die Möglichkeit ein eigenes Model zu trainieren oder ein Model hochzuladen.
 
-Da jedoch unser eigenes Dashboard verwendet wird, wird die grafische Oberfläche nicht benötigt, sondern nur die erweiterte Funktionalität die auch über die API aufgerufen werden kann.
+Da jedoch ein eigenes Dashboard im Rahmen dieser Diplomarbeit verwendet wird, wird die grafische Oberfläche nicht benötigt, sondern nur die erweiterte Funktionalität die auch über die API aufgerufen werden kann.
 
-Damit unser Frontend auf Rasa, welches eine Ebene unter Rasa X liegt, zugreifen kann, muss das automatisch erstellte credentials.yml file bearbeitet werden:
+Damit das Frontend auf Rasa, welches eine Ebene unter Rasa X liegt, zugreifen kann, muss das automatisch erstellte \texttt{credentials.yml} File bearbeitet werden.
+Dies ist in Listing ~\ref{lst:rasaXCred} beschrieben.
 
 \begin{lstlisting}[language=yaml,label={lst:rasaXCred},caption={credentials.yml}]{credentials.yml}]
 rasa:
@@ -103,9 +120,9 @@ url: ${RASA_X_HOST}/api
 rest:
 \end{lstlisting}
 
-Etwas für das sehr viel Zeit in anspruch ging, war es wie es möglich ist das Rasa X mit https lauft.
-
-Es wird ein Zertifikat benötigt, es ist möglich sich ein Zertifikat zu erstellen mithilfe des Certbots\cite{certbot}, diese Zertifikate müssen dann in den certs Ordner gegeben werden.
+Eine Herausforderung stellte dabei die Möglichkeit, dass Rasa X mit https läuft, dar.
+Es wird ein Zertifikat benötigt.
+Dabei ist es möglich ein Zertifikat zu erstellen mithilfe des Certbots ~\cite{certbot}, diese Zertifikate müssen dann in den \texttt{certs} Ordner gegeben werden.
 
 \begin{lstlisting}[language=bash,label={lst:certbot},caption={Install certbot and create certificates}]{certbot}]
 sudo ln -s /snap/bin/certbot /usr/bin/certbot
@@ -115,8 +132,9 @@ sudo cp /etc/letsencrypt/live/vm45.htl-leonding.ac.at/fullchain.pem /etc/rasa/ce
 sudo chmod 640 certs/privkey.pem
 \end{lstlisting}
 
-Außerdem müssen beim nginx server noch diverse Einstellungen vorgenommen werden.
-In dem File "nginx-config-files/rasax.nginx.template" muss die Zeile mit ``include'' auskommentiert werden.
+Außerdem müssen beim Nginx Server noch diverse Einstellungen vorgenommen werden.
+In dem File \texttt{nginx-config-files/rasax.nginx.template} muss die Zeile mit ``include'' auskommentiert werden.
+
 \begin{lstlisting}[language=yaml,label={lst:rasaxnginxtemplate},caption={rasax.nginx.template}]{rasax.nginx.template}]
 ...
 server {
@@ -125,7 +143,8 @@ server {
     ...
 \end{lstlisting}
 
-Und in ``nginx-config-files/ssl.conf.template'' müssen folgende Zeilen auskommentiert werden:
+Und in ``nginx-config-files/ssl.conf.template'' müssen die Zeilen, wie in Listing ~\ref{lst:sslconftemplate} beschrieben, auskommentiert werden.
+
 \begin{lstlisting}[language=yaml,label={lst:sslconftemplate},caption={ssl.conf.template}]{ssl.conf.templatte}]
 listen                  8443 ssl;
 
@@ -134,17 +153,17 @@ ssl_certificate         /etc/certs/fullchain.pem;
 ssl_certificate_key     /etc/certs/privkey.pem;
 \end{lstlisting}
 
-Nun muss Rasa X gestoppt und wieder hochgefahren, werden um die neuen Einstellungen zu übernehmen.
+Nun muss Rasa X gestoppt und wieder hochgefahren werden, um die neuen Einstellungen zu übernehmen.
 
 \subsection{IntelliJ IDEA}
-IntelliJ ist ein IDE welche eine Vielzahl von Programmiersprachen unterstützt und hauptsächlich für diese Arbeit verwendet wird.
+IntelliJ ist ein IDE, welches eine Vielzahl von Programmiersprachen unterstützt und hauptsächlich für diese Arbeit verwendet wird.
 
 \subsection{GitHub}
-GitHub ist ein online Git Repository welches die gemeinsame Programmierung von Programmierern und Entwicklern erleichtert.
+GitHub ist ein Online-Repository, welches die gemeinsame Programmierung von Anwendungen erleichtert.
 
 \subsection{GitHub Actions}\label{subsec:github-actions}
-Mit Github Actions kannst du Workflows für dein Github Repository erstellen.
-Ein Workflow besteht aus einem oder mehreren Jobs, wobei ein Job aus einem oder mehreren Schritten besteht.
+Mit Github Actions können Workflows für ein Github Repository erstellt werden.
+Ein Workflow besteht aus einem oder mehreren Jobs, wobei ein Job aus einen oder mehreren Schritten besteht.
 
 \begin{figure}[hbt!]
     \centering
@@ -153,9 +172,8 @@ Ein Workflow besteht aus einem oder mehreren Jobs, wobei ein Job aus einem oder 
     \label{fig:impl:ghActions}
 \end{figure}
 
-Die Jobs werden abgearbeitet, meistens wird richtung Ende des Workflows das Produkt wohin ge-pushed.
-
-Bei jeder Action wird Standardmäßig Checkout benutzt:
+Die Jobs werden dabei automatisch abgearbeitet und meistens wird am Ende des Workflows das Produkt wohin hochgeladen.
+Bei jeder Action wird standardmäßig ein checkout benutzt:
 
 \begin{lstlisting}[language=yaml,label={lst:checkout},caption={In der Action}]{In der Action}]
 ...
@@ -168,10 +186,11 @@ jobs:
 ...
 \end{lstlisting}
 
-Checkout sorgt dafür das der Workflow auf das Projekt zugreifen kann.
+Checkout sorgt dabei dafür, dass der Workflow auf das Projekt zugreifen kann.
 
 \subsection{Docker}
-Docker ist ein Container-Manager, dies erlaubt dir Anwendungen zu Isolieren in sogenannten DockernContainern.
+Docker ist ein Container-Manager, der es erlaubt Anwendungen zu isolieren.
+Dies wird in sogenannten Docker-Containern gemacht.
 
 \subsection{Wordpress}
 WordPress ist ein freies und open-source Content-Management-System, das in PHP geschrieben ist.
@@ -180,7 +199,7 @@ WordPress verwendet Plugins für die Erweiterung der Funktionalitäten und Theme
 Das CMS wurde ursprünglich für das Erstellen von Blogs benutzt, hat sich jedoch inzwischen zu einem System für das Verwalten verschiedenster Web-Inhalte entwickelt.
 Mit einem Marktanteil von 42,8\% der 10 Millionen meistbesuchten Websites ist WordPress das beliebteste Content-Management-System.
 
-Die HTL Leonding Schulhomepage wurde mithilfe von Wordpress gemacht, deshalb war es wichtig das unser Chatbot auch mit Wordpress kompatibel ist.
+Die HTL Leonding Schulhomepage wurde mithilfe von Wordpress gemacht, deshalb war es wichtig, dass das Endprodukt der Arbeit auch mit Wordpress kompatibel ist.
 
 
 \begin{figure}[hbt!]
@@ -191,7 +210,7 @@ Die HTL Leonding Schulhomepage wurde mithilfe von Wordpress gemacht, deshalb war
 \end{figure}
 
 
-Auf Wordpress kann man ganz einfach Beiträge verfassen:
+Auf Wordpress können Beiträge verfasst werden, wie in Abbildung ~\ref{fig:impl:bloglist} zu sehen ist.
 
 \begin{figure}[hbt!]
     \centering
@@ -201,7 +220,8 @@ Auf Wordpress kann man ganz einfach Beiträge verfassen:
 \end{figure}
 
 
-Diese Beiträge kann man in einem eigenen Editor, der viele vorgefertigte Elemente bereits zur Verfügung hat verfassen:
+Diese Beiträge können in einem eigenen Editor, der viele vorgefertigte Elemente bereits zur Verfügung hat verfasst werden.
+Dies wird in Abbildung ~\ref{fig:impl:blogpost} beschrieben.
 
 \begin{figure}[hbt!]
     \centering
