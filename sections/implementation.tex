@@ -10,18 +10,19 @@ Das System, das im Zuge der Arbeit entstand, sieht dabei folgendermaßen aus:
     \label{fig:impl:architektur}
 \end{figure}
 
-Es gibt zwei virtuelle Ubuntu Maschinen, eine für den Chat und eine für Rasa und das Backend.
-Dadurch, dass der Chat auf die HTL Leonding Seite kommt, wird dadurch nur noch eine VM benötigt.
+Es gibt zwei virtuelle Ubuntu Maschinen, nämlich eine für den Chat und eine für Rasa und das Backend.
+Dadurch, dass der Chat auf die Seite der HTL Leonding Seite kommt, wird dadurch nur noch eine VM benötigt.
 
 Der Chat wird dabei gerade mit NGINX gehostet.
-Dieser Server kommuniziert mit Rasa direkt über REST, wenn der Benutzer eine Nachricht sendet, wird diese an Rasa gesendet und Rasa antwortet mit der passenden Antwort.
+Dieser Server kommuniziert mit Rasa direkt über REST, wenn die Benutzerin oder der Benutzer eine Nachricht sendet, wird diese an Rasa gesendet und Rasa antwortet mit der passenden Antwort.
 Das Dashboard ~\ref{sec:dashboard} wird auf GH Pages gehostet, dieses kommuniziert mit dem Backend über REST.
-Das Backend authentisiert sich dabei bei Rasa X ~\ref{subsec:rasa-x} und holt sich alle Konversationen, bereitet diese auf und sendet sie an das Dashboard.
+Das Backend authentisiert sich dabei bei Rasa X ~\ref{subsec:rasa-x} und holt sich alle Konversationen.
+Schließlich bereitet es die Konversationen auf und sendet sie an das Dashboard.
 
 \section{Backend}\label{sec:backend}
 \setauthor{Felix Dumfarth}
 
-Das Quarkus ~\ref{quarkus} Backend hat die Aufgabe mit Rasa X zu kommunizieren und die Konversationsdaten für das Dashboard aufzubereiten und zu senden.
+Das Quarkus ~\ref{quarkus} Backend hat die Aufgabe, mit Rasa X zu kommunizieren und die Konversationsdaten für das Dashboard aufzubereiten und zu senden.
 
 Dieses Backend besitzt folgende Endpoints:
 
@@ -34,18 +35,18 @@ Dieses Backend besitzt folgende Endpoints:
     \item PUT /api/file/{filename}
 \end{itemize}
 
-Bei den beiden \texttt{conversations} Endpoints muss man sich aber zunächst authentisieren und sich einen Bearer Token von Rasa x holen, damit auf die anderen Rasa X Endpoints zugegriffen werden kann.
+Bei den beiden \texttt{conversations} Endpoints muss man sich zunächst authentisieren und sich einen Bearer Token von Rasa x holen, damit auf die anderen Rasa X Endpoints zugegriffen werden kann.
 
 \subsection{GET /api/conversations}
-Der Endpoint ruft zuerst die getAuth() funktion auf, um den Bearer Token zu erhalten.
+Der Endpoint ruft zuerst die getAuth() Funktion auf, um den Bearer Token zu erhalten.
 
-Danach wird der Rasa X GET Endpoint ``/api/conversations'' aufgerufen, mit dem Bearer Token im Header.
+Danach wird der Rasa X GET Endpoint ``/api/conversations'', mit dem Bearer Token im Header aufgerufen.
 Von diesem Endpoint wird ein JSON Objekt zurückgegeben, das die Konversationen enthält, aber zusätzlich noch viele andere irrelevante Daten, deshalb filtert sich das Backend wirklich nur ID des Senders, die Zeit und die Anzahl von Nachrichten der Unterhaltungen heraus und gibt diese zurück.
 
 \subsection{GET /api/conversations/{id}}
 Der Endpoint \texttt{/api/conversations/{id}} ruft zuerst die \texttt{getAuth()} Funktion auf, um den Bearer Token zu erhalten.
 
-Um nur von einer gezielten Unterhaltung die Nachrichten zu erhalten wird der Rasa X Endpoint \texttt{/api/conversations/{id}/messages} aufgerufen, mit dem Bearer Token im Header.
+Um nur die Nachrichten einer gezielten Unterhaltung zu erhalten, wird der Rasa X Endpoint \texttt{/api/conversations/{id}/messages}, mit dem Bearer Token im Header aufgerufen.
 Die Response wird auch in dieser Form schon zurückgeben.
 
 \subsection{POST /api/feedback}
@@ -67,15 +68,15 @@ Die möglichen Dateinamen sind:
 \end{itemize}
 
 \subsection{PUT /api/file/{filename}}
-Der Endpoint \texttt{/api/file/{filename}} erhält den Inhalt aus dem File welches auch im URL angegeben wurde und überschreibt dieses dann im Filesystem.
+Der Endpoint \texttt{/api/file/{filename}} erhält den Inhalt aus dem File, welches auch im URL angegeben wurde und dieses dann im Filesystem überschreibt.
 
 \section{Chat Widget}\label{sec:chat-widget}
-Der Chatbot der HTL Leonding sollte auf der Schulhomepage als Chatblase angezeigt werden, und verschiedene Elemente wie Buttons und Links unterstützen.
+Der Chatbot der HTL Leonding sollte auf der Schulhomepage als Chatblase angezeigt werden und verschiedene Elemente, wie Buttons und Links unterstützen.
 
 \subsection{Konzept}
-Während den Anfängen der vorliegenden Arbeit wurde ein Konzept erstellt, um das mögliche Aussehen festzulegen.
-Lange Zeit wurde der Chatbot, während der Entwicklung, unter den Namen Leon geführt.
-Dies wurde jedoch im späteren Verlauf geändert und Leon wurde Teil des langjährigen Leonie Projektes der HTL Leonding.
+Während den Anfängen der vorliegenden Arbeit wurde ein Konzept erstellt, um das Design des Chatbots festzulegen.
+Lange Zeit wurde der Chatbot, während der Entwicklung, unter dem Namen "Leon" geführt.
+Dies wurde jedoch im späteren Verlauf geändert und "Leon" wurde Teil des langjährigen "Leonie Projektes" der HTL Leonding.
 
 \begin{figure}[hbt!]
     \centering
@@ -93,9 +94,9 @@ Dies wurde jedoch im späteren Verlauf geändert und Leon wurde Teil des langjä
 \subsection{Umsetzung}
 Umgesetzt wurde das Frontend mithilfe von Angular.
 Die Chatblase ist eine eigene Komponente, die durch CSS immer rechts unten fixiert ist.
-Die Farben des Chatbots sollten dabei an die HTL Leonding erinnern, deshalb wurde ein Farbverlauf aus Farben des HTL Logos erstellt.
+Die Farben des Chatbots sollten dabei an die HTL Leonding erinnern, weshalb ein Farbverlauf aus Farben des HTL-Logos erstellt wurde.
 
-Jedoch begann der Chatbot ganz anders und zu Beginn wurde der Bot zuerst als ganze Seite entwickelt und nicht nur als Chatblase.
+Jedoch begann der Chatbot ganz anders und zu Beginn wurde der Bot als ganze Seite entwickelt und nicht nur als Chatblase.
 Dies ist auf der Abbildung ~\ref{fig:impl:conceptBotFullPage} zu sehen.
 
 \begin{figure}[hbt!]
@@ -105,10 +106,10 @@ Dies ist auf der Abbildung ~\ref{fig:impl:conceptBotFullPage} zu sehen.
     \label{fig:impl:conceptBotFullPage}
 \end{figure}
 
-Dabei war dies nicht das endgültige Ziel und so wurde der Bot schnell zur Chatblase umgewandelt.
+Dabei war dies nicht das endgültige Ziel und so kam es dazu, dass der Bot schnell zur Chatblase umgewandelt wurde.
 Zum Testen war die HTL Leonding Seite mithilfe eines IFrames eingebunden und zusätzlich die Chatblasen Komponente.
 
-Um das Gespräch in eine Richtung zu lenken wurden Buttons eingeführt, die nach fast jeder Antwort mögliche folge Fragen vorschlagen.
+Um das Gespräch in eine Richtung zu lenken, wurden Buttons eingeführt, die nach fast jeder Antwort mögliche Folgefragen vorschlagen.
 Solche Vorschläge sind auf der Abbildung ~\ref{fig:impl:bot} zu sehen.
 
 \begin{figure}[hbt!]
@@ -119,10 +120,10 @@ Solche Vorschläge sind auf der Abbildung ~\ref{fig:impl:bot} zu sehen.
 \end{figure}
 
 Die Buttons werden von Rasa mit der Antwort auf die Frage mitgeschickt.
-Wenn eine Benutzterin oder ein Benutzer auf einen der Buttons drückt, wird nicht der Text des Buttons an Rasa geschickt, sondern direkt die Bezeichnung des Intents mit einem ``/'' davor, da Rasa dies auch erkennt.
+Wenn eine Benutzerin oder ein Benutzer auf einen der Buttons drückt, wird nicht der Text des Buttons an Rasa geschickt, sondern direkt die Bezeichnung des Intents mit einem ``/'' davor, da Rasa dies auch erkennt.
 
-Um Bewertungen von echten Benutzern zu holen wurde außerdem eine Feedback-Seite eingeführt.
-Auf dieser kann die Benutzerin oder der Benutzer eine 1 bis 5 Sterne bewertung und einen Text absenden.
+Um Bewertungen von echten Benutzern einzuholen, wurde außerdem eine Feedback-Seite eingeführt.
+Auf dieser kann die Benutzerin oder der Benutzer eine Bewertung zwischen 1 und 5 Sternen abgeben und auch einen Text absenden.
 
 \begin{figure}[hbt!]
     \centering
@@ -164,7 +165,7 @@ Diese besteht aus einer färbigen Silhouette, welche die 3D-Leonie darstellt (Ab
 \section{Dashboard}\label{sec:dashboard}
 \setauthor{Felix Dumfarth}
 
-Um alle Gespräche und die Bewertungen der Benutzerinnen und Benutzer anzuzeigen, wurde ein Dashboard eingeführt, wo nur diese Funktionalitäten gegeben sind.
+Um alle Gespräche, sowie die Bewertungen der Benutzerinnen und Benutzer anzuzeigen, wurde ein Dashboard eingeführt, wo nur diese Funktionalitäten gegeben sind.
 Im Laufe der Arbeit wurde dieses dann erweitert, um für den Leobot Conversation Cycle ~\ref{subsec:leobot-conversation-cycle} als Seite zu dienen.
 
 \subsection{Conversation-Driven Development}\label{cdd}
@@ -188,7 +189,7 @@ Als Entwicklerin oder Entwickler kann man diese nun bei Bedarf hinzufügen.
 \end{figure}
 
 CDD ~\ref{cdd} wird mithilfe des Leobot Conversation Cycle umgesetzt.
-Der Leobot Conversation Cycle ist ein Workflow, der dazu dient, den Leobot zu überprüfen und zu erweitern.
+Der Leobot Conversation Cycle ist ein Workflow, welcher dazu dient, den Leobot zu überprüfen und zu erweitern.
 Der Workflow besteht dabei aus folgenden Schritten:
 
 \begin{itemize}
@@ -201,26 +202,26 @@ Der Workflow besteht dabei aus folgenden Schritten:
 Diese 4 Schritte werden immer wieder durchgeführt, um den Chatbot dauerhaft zu verbessern.
 
 \subsubsection{Unterhalten}
-Unterhalten ist der erste Schritt des Leobot Conversation Cycles.
-In diesem Schritt werden dem Bot Fragen über die HTL Leonding und deren Produktangebot gestellt, die er beantworten soll.
+Das Unterhalten ist der erste Schritt des Leobot Conversation Cycles.
+In diesem Schritt werden dem Bot Fragen über die HTL Leonding und deren Produktangebot gestellt, die er anschließend beantworten soll.
 Dies passiert während Unterhaltungen im Chat auf der Schulhomepage mit echten Personen.
-Diese Unterhaltungen werden dann alle gespeichert.
+Diese Unterhaltungen werden schließlich alle gespeichert.
 
 \subsubsection{Überprüfen}
 
-Überprüfen ist der zweite Schritt des Leobot Conversation Cycles.
-In diesem Schritt wird der Bot vom Schulpersonal oder Verantwortlichen überprüft, ob dieser die Fragen richtig beantwortet und erkannt hat oder ob Verbesserungspotenzial besteht
+Das Überprüfen stellt den zweiten Schritt des Leobot Conversation Cycles dar.
+In diesem Schritt wird vom Schulpersonal oder Verantwortlichen überprüft, ob der Bot die Fragen richtig beantwortet und erkannt hat oder ob Verbesserungspotenzial besteht
 
 \subsubsection{Verbessern}
-Verbessern ist der dritte Schritt des Leobot Conversation Cycles.
+Das Verbessern ist der dritte Schritt des Leobot Conversation Cycles.
 In diesem Schritt wird der Bot verbessert, das bedeutet, dass versucht wird, dass die Fehler verbessert werden.
-Je nachdem was der Fehler des Bots war, muss hier anders gearbeitet werden.
-Wenn er einen Intent den er eigentlich kennt, aber die Formulierung des Users so anders war, dass er diesen nicht erkannt hat, wird die Eingabe des Users zu den Trainingsdaten hinzugefügt.
+Je nachdem, wo der Fehler des Bots liegt, muss hier anders gearbeitet werden.
+Wenn es sich um einen eigentlich bekannten Intent handelt, jedoch die Formulierung des Benutzers nicht erkannt wurde, wird die Eingabe des Users zu den Trainingsdaten hinzugefügt.
 
-Falls jemand aber eine Frage stellt, zu der es keinen Intent gibt und sich die Verantwortlichen denken es wäre ein guter Intent so wird der ganze Intent zu den Trainingsdaten hinzugefügt.
+Falls jemand aber eine Frage stellt, zu der es noch keinen passenden Intent gibt, so wird ein ganz neuer Intent zu den Trainingsdaten hinzugefügt.
 
 \subsubsection{Trainieren}
-Trainieren ist der vierte Schritt des Leobot Conversation Cycles.
+Das Trainieren ist der vierte Schritt des Leobot Conversation Cycles.
 In diesem Schritt werden die Trainingsdaten an den Bot übergeben und dieser wird trainiert.
 Nachdem er fertig trainiert wurde, wechselt er auf das neu trainierte Model.
 
@@ -253,26 +254,26 @@ Der Regelkreis wird oft bei der Regelung von Heizungen eingesetzt ~\ref{fig:heiz
 \end{figure}
 
 Ein Regelkreis wird dabei entweder durch eine Änderung der Sollgröße oder durch Auftreten einer Störung ausgelöst.
-Beim Leobot Conversation Cycle wird der Regelkreis demzufolge ausgelöst, wenn eine Interaktion mit einem User statt fand, bei der der Bot eine falsche Antwort gegeben hat.
+Beim Leobot Conversation Cycle wird der Regelkreis demzufolge ausgelöst, wenn eine Interaktion mit einem User stattfand, bei der der Bot eine falsche Antwort gegeben hat.
 Die Messeinrichtung ist dabei das Dashboard ~\ref{sec:dashboard}, das alle Unterhaltungen auflistet und diese grafisch veranschaulicht.
 Durch den eingebauten Editor ist die Möglichkeit gegeben, dass direkt die Files bearbeitet werden, sodass der Bot in Zukunft auch auf diese Fragestellung die richtige Antwort parat hat.
-Der Sollwert wird also in den Regler eingegeben und anschließend wird das Modell basierend auf den neuen Files neu trainiert.
+Der Sollwert wird also in den Regler eingegeben und anschließend wird das Modell basierend auf den neuen Dateien neu trainiert.
 Dies stellt dabei die Stelleinrichtung des Regelkreises dar und der Kreislauf kann von vorne beginnen, sollte erneut eine Störgröße auftreten oder die Sollgröße verändert werden.
 
 
 \subsection{Warum das Dashboard}
 \setauthor{Felix Dumfarth}
-Rasa X bietet sehr viele Möglichkeiten auf einen Platz, aber zu viele für Verwaltungspersonal das nicht unbedingt aus Programmierern besteht.
-Die Oberfläche von Rasa X bietet Möglichkeiten Sachen zu verändern, die man als normale Verwaltungsperson nicht unbedingt benötigt wie zum Beispiel Zugriff auf die Pipeline, Git und die ganzen trainierten Modele.
+Die Oberfläche von Rasa X bietet Möglichkeiten Sachen zu verändern, die man als normale Verwaltungsperson nicht unbedingt benötigt, wie zum Beispiel Zugriff auf die Pipeline, Git und die ganzen trainierten Modelle.
 Das sind alles Funktionen, die man als Verwaltungsperson nicht benötigt, man sollte wirklich nur das sehen, was man auch verändern muss.
 
 \subsection{Umsetzung}
+\setauthor{Felix Dumfarth}
 
 \subsubsection{Authentifizierung}
-Da nicht jeder auf das ``Gehirn'' des Bots zugreifen soll, ist das Dashboard Benutzer und Passwort geschützt.
-Außerdem soll in der Zukunft die Möglichkeit offen sein, dass manche Userrollen nur auf gewisse Inhalte zugriff haben.
+Da nicht jeder auf das ``Gehirn'' des Bots zugreifen soll, ist das Dashboard Benutzer- und Passwortgeschützt.
+Außerdem soll in der Zukunft die Möglichkeit offen sein, dass manche Userrollen nur auf gewisse Inhalte Zugriff haben.
 
-Die Authentifizierung wird über das Backend mit property file based authentication\cite{authentication} durchgeführt.
+Die Authentifizierung wird über das Backend mit property file based authentication ~\cite{authentication} durchgeführt.
 
 \begin{figure}[hbt!]
     \centering
@@ -281,7 +282,7 @@ Die Authentifizierung wird über das Backend mit property file based authenticat
     \label{fig:impl:signin}
 \end{figure}
 
-Einerseits kann man sich alle vergangenen Unterhaltungen ansehen, so wie die nlu.yml, stories.yml, rules.yml, domain.yml direkt im Monaco Editor bearbeiten und speichern.
+Man kann sich alle vergangenen Unterhaltungen ansehen, sowie die nlu.yml, stories.yml, rules.yml, domain.yml Dateien direkt im Monaco Editor bearbeiten und speichern.
 
 \begin{figure}[hbt!]
     \centering
@@ -290,7 +291,7 @@ Einerseits kann man sich alle vergangenen Unterhaltungen ansehen, so wie die nlu
     \label{fig:impl:dashConv}
 \end{figure}
 
-Die Unterhaltungen kann man zur Übersicht auch nach Datum filtern:
+Die Unterhaltungen kann man zur Übersicht auch nach Datum filtern, wie in Abbildung ~\ref{fig:impl:dashboardDate} zu sehen ist.
 
 \begin{figure}[hbt!]
     \centering
@@ -299,7 +300,7 @@ Die Unterhaltungen kann man zur Übersicht auch nach Datum filtern:
     \label{fig:impl:dashboardDate}
 \end{figure}
 
-Im Editor wurden auch Code Vorschläge benutzt um etwas an Tipparbeit sparen zu können.
+Im Editor wurden auch Code-Vorschläge benutzt um das Einarbeiten von neuen Inhalten für die Benutzerinnen und Benutzer zu vereinfachen.
 
 \begin{figure}[hbt!]
     \centering
@@ -314,34 +315,34 @@ Im Editor wurden auch Code Vorschläge benutzt um etwas an Tipparbeit sparen zu 
     \label{fig:impl:dashboardCodeSuggestionMade}
 \end{figure}
 
-Wir hoben uns für einen Editor entschieden und kein Formular, oder etwas ähnliches, für die Verbesserung der Unterhaltungen, da ein Formular, in dem Zustand das man den Bot so frei verändern kann wie mit dem Editor, den Rahmen der Diplomarbeit gesprengt hätte.
+Dabei wurde sich für einen Editor entschieden, weil die Implementierung eines eigenen Formulars zu aufwendig im Zusammenhang für die Diplomarbeit gewesen wäre.
 
 \section{Einbindung in Wordpress}
-Die HTL Leonding Webseite ist eine Wordpress Seite, deshalb musste der Chatbot als Webkomponente mit Angular Elements\ref{subsec:angular-elements} exportiert werden, dass er dort eingebunden werden kann.
+Die HTL Leonding Website ist eine Wordpress Seite, deshalb musste der Chatbot als Webkomponente mit Angular Elements ~\ref{subsec:angular-elements} exportiert werden, dass er dort eingebunden werden kann.
 
-Auf Wordpress wurde das Plugin ``Shortcoder''\cite{shortcoder} installiert, dieses ermöglicht es Code Teile zu speichern.
-Im Shortcoder Menü wurde ein neuer Shortcode mit unserer Webkomponente erstellt.
+Auf WordPress wurde das Plugin ``Shortcoder'' ~\cite{shortcoder} installiert, dieses ermöglicht es Code Teile zu speichern.
+Im Shortcoder Menü wurde ein neuer Shortcode mit der von uns implementierten Webkomponente erstellt.
 
 \begin{figure}[hbt!]
     \centering
     \includegraphics[scale=0.2]{pics/shortcoder}
-    \caption{Shortcoder in Wordpress Plugin Manager}
+    \caption{Shortcoder in WordPress Plugin Manager}
     \label{fig:impl:shortcoder}
 \end{figure}
 
-Auf der Wordpress Seite wird nun der Shortcode eingefügt und somit der Chatbot eingebunden.
+Auf der WordPress Seite wird nun der Shortcode eingefügt und somit der Chatbot eingebunden.
 
 \begin{figure}[hbt!]
     \centering
     \includegraphics[scale=0.2]{pics/wordpressedit}
-    \caption{Wordpress Editor}
+    \caption{WordPress Editor}
     \label{fig:impl:wordpressedit}
 \end{figure}
 
 \begin{figure}[hbt!]
     \centering
     \includegraphics[scale=0.2]{pics/wordpresspage}
-    \caption{Wordpress Seite mit Chatbot}
+    \caption{WordPress Seite mit Chatbot}
     \label{fig:impl:wordpresspage}
 \end{figure}
 
@@ -349,10 +350,10 @@ Auf der Wordpress Seite wird nun der Shortcode eingefügt und somit der Chatbot 
 
 \subsection{GitHub Actions}
 
-Die praktische Arbeit besteht aus sehr vielen einzelnen Projekten, wie dem Chat, Dashboard und Rasa selbst, diese haben alle verschiedenen Funktionen, bei vielen der GitHub Projekte wurde mithilfe von GitHub Actions\ref{subsec:github-actions} das Deployment automatisiert.
+Die praktische Arbeit besteht aus sehr vielen einzelnen Projekten, wie dem Chat, Dashboard und Rasa selbst, diese haben alle verschiedenen Funktionen, bei vielen der GitHub Projekte wurde mithilfe von GitHub Actions ~\ref{subsec:github-actions} das Deployment automatisiert.
 
 \subsubsection{Action Server}
-Unser Rasa Custom Action Server wird mithilfe von GitHub Actions auf das LeoCloud Docker Registry geladen.
+Der Rasa Custom Action Server wird mithilfe von GitHub Actions auf das LeoCloud Docker Registry geladen.
 
 \begin{lstlisting}[language=yaml,label={lst:actionserveryml},caption={action\_server.yml}]{actionserver.yml}]
 on:
@@ -389,9 +390,9 @@ jobs:
         docker_registry_push: true
 \end{lstlisting}
 
-Um den Action Server zu bauen, wird die ``RasaHQ/action-server-gha@main'' Action\cite{actionServerAction} benutzt.
+Um den Action Server zu bauen, wird die ``RasaHQ/action-server-gha@main'' Action ~\cite{actionServerAction} benutzt.
 
-Unsre genutzten Argumente sind:
+Die genutzten Argumente dabei sind:
 
 %\begin{center}
 %    \begin{tabular}{ |c|c| }
@@ -419,7 +420,9 @@ Unsre genutzten Argumente sind:
     \item docker\_registry\_push: True oder False ob das Docker Image auf das Docker Registry hochgeladen werden soll.
 \end{itemize}
 
-Auf der VM im docker-compose.yml muss noch das Image angeben:
+Auf der virtuellen Maschine in der \texttt{docker-compose.yml} Datei muss noch das Image angeben werden.
+Dies wird in Listing ~\ref{lst:dockercomposeyml} beschrieben ist.
+
 \begin{lstlisting}[language=yaml,label={lst:dockercomposeyml},caption={docker-compose.yml}]{docker-compose.yml}]
 app:
 restart: always
@@ -430,10 +433,10 @@ depends_on:
 - rasa-production
 \end{lstlisting}
 
-Man sieht dass unser Image den Namen ``leobot'' und den tag ``leon'' bekommen hat.
+Dabei bekommt das Image den Namen ``leobot'' und den Tag ``leon''.
 
 \subsubsection{Backend}
-Das Backend wird mithilfe von GitHub Actions automatisiert gebaut, der Workflow baut das .jar file und dieses wird dann über SSH auf unsre VM geladen.
+Das Backend wird mithilfe von GitHub Actions automatisiert gebaut, der Workflow baut das .jar file und dieses wird dann über SSH auf die virtuelle Maschine geladen.
 
 \begin{lstlisting}[language=yaml,label={lst:ciyml},caption={ci.yml}]{ci.yml}]
 name: Quarkus Codestart CI
@@ -471,7 +474,8 @@ jobs:
 \end{lstlisting}
 
 \subsubsection{Frontend}
-Die Chat Seite sowie das Dashboard werden mithilfe von GitHub Actions automatisiert gebaut und auf GH Pages gepublished dies passiert mit dem Workflow im build-and-deploy.yml file:
+Die Chat-Seite ~\ref{sec:chat-widget} sowie das Dashboard ~\ref{sec:dashboard} werden mithilfe von GitHub Actions automatisiert gebaut und auf GH Pages veröffentlicht.
+Dies passiert mit dem Workflow in der \texttt{build-and-deploy.yml} Datei:
 
 \begin{lstlisting}[language=yaml,label={lst:buildanddeployyml},caption={build-and-deploy.yml}]{build-and-deploy.yml}]
 name: deploy to gh-pages
@@ -521,11 +525,11 @@ jobs:
           FOLDER: dist/LeoBotHtlLeonding
 \end{lstlisting}
 
-Diese Action hat zwei Jobs, und zwar ``build'' und ``deploy''.
+Diese Action hat zwei Jobs, die ``build'' und ``deploy'' genannt werden.
 
-Die verschiedenen Tasks in Build, laden zuerst eine Node Version herunter, installieren die Dependencies, builden das Angular Projekt und schließlich wird dist in die Github Actions Artifacts gespeichert.
+Die verschiedenen Tasks in Build laden zuerst eine Node Version herunter, installieren die Dependencies, builden das Angular Projekt und schließlich wird dist in die Github Actions Artifacts gespeichert.
 
-Beim Deploy Task wird dist von den Artefakten  heruntergeladen und wird in den Zweig ``gh-pages'' des Repositories gespeichert.
+Beim Deploy Task wird dist von den Artefakten heruntergeladen und wird in den Zweig ``gh-pages'' des Repositories gespeichert.
 
 \subsubsection{Rasa}
 \setauthor{Felix Dumfarth}
@@ -620,25 +624,25 @@ jobs:
         run: ssh staging 'cd /home/chatadm/leobot/models && ./upload-latest-model.sh'
 \end{lstlisting}
 
-Es wir zu erst geschaut ob der push wirklich auf den Branch ``main'' geschickt wurde und dort im Ordner ``raser-dokcer-prototype'' sich etwas verändert hat, wenn dies zutrifft wird der Workflow ausgeführt.
-
-Im Job Branch wird zuerst der Ordner der mithilfe des ``FOLDER:'' Arguments angegeben wurde, also ``rasa-docker-prototype'' auf den BRACNH, der mit ``BRANCH:'' angegeben wurde, also ``rasa-chatbot'' geladen
-
-Im Job tests wird zuerst definiert das der Job ``branch'' benötigt wird bevor tests ausgeführt werden kann, dies wird mit dem ``needs:'' Argument definiert.
-Beim Checkout wird nun bei ``ref:'' der Branch angegeben, da wir nun mit dem, auf den zuvor gepushed, Branch ``rasa-chatbot'' arbeiten wollen.
-Nun wird die ``rasa-train-test-gha@main'' Action geladen, dieses Action trainiert das Model und testet dieses dann gleich.
+Es wird zuerst geschaut, ob der Push wirklich auf den Branch ``main'' geschickt wurde und dort im Ordner ``rasa-docker-prototype'' sich etwas verändert hat.
+Wenn dies zutrifft, wird der Workflow ausgeführt.
+Im Job \texttt{branch} wird zuerst der Ordner, der mithilfe des ``FOLDER:'' Arguments angegeben wurde, also ``rasa-docker-prototype'' auf den BRANCH, der mit ``BRANCH:'' angegeben wurde, also ``rasa-chatbot'' geladen.
+Im Job \texttt{tests} wird zuerst definiert, dass der Job ``branch'' benötigt wird bevor ``tests'' ausgeführt werden kann.
+Dies wird mit dem ``needs:'' Argument definiert.
+Nun wird die ``rasa-train-test-gha@main'' Action geladen.
+Diese Action trainiert das Modell und testet dieses dann direkt.
 Nachdem das Model trainiert und getestet wurde, wird das Model mit dem Job ``upload-artifact'' in die Artefakte hochgeladen.
 
-Nun wird im deploy Job zuerst das model heruntergeladen.
-Danach wird mit der action ``garygrossgarten/github-action-scp@release'' das Model über SSH auf die VM geladen.
-Mit dem ``remote'' Argument wird der Pfad auf die VM angegeben, hier ``/home/chatadm/leobot/models''.
-Außerdem wurden Secret Variablen ``SSH\_HOST'', ``SSH\_USER'' und ``SSH\_KEY'' definiert, diese werden mit ``secrets.SSH\_HOST'', ``secrets.SSH\_USER'' und ``secrets.SSH\_KEY'' angegeben.
+Nun wird im \texttt{deploy} Job zuerst das Modell heruntergeladen.
+Danach wird mit der Action ``garygrossgarten/github-action-scp@release'' das Modell über SSH auf die virtuelle Maschine geladen.
+Mit dem ``remote'' Argument wird der Pfad auf die VM angegeben, hierbei ist dieser ``/home/chatadm/leobot/models''.
+Außerdem werden Secret Variablen ``SSH\_HOST'', ``SSH\_USER'' und ``SSH\_KEY'' definiert, diese werden mit ``secrets.SSH\_HOST'', ``secrets.SSH\_USER'' und ``secrets.SSH\_KEY'' angegeben.
 Danach wird der Host ``staging'' mit dem User ``chatadm'' und der Private Key ``staging.key''angelegt
-Mit diesen Host wird dann in dem Task ``Copy model to Rasa X'' wird in den /home/chatadm/leobot/models Ordner gewechselt, wo zuvor das Model hochgeladen wurde.
-Dann wird das Shell Script ``upload-latest-model.sh'' ausgeführt.
-Dieses Shell Skript beinhaltet eine veränderte Version des Befehls, der das Model auf Rasa X über die API\footnote{API Token zur Sicherheit im Kapitel entfernt} lädt.
+Mit diesem Host wird dann in dem Task ``Copy model to Rasa X'' wird in den /home/chatadm/leobot/models Ordner gewechselt, wo zuvor das Model hochgeladen wurde.
+Dann wird das Shell-Skript ``upload-latest-model.sh'' ausgeführt.
+Dieses Shell-Skript beinhaltet eine veränderte Version des Befehls, der das Modell auf Rasa X über die API \footnote{API Token zur Sicherheit im Kapitel entfernt} lädt.
 
-In der Rasa X Oberfläche findet man den Befehl bei die Modele oben rechts.
+Der Befehl zum Hochladen des Modells auf Rasa X, kann in der Rasa X Oberfläche, wie in Abbildung ~\ref{fig:impl:rasaxapimodel} aufgezeigt, gefunden werden.
 
 \begin{figure}[hbt!]
     \centering
@@ -651,7 +655,7 @@ In der Rasa X Oberfläche findet man den Befehl bei die Modele oben rechts.
 curl -k -F "model=@my_model.tar.gz" "http://leobot.htl-leonding.ac.at:4200/api/projects/default/models?api_token=TOKEN"
 \end{lstlisting}
 
-Dieser Befehl wurde angepasst sodass er immer das neuste Model hochlädt:
+Dieser Befehl wurde angepasst, sodass er immer das neuste Model hochlädt, wie in Listing ~\ref{lst:uploadlatestmodelsh} zu sehen ist.
 
 \begin{lstlisting}[language=bash,label={lst:uploadlatestmodelsh},caption={upload-latest-model.sh}]{upload-latest-model.sh}]
 curl -k -F "model=@$(ls -t *tar.gz | head -1)" "localhost:4200/api/projects/default/models?api_token=TOKEN"
