@@ -13,7 +13,7 @@
 
 Für das Backend wurde sich für Java entschieden.
 Java ist laut dem TIOBE-Index ~\cite{tiobe} eine der populärsten Programmiersprachen.
-Java ist eine für Menschen sehr einfach lesbare Sprache, aber damit Maschinen sie auch lesen können, wird ein Java-Compiler der den Code zu einem Java-Bytecode umwandelt, benötigt.
+Java ist eine für Menschen sehr einfach lesbare Sprache, aber damit Maschinen sie auch lesen können, wird ein Java-Compiler, der den Code in Java-Bytecode umwandelt, benötigt.
 Ohne diesen Vorgang kann der Code nicht ausgeführt werden.
 Java ist eine objektorientierte Programmiersprache und besitzt dadurch Klassen und Vererbung\cite{java}.
 
@@ -21,14 +21,14 @@ Java ist eine objektorientierte Programmiersprache und besitzt dadurch Klassen u
 \setauthor{Felix Dumfarth}
 
 Python ist eine Programmiersprache, die mehrere Arten der Programmierung unterstützt, wie zum Beispiel die objektorientierte, die aspektorientierte und die funktionale Programmierung.
-Es handelt sich hier um eine Programmiersprache, die versucht einen knappen und dadurch gut lesbaren Programmierstil zu besitzen.
-Dadurch, dass Python mit nur wenigen Schlüsselwörtern auskommt und die Syntax reduziert ist, ist eine gute Übersichtlichkeit und eine optimierte Simplizität gegeben.
-Python wird oft für Machine Learning verwendet, auch bei dieser Arbeit wurde Python zusammen mit Rasa verwendet.
+Es handelt sich hier um eine Programmiersprache, die versucht, einen knappen und dadurch gut lesbaren Programmierstil zu besitzen.
+Python wird oft für Machine Learning verwendet.
+Auch bei dieser Arbeit wurde Python zusammen mit Rasa verwendet.
 Zum einen ist Rasa ein Python-Framework und zum anderen werden die Custom Actions ~\ref{subsec:custom-actions} mit Python umgesetzt.
 
-\subsection{Typescript}
-Typescript ist eine im Jahr 2012 von Microsoft entwickelte Programmiersprache, die eine kompakte und einfache Syntax zur Programmierung von Webseiten und Anwendungen bietet.
-Typescript baut auf Javascript auf und hilft zum Beispiel beim frühzeitigen Erkennen von Fehlern.
+\subsection{TypeScript}
+TypeScript ist eine im Jahr 2012 von Microsoft entwickelte Programmiersprache, die eine kompakte und einfache Syntax zur Programmierung von Webseiten und Anwendungen bietet.
+Typescript baut auf JavaScript auf und hilft zum Beispiel beim frühzeitigen Erkennen von Fehlern.
 Bei TypeScript wird mit Unterstützung von Modulen das Kapseln von Klassen, Interfaces, Funktionen und Variablen in eigene Namensräume ermöglicht.
 Es gibt hierbei eine Unterscheidung zwischen internen und externen Modulen.
 
@@ -49,10 +49,10 @@ Diese werden aber in der vorliegenden Arbeit nicht benutzt.
     Dabei soll ein Request geschickt werden und es werden nur Daten zurückgeben.
     Auf dem Server, zu dem die Anfrage geschickt wird, soll nichts geschehen außer das Lesen von Daten und das anschließende Zurückgeben dieser.
     \item Bei POST sollen Daten hinzugefügt werden.
-    Im Normalfalls ist in der Response der URI der neu gespeicherten Daten.
-    \item Bei PUT sollen Daten hinzugefügt werden.
+    Im Normalfall ist in der Response der URI der neu gespeicherten Daten.
+    \item Bei PUT werden Daten hinzugefügt.
     Falls diese schon existieren, werden sie upgedatet und falls nicht, wird ein neuer Eintrag erstellt.
-    \item Bei DELETE sollen Daten gelöscht werden.
+    \item Bei DELETE werden Daten gelöscht.
 \end{itemize}
 
 \subsection{Quarkus}\label{quarkus}
@@ -73,10 +73,10 @@ Das Chat Widget ~\ref{sec:chat-widget} und das Dashboard ~\ref{sec:dashboard} wu
 
 ''Webkomponenten sind eine Gruppe von Web-Technologien, die es ermöglichen, benutzerdefinierte, wiederverwendbare HTML Elemente zu erstellen, deren Funktionalität gekapselt ist und damit vollständig getrennt von anderem Code.''\cite{webcomponents}
 
-Um die Chatkomponente auf die Wordpress Seite zu bringen, wurde entschieden, dass die Komponente mithilfe von Angular Elements als Webkomponente exportiert wird um somit eine einfache Einbindung auf die Schulhomepage zu ermöglichen.
+Um die Chatkomponente auf die WordPress Seite zu bringen, wurde entschieden, dass die Komponente mithilfe von Angular Elements als Webkomponente exportiert wird, um somit eine einfache Einbindung auf die Schulhomepage zu ermöglichen.
 
 Eine Webkomponente wird in Angular Elements in 3 Javascript Files erstellt.
-Diese sind
+Diese sind:
 
 \begin{enumerate}
     \item main.js
@@ -84,7 +84,7 @@ Diese sind
     \item runtime.js
 \end{enumerate}
 
-Dabei können diese drei Komponenten jedoch ohne Bedenken zu einem einzelnen Javascript File zusammengefasst werden.
+Dabei können diese drei Komponenten jedoch ohne Bedenken zu einem einzelnen JavaScript File zusammengefasst werden.
 
 Um die Webkomponente in HTML zu benutzen, müssen alle JS-Dateien eingebunden werden und schon kann die eigene Komponente wie jedes andere Element benutzt werden.
 
@@ -102,14 +102,15 @@ Um die Webkomponente in HTML zu benutzen, müssen alle JS-Dateien eingebunden we
 \setauthor{Felix Dumfarth}
 
 \subsection{Rasa X}\label{subsec:rasa-x}
-Rasa X ist ein Werkzeug um Conversation-Driven Development ~\ref{cdd} in die Tat umzusetzen.\cite{rasax}
-Rasa X liegt über Rasa und liefert dadurch erweiterte Funktionalitäten, die nur mit Rasa alleine nicht gegeben sind.
+Rasa X ist ein Werkzeug, um Conversation-Driven Development ~\ref{cdd} in die Tat umzusetzen.\cite{rasax}
+Rasa X liefert erweiterte Funktionalitäten zu einem Rasa-Chatbot, die nur mit Rasa alleine nicht gegeben sind.
 Rasa X wurde mit Docker Compose ~\cite{rasaxDocker} auf der VM installiert ~\ref{sec:systemarchitektur}.
 
-Rasa X kommt mit einer grafischen Weboberfläche, auf dieser können Intents ~\ref{subsec:Intents}, Responses ~\ref{subsec:Responses} und so weiter verändert und angesehen werden.
-Außerdem besteht die Möglichkeit ein eigenes Model zu trainieren oder ein Model hochzuladen.
+Rasa X kommt mit einer grafischen Weboberfläche.
+Auf dieser können Intents ~\ref{subsec:Intents}, Responses ~\ref{subsec:Responses}, etc. angesehen und verändert werden.
+Außerdem besteht die Möglichkeit, ein eigenes Model zu trainieren oder ein Model hochzuladen.
 
-Da jedoch ein eigenes Dashboard im Rahmen dieser Diplomarbeit verwendet wird, wird die grafische Oberfläche nicht benötigt, sondern nur die erweiterte Funktionalität die auch über die API aufgerufen werden kann.
+Da jedoch ein eigenes Dashboard im Rahmen dieser Diplomarbeit verwendet wird, wird die grafische Oberfläche nicht benötigt, sondern nur die erweiterte Funktionalität, die auch über die API aufgerufen werden kann.
 
 Damit das Frontend auf Rasa, welches eine Ebene unter Rasa X liegt, zugreifen kann, muss das automatisch erstellte \texttt{credentials.yml} File bearbeitet werden.
 Dies ist in Listing ~\ref{lst:rasaXCred} beschrieben.
@@ -120,9 +121,10 @@ url: ${RASA_X_HOST}/api
 rest:
 \end{lstlisting}
 
-Eine Herausforderung stellte dabei die Möglichkeit, dass Rasa X mit https läuft, dar.
+Eine Herausforderung stellte dabei das Verschlüsseln der Kommunikation mit Rasa X mithilfe von HTTPS dar.
 Es wird ein Zertifikat benötigt.
-Dabei ist es möglich ein Zertifikat zu erstellen mithilfe des Certbots ~\cite{certbot}, diese Zertifikate müssen dann in den \texttt{certs} Ordner gegeben werden.
+Dabei ist es möglich, ein Zertifikat mithilfe des Certbots ~\cite{certbot} zu erstellen.
+Diese Zertifikate müssen dann in den \texttt{certs} Ordner gegeben werden.
 
 \begin{lstlisting}[language=bash,label={lst:certbot},caption={Install certbot and create certificates}]{certbot}]
 sudo ln -s /snap/bin/certbot /usr/bin/certbot
@@ -143,7 +145,7 @@ server {
     ...
 \end{lstlisting}
 
-Und in ``nginx-config-files/ssl.conf.template'' müssen die Zeilen, wie in Listing ~\ref{lst:sslconftemplate} beschrieben, auskommentiert werden.
+Und in \texttt{nginx-config-files/ssl.conf.template} müssen die Zeilen, wie in Listing ~\ref{lst:sslconftemplate} beschrieben, auskommentiert werden.
 
 \begin{lstlisting}[language=yaml,label={lst:sslconftemplate},caption={ssl.conf.template}]{ssl.conf.templatte}]
 listen                  8443 ssl;
@@ -162,8 +164,8 @@ IntelliJ ist ein IDE, welches eine Vielzahl von Programmiersprachen unterstützt
 GitHub ist ein Online-Repository, welches die gemeinsame Programmierung von Anwendungen erleichtert.
 
 \subsection{GitHub Actions}\label{subsec:github-actions}
-Mit Github Actions können Workflows für ein Github Repository erstellt werden.
-Ein Workflow besteht aus einem oder mehreren Jobs, wobei ein Job aus einen oder mehreren Schritten besteht.
+Mit GitHub Actions können Workflows für ein GitHub Repository erstellt werden.
+Ein Workflow besteht aus einem oder mehreren Jobs, wobei ein Job aus einem oder mehreren Schritten besteht.
 
 \begin{figure}[hbt!]
     \centering
@@ -172,7 +174,7 @@ Ein Workflow besteht aus einem oder mehreren Jobs, wobei ein Job aus einen oder 
     \label{fig:impl:ghActions}
 \end{figure}
 
-Die Jobs werden dabei automatisch abgearbeitet und meistens wird am Ende des Workflows das Produkt wohin hochgeladen.
+Die Jobs werden dabei automatisch abgearbeitet und meistens wird am Ende des Workflows das Produkt auf einen Server geladen.
 Bei jeder Action wird standardmäßig ein checkout benutzt:
 
 \begin{lstlisting}[language=yaml,label={lst:checkout},caption={In der Action}]{In der Action}]
@@ -192,35 +194,35 @@ Checkout sorgt dabei dafür, dass der Workflow auf das Projekt zugreifen kann.
 Docker ist ein Container-Manager, der es erlaubt Anwendungen zu isolieren.
 Dies wird in sogenannten Docker-Containern gemacht.
 
-\subsection{Wordpress}
+\subsection{WordPress}
 WordPress ist ein freies und open-source Content-Management-System, das in PHP geschrieben ist.
 Für die Speicherung der Daten wird entweder eine MySQL oder eine MariaDB Datenbank verwendet.
 WordPress verwendet Plugins für die Erweiterung der Funktionalitäten und Themes für die Anpassung des Designs.
 Das CMS wurde ursprünglich für das Erstellen von Blogs benutzt, hat sich jedoch inzwischen zu einem System für das Verwalten verschiedenster Web-Inhalte entwickelt.
 Mit einem Marktanteil von 42,8\% der 10 Millionen meistbesuchten Websites ist WordPress das beliebteste Content-Management-System.
 
-Die HTL Leonding Schulhomepage wurde mithilfe von Wordpress gemacht, deshalb war es wichtig, dass das Endprodukt der Arbeit auch mit Wordpress kompatibel ist.
+Die HTL Leonding Schulhomepage wurde mithilfe von WordPress gemacht, deshalb war es wichtig, dass das Endprodukt der Arbeit auch mit WordPress kompatibel ist.
 
 
 \begin{figure}[hbt!]
     \centering
     \includegraphics[scale=0.2]{pics/wordpresshome}
-    \caption{Startseite Wordpress}
+    \caption{Startseite WordPress}
     \label{fig:impl:wordpresshome}
 \end{figure}
 
 
-Auf Wordpress können Beiträge verfasst werden, wie in Abbildung ~\ref{fig:impl:bloglist} zu sehen ist.
+Auf WordPress können Beiträge verfasst werden, wie in Abbildung ~\ref{fig:impl:bloglist} zu sehen ist.
 
 \begin{figure}[hbt!]
     \centering
     \includegraphics[scale=0.2]{pics/bloglist}
-    \caption{Wordpress Liste der Blogeinträge}
+    \caption{WordPress Liste der Blogeinträge}
     \label{fig:impl:bloglist}
 \end{figure}
 
 
-Diese Beiträge können in einem eigenen Editor, der viele vorgefertigte Elemente bereits zur Verfügung hat verfasst werden.
+Diese Beiträge können in einem eigenen Editor, der viele vorgefertigte Elemente bereits zur Verfügung stellt, verfasst werden.
 Dies wird in Abbildung ~\ref{fig:impl:blogpost} beschrieben.
 
 \begin{figure}[hbt!]
