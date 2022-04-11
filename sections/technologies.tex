@@ -12,22 +12,22 @@
 \end{figure}
 
 Für das Backend wurde sich für Java entschieden.
-Java ist laut dem TIOBE-Index ~\cite{tiobe} eine der populärsten Programmiersprachen.
+Java ist nach dem TIOBE-Index ~\cite{tiobe} eine der populärsten Programmiersprachen.
 Java ist eine für Menschen sehr einfach lesbare Sprache, aber damit Maschinen sie auch lesen können, wird ein Java-Compiler, der den Code in Java-Bytecode umwandelt, benötigt.
 Ohne diesen Vorgang kann der Code nicht ausgeführt werden.
-Java ist eine objektorientierte Programmiersprache und besitzt dadurch Klassen und Vererbung\cite{java}.
+Java ist eine sogenannte objektorientierte Programmiersprache und besitzt dadurch Klassen und Vererbung\cite{java}.
 
 \subsection{Python}
 \setauthor{Felix Dumfarth}
 
-Python ist eine Programmiersprache, die mehrere Arten der Programmierung unterstützt, wie zum Beispiel die objektorientierte, die aspektorientierte und die funktionale Programmierung.
+Python ist eine Programmiersprache, die mehrere Arten der Programmierung wie die objektorientierte, die aspektorientierte und die funktionale Programmierung unterstützt.
 Es handelt sich hier um eine Programmiersprache, die versucht, einen knappen und dadurch gut lesbaren Programmierstil zu besitzen.
 Python wird oft für Machine Learning verwendet.
 Auch bei dieser Arbeit wurde Python zusammen mit Rasa verwendet.
 Zum einen ist Rasa ein Python-Framework und zum anderen werden die Custom Actions mit Python umgesetzt.
 
 \subsection{TypeScript}
-TypeScript ist eine im Jahr 2012 von Microsoft entwickelte Programmiersprache, die eine kompakte und einfache Syntax zur Programmierung von Webseiten und Anwendungen bietet.
+TypeScript wurde im Jahr 2012 von Microsoft entwickelt und ist eine Programmiersprache, die eine kompakte und einfache Syntax zur Programmierung von Webseiten und Anwendungen bietet.
 Typescript baut auf JavaScript auf und hilft zum Beispiel beim frühzeitigen Erkennen von Fehlern.
 Bei TypeScript wird mit Unterstützung von Modulen das Kapseln von Klassen, Interfaces, Funktionen und Variablen in eigene Namensräume ermöglicht.
 Es gibt hierbei eine Unterscheidung zwischen internen und externen Modulen.
@@ -38,8 +38,9 @@ Es gibt hierbei eine Unterscheidung zwischen internen und externen Modulen.
 \subsection{REST Service}
 \setauthor{Felix Dumfarth}
 
-REST steht für Representational State Transfer.
-REST Anfragen sind CRUD – Operationen (Create, Read, Update, Delete).
+REST ist die Abkürzung für Representational State Transfer.
+REST Anfragen sind sogenannte CRUD–Operationen.
+Darunter fallen die Operationen \texttt{Create}, \texttt{Read}, \texttt{Update} und \texttt{Delete}.
 Diese sind GET, POST, PUT und DELETE Requests.
 Außerdem gibt es noch OPTIONS, PATCH, HEAD, TRACE und CONNECT\@.
 Diese werden aber in der vorliegenden Arbeit nicht benutzt.
@@ -58,13 +59,13 @@ Diese werden aber in der vorliegenden Arbeit nicht benutzt.
 \subsection{Quarkus}\label{quarkus}
 \setauthor{Felix Dumfarth}
 
-Quarkus ist ein Framework für Java, welches sich auf die REST-Service-API ausrichtet.
+Quarkus ist ein Java-Framework, welches auf die REST-Service-API ausgerichtet ist.
 Das Backend ~\ref{sec:backend} wurde mit Quarkus umgesetzt.
 
 \subsection{Angular}
 \setauthor{Felix Dumfarth}
 
-Angular ist ein auf TypeScript basierendes Framework für Webseiten.
+Angular basiert auf TypeScript und ist ein Framework für Webseiten.
 Dieses ist ausgelegt für Single Page Applications.
 Das Chat Widget ~\ref{sec:chat-widget} und das Dashboard ~\ref{sec:dashboard} wurden mit Angular umgesetzt
 
@@ -106,7 +107,7 @@ Rasa X ist ein Werkzeug, um Conversation-Driven Development ~\ref{cdd} in die Ta
 Rasa X liefert erweiterte Funktionalitäten zu einem Rasa-Chatbot, die nur mit Rasa alleine nicht gegeben sind.
 Rasa X wurde mit Docker Compose ~\cite{rasaxDocker} auf der VM installiert ~\ref{sec:systemarchitektur}.
 
-Rasa X kommt mit einer grafischen Weboberfläche.
+Rasa X bietet dazu eine grafische Weboberfläche an.
 Auf dieser können Intents ~\ref{subsec:Intents}, Responses ~\ref{subsec:Responses}, etc. angesehen und verändert werden.
 Außerdem besteht die Möglichkeit, ein eigenes Model zu trainieren oder ein Model hochzuladen.
 
@@ -123,7 +124,7 @@ rest:
 
 Eine Herausforderung stellte dabei das Verschlüsseln der Kommunikation mit Rasa X mithilfe von HTTPS dar.
 Es wird ein Zertifikat benötigt.
-Dabei ist es möglich, ein Zertifikat mithilfe des Certbots ~\cite{certbot} zu erstellen.
+Hierbei ist es möglich, ein Zertifikat mithilfe des Certbots ~\cite{certbot} zu erstellen.
 Diese Zertifikate müssen dann in den \texttt{certs} Ordner gegeben werden.
 
 \begin{lstlisting}[language=bash,label={lst:certbot},caption={Install certbot and create certificates}]{certbot}]
@@ -212,7 +213,7 @@ Die HTL Leonding Schulhomepage wurde mithilfe von WordPress gemacht, deshalb war
 \end{figure}
 
 
-Auf WordPress können Beiträge verfasst werden, wie in Abbildung ~\ref{fig:impl:bloglist} zu sehen ist.
+Auf WordPress können Beiträge verfasst werden, wie in Abbildung ~\ref{fig:impl:bloglist} zu erkennen ist.
 
 \begin{figure}[hbt!]
     \centering

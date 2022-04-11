@@ -5,7 +5,7 @@
 \setauthor{Lukas Starka}
 
 Meistens werden die Begriffe Text Analysis und Text Mining im selben Zusammenhang verwendet.
-Dabei bedeuten sie eigentlich dasselbe, nämlich, dass man den Sinn einer Nachricht extrahiert.
+Dabei bedeuten sie aber dasselbe, nämlich, dass der Sinn einer Nachricht extrahiert wird.
 Deswegen wird in den folgenden Kapiteln nur von Text Analysis gesprochen.
 
 Es gibt jedoch einen Unterschied zwischen Text Analysis und Text Analytics.
@@ -23,7 +23,7 @@ Bei Text Analytics geht es also darum, Muster und Entwicklungen von numerischen 
 
 Im Gegensatz zum manuellen Aufbereiten von Texten kann man durch Machine Learning Texte rund um die Uhr und zur Echtzeit bearbeiten.
 Zusätzlich werden durch die Verwendung von Text Analysis Arbeitskräfte, die für das Aufbereiten der Texte und deren Bedeutung verantwortlich wären, eingespart.
-Durch Algorithmen werden außerdem Fehler reduziert, die bei manuellem Bearbeiten leicht auftreten können und Daten können genauer aufbereitet werden.\cite{textAnalysisMonkeylearn}
+Durch Algorithmen werden außerdem Fehler reduziert, die bei manuellem Bearbeiten leicht auftreten können und so können Daten genauer aufbereitet werden.\cite{textAnalysisMonkeylearn}
 
 \subsection{Machine Learning mit Text Analysis}\label{subsec:machine-learning-with-text-analysis}
 \setauthor{Lukas Starka}
@@ -31,17 +31,17 @@ Durch Algorithmen werden außerdem Fehler reduziert, die bei manuellem Bearbeite
 Ein Text Analysis Tool besteht grundsätzlich aus drei verschiedenen Schritten.
 
 \begin{enumerate}
-    \item Zunächst wird überlegt, welche Daten gesammelt werden sollen, um das Modell zu trainieren und zu testen.
+    \item Zunächst wird überlegt, welche Daten gesammelt werden sollen, um damit das Modell zu trainieren und zu testen.
     Hierbei wird zwischen \textbf{Internal Data} und \textbf{External Data} unterschieden.
     Unter External Data werden Quellen wie Zeitungen oder Foren bezeichnet und zu der Internal Data zählen sämtliche Daten, die eine Firma jeden Tag generiert, wie E-Mails, Reports, Chats oder Umfragen.
     \item Danach müssen die Daten aufbereitet werden, damit das Programm diese versteht.
     Dieser Schritt wird meistens als \textbf{Data Preprocessing} bezeichnet.
-    \item Zum Schluss wird dann ein Machine Learning Algorithmus hinzugefügt, welcher sich um die Analyse kümmert.
-Dieser kann entweder selber implementiert werden.
+    \item Schlussendlich wird ein Machine Learning Algorithmus hinzugefügt.
+    Dieser kümmert sich um die Analyse der Texte und dieser kann selber implementiert werden.
 Es können aber auch Libraries zur Hilfe gezogen werden.\cite{machineLearningTextAnalysis}
 \end{enumerate}
 
-\section{Natural Language Processing (NLP)}\label{sec:natural-language-processing}
+\section{Natural Language Processing}\label{sec:natural-language-processing}
 \setauthor{Lukas Starka}
 
 Natural Language Processing, oft auch als Akronym \textbf{NLP} abgekürzt, sorgt dafür, dass Computer Text auf dieselbe Art und Weise verstehen, wie wir es als Menschen tun.
@@ -101,9 +101,9 @@ Als Teil einer Sprache, also dem Part-of-speech, werden grundsätzlich Wörter b
 Im deutschen sind hierbei also die verschiedenen Wortarten gemeint.
 
 Beim Tagging werden Statistiken angewendet, wie beispielsweise, dass es sehr wahrscheinlich ist, dass nach einem Artikel ein Nomen folgt.
-Außerdem gibt es sogenannte Rule-Based POS-Taggers, deren Aufgabe es ist, vordefinierte Regeln zu verwenden, um das Tagging zu vollziehen.\cite{machineLearningTextAnalysis, naturalLanguageProcessing}
+Außerdem gibt es sogenannte Rule-Based POS-Taggers, deren Aufgabe es ist, vordefinierte Regeln zu verwenden, um das Tagging durchzuführen.\cite{machineLearningTextAnalysis, naturalLanguageProcessing}
 
-Ein Beispiel für POS-Tagging könnte also wie in Listing ~\ref{lst:pos-tagging} aussehen:
+Ein Beispiel für POS-Tagging könnte also wie in Listing ~\ref{lst:pos-tagging} aussehen.
 
 \begin{lstlisting}[label={lst:pos-tagging},caption={Beispiel für POS-Tagging}]{POS-Tagging}
 I am going to the U.K.
@@ -123,7 +123,7 @@ Named-entity recognition ist eine der wichtigsten Säulen von Natural Language P
 Entities sind strukturierte Stücke von Informationen, die sich innerhalb der Nachricht einer Benutzerin oder eines Benutzers befinden.
 Dabei werden Entities aus Texten erkannt und anschließend mit einem Tag der zugehörigen Kategorie versehen.\cite{namedEntityRecognition}
 
-Beispiele für Entities wären also:
+Beispiele für Entities wären also in Listing ~\ref{lst:ner-tagging} angeführt.
 
 \begin{lstlisting}[label={lst:ner-tagging},caption={Beispiele für Enitites}]{NER-Tagging}
 PERSON      Personen (inklusive fiktionalen Personen)
@@ -206,7 +206,7 @@ Die Beziehung, die zwischen diesen Wörtern vorliegt, wird mit \texttt{amod} bez
 Dies ist eine Abkürzung für \textbf{Adjectival Modifier}, also ein Adjektiv, welches ein Nomen modifiziert und zu der Bedeutung des Nomens beiträgt.
 In diesem Fall bietet dieses eine genaue Beschreibung der Farbe des Autos.\cite{dependencyParsing}
 
-Diese Beziehungen kann man auch in einem Baumdiagramm, wie in Abbildung ~\ref{fig:dependency_parsing_tree} darstellen.
+Diese Beziehungen kann man auch in einem Baumdiagramm, wie in Abbildung ~\ref{fig:dependency_parsing_tree} aufgezeigt wird, darstellen.
 
 \begin{figure}[hbt!]
     \centering
@@ -448,7 +448,7 @@ Der F-Score wird oft auch als F1-Score oder F-measure bezeichnet und dieser ist 
 Die Formel dafür ist in Abbildung ~\ref{fig:f-score} beschrieben.
 In unserem Fall wird der F-Score beispielsweise verwendet, um zu beschreiben, wie oft Intents richtig klassifiziert wurden.
 Die \texttt{precision} gibt dabei an, wie viele Intents richtig klassifiziert wurden, von der Anzahl, wie viele es tatsächlich waren.
-Dies ist in Abbildung ~\ref{fig:precision} zu sehen.
+Dies ist in Abbildung ~\ref{fig:precision} zu erkennen.
 Es wird also beispielsweise geschaut, wie viele Intents als \texttt{ask\_htl} identifiziert wurden und, wie viele es tatsächlich sein hätten sollen.
 Beim \texttt{recall} ist es auf der anderen Seite so, dass geschaut wird, wie viele Intents richtig klassifiziert wurden.
 Diese Anzahl wird durch die Anzahl, die der Intent vorhergesagt wurde gerechnet.~\ref{fig:recall}.
@@ -482,9 +482,10 @@ Je näher der F-Score dann insgesamt bei 1 liegt, desto besser ist das Modell un
 Ein paar Beispiele für berühmte Tools, die für Natural Language Understanding (NLU) und Natural Language Processing (NLP) genutzt werden, sind:
 
 \begin{itemize}
-    \item \href{https://www.nltk.org/}{NLTK}: Das Natural Language Toolkit (kurz NLTK) ist wahrscheinlich die berühmteste Python Library für NLP. NLTK besitzt über 50 Ressourcen für das Bearbeiten von Corpora.
-    Außerdem gibt es viele eingebaute Libraries für das Analysieren eines Textes wie die Klassifikation, Tokenization, Stemming, Tagging, Parsing und Semantic Reasoning.
-    \item \href{https://spacy.io/}{SpaCy}: SpaCy ist ebenfalls eine sehr berühmte Bibliothek für Python.
+    \item \href{https://www.nltk.org/}{NLTK}: Das Natural Language Toolkit (kurz NLTK) ist wahrscheinlich die berühmteste Python Library für Natural Language Processing.
+    NLTK besitzt über 50 Ressourcen für das Bearbeiten von Corpora.
+    Außerdem gibt es viele eingebaute Libraries für das Analysieren eines Textes, wie die Klassifikation, Tokenization, Stemming, Tagging, Parsing und Semantic Reasoning.
+    \item \href{https://spacy.io/}{SpaCy}: SpaCy ist eine Python Library für Natural Language Processing.
     SpaCy beschreibt sich selbst als \texttt{Industrial-Strength Natural Language Processing} und unterstützt über 64 Sprachen.
     SpaCy hat nur einen POS-Tagging-Algorithmus und pro Sprache nur einen Named-Entity-Recognizer.
     Dies hat den Vorteil, dass es nicht voller unnötiger Features ist und sich nur auf ein paar wichtige Funktionalitäten konzentriert.
@@ -494,7 +495,7 @@ Ein paar Beispiele für berühmte Tools, die für Natural Language Understanding
     Sie wurde entworfen um schnelle Iterationen und schnelles Ausprobieren mit Deep Neural Networks zu ermöglichen.
     Außerdem bietet Keras ein Interface zu Deep Neural Networks an, welche dann beispielsweise auf TensorFlow, Theano oder anderen Backends laufen können.
     \item \href{https://stanfordnlp.github.io/CoreNLP/}{CoreNLP}: Das CoreNLP Projekt von Stanford ist ein NLP Toolkit, welches zwar in Java geschrieben wurde, aber auch in anderen Sprachen verwendet werden kann, die auf der JVM Plattform sind.
-    \item \href{https://radimrehurek.com/gensim/}{Gensim}: Gensim ist eine Open-Source Library für Python, mit der man semantische NLP Modelle trainieren kann.
+    \item \href{https://radimrehurek.com/gensim/}{Gensim}: Gensim ist eine Open-Source Library für Python, mit der semantische NLP Modelle trainiert werden können.
     Außerdem ist Gensim plattformunabhängig und läuft auf jedem Betriebssystem.
     \item \href{https://textblob.readthedocs.io/en/dev/}{TextBlob}: TextBlob ist eine Python Library für das Bearbeiten von Texten.
     \item \href{https://fasttext.cc/}{FastText}: FastText ist eine Open-Source Library, die es Benutzerinnen und Benutzern erlaubt Text Representations und Text Classifier zu verwenden.

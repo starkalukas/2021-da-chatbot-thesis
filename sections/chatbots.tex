@@ -14,8 +14,8 @@ So besteht die Möglichkeit, nur einen Teil der Architektur auf Rasa aufzubauen 
 Rasa Core bezieht sich auf die Hauptkomponente, die die Nachrichten erhält und darauf antwortet.\cite{rasaCore}
 
 Der Rasa Core hält für jede Session, also für jeden User, einen Tracker.
-Dieser enthält den momentanen Zustand der Konversationen der jeweiligen User.
-Bekommt der Bot nun eine Nachricht, wird zuerst der Interpreter durchlaufen, welcher den Originaltext als Eingabe bekommt und die Eingabe, den Intent und die extrahierten Entities zurückgibt.
+Dieser Tracker enthält den momentanen Zustand der Konversationen der jeweiligen User.
+Wenn der Bot nun eine Nachricht bekommt, wird zuerst der Interpreter durchlaufen, welcher den Originaltext als Eingabe bekommt und die Eingabe, den Intent und die extrahierten Entities zurückgibt.
 Zusammen mit dem aktuellen Zustand des Trackers entscheidet die Policy ~\ref{subsec:policies} Komponente nun, welche Action ~\ref{subsec:actions}, also Antwort des Bots, als Nächstes ausgeführt werden soll.
 Diese Entscheidung wird nicht durch einfache Regeln getroffen, sondern genauso wie bei Intents ~\ref{subsec:Intents} oder Entities ~\ref{subsection:entities}, auf der Grundlage von einem, mit Machine Learning, trainierten Modell.\cite{rasaCore, rasaCoreBook}
 
@@ -105,8 +105,8 @@ Grundsätzlich ist zwischen Pipelines mit oder ohne Pretrained Word Vectors zu u
 Der Vorteil von Pipelines, die Pretrained Word Vectors verwenden ist, dass diese bereits aus der jeweiligen Sprache Vektoren für die Wörter besitzen.
 Somit weiß das Modell beispielsweise, dass Äpfel und Birnen ähnlich sind, ohne dass dies in den Intents irgendwo spezifiziert werden muss, weil es bereits aus den Wordvektoren hervorgeht.\cite{differenceStackOverflow, rasaMasterclassPreConfiguredPipelines}
 
-Die Vorteile hierbei sind also, dass das Modell weniger Trainingsdaten benötigt, um eine gute Performance zu besitzen.
-Außerdem geht der ganze Trainingsprozess in der Regel schneller und die Zeit, die benötigt wird, um die Trainingsdaten zu durchlaufen, ist kürzer als bei Modellen ohne Pretrained Word Vectors.\cite{differenceStackOverflow, pretrainedVsSupervised, rasaMasterclassPreConfiguredPipelines}
+Die Vorteile hierbei sind also, dass das Modell weniger Trainingsdaten benötigt, um eine gute Leistung zu erzielen.
+Außerdem ist der Trainingsprozess in der Regel schneller und die Zeit, die benötigt wird, um die Trainingsdaten zu durchlaufen, ist kürzer als bei Modellen ohne Pretrained Word Vectors.\cite{differenceStackOverflow, pretrainedVsSupervised, rasaMasterclassPreConfiguredPipelines}
 Ein Beispiel für eine Pipeline mit vortrainierten Vektoren ist die \texttt{spacy\_sklearn} Pipeline, die man in der \texttt{config.yml} Datei, wie in Listing ~\ref{lst:spacy-sklearn-pipeline} definiert.
 
 \begin{lstlisting}[label={lst:spacy-sklearn-pipeline},caption={SpaCy Sklearn Pipeline}]{SpaCy Sklearn Pipeline}
@@ -207,7 +207,8 @@ pipeline:
 \end{lstlisting}
 
 Wenn man sich dafür entscheidet, keine vortrainierten Word Embeddings zu nutzen und somit sein Modell spezifischer auf den eigenen Anwendungsfall anpassen möchte, verwendet man die vordefinierte Rasa Pipeline.
-Diese verwendet den CountVectorsFeaturizer, bei dem nur die Trainingsdaten, die zur Verfügung gestellt werden, trainiert werden.\cite{startingPipelines, allComponents, nluExamples}
+Diese verwendet den CountVectorsFeaturizer.
+Bei diesem werden nur die Trainingsdaten, die zur Verfügung gestellt werden, trainiert.\cite{startingPipelines, allComponents, nluExamples}
 In der \texttt{config.yml} Datei würde die Pipeline somit wie in Listing ~\ref{lst:default-pipeline} aussehen.
 
 \begin{lstlisting}[label={lst:default-pipeline},caption={Default Pipeline}]{Default Pipeline}
@@ -234,7 +235,7 @@ pipeline:
 \setauthor{Lukas Starka}
 
 Die für die Umsetzung des Chatbots verwendete Pipeline aus Listing ~\ref{lst:our-pipeline} beruht dabei auf dieser Standard-Pipeline.
-Die jeweiligen Komponenten davon werden in den folgenden Kapiteln genauer erläutert.
+In den folgenden Kapiteln werden diese Komponenten davon genauer erläutert.
 
 \begin{lstlisting}[label={lst:our-pipeline},caption={Unsere Pipeline}]{Unsere Pipeline}
 language: de
@@ -297,7 +298,8 @@ rasa test nlu --nlu data/nlu.yml
 Nachdem nun ein ausführlicher Test aller NLU-Daten durchgeführt wurde, wird das Ergebnis in einem \texttt{results/} Ordner gespeichert.\cite{interpretingTheOutput}
 
 Dort befindet sich nun direkt im Ordner eine Datei mit den Ergebnissen der verglichenen Pipelines.
-In der Abbildung ~\ref{fig:comparision_graph} ist zu erkennen, dass hierbei nur ein Konfigurationsfile genutzt wurde, bei dem es sich um die im Zuge der Arbeit gewählte Pipeline handelt.
+In der Abbildung ~\ref{fig:comparision_graph} ist zu erkennen, dass hierbei nur ein Konfigurationsfile getestet wurde.
+Bei diesem handelt es sich um die im Zuge der Arbeit gewählte Pipeline.
 Auf der x-Achse befindet sich die Anzahl der Trainingsphrasen, die beim Training dabei waren.
 Hier ist zu sehen, dass je höher die Anzahl ist, desto genauer auch der F1-Score ~\ref{subsec:F-Score} ist.
 Vor allem aber sind die Abweichungen bei diesem Score viel kleiner, wenn mehr Trainingsphrasen gegeben sind.
@@ -310,8 +312,8 @@ Dies beweist, wie wichtig es ist, viele Trainingsphrasen zu verwenden.
     \label{fig:comparision_graph}
 \end{figure}
 
-Außerdem werden noch \texttt{.json} Dateien und Bilder für die jeweiligen Ergebnisse erzeugt.
-Für jeden Lauf wird dabei ein Ordner angelegt, in dem es Unterordner für die jeweilige Prozentzahl gibt, die von den Trainingsphrasen ausgeschlossen wurde.
+Außerdem werden noch \texttt{.json}-Dateien und Bilder für die Ergebnisse erzeugt.
+Für jeden Lauf wird hierbei ein Ordner angelegt, in dem es Unterordner für die jeweilige Prozentzahl gibt, die von den Trainingsphrasen ausgeschlossen wurde.
 Dabei findet sich jeweils eine sogenannte Konfusionsmatrix und ein Histogramm der Ergebnisse.
 
 Beim Histogramm wird die Anzahl der korrekt vorhergesagten Intents ~\ref{subsec:Intents} mit der von den falsch vorhergesagten Intents ~\ref{subsec:Intents} verglichen.
@@ -319,7 +321,7 @@ Dabei wird auch die Confidence, also die Sicherheit des Modells, angegeben, mit 
 Im Optimalfall sind die Balken also bei den korrekten Intents weit oben mit einer hohen Confidence versehen und die Falschen mit einer niedrigen.
 Außerdem soll die Anzahl, die auf der x-Achse eingetragen ist, von den richtigen Intents höher sein als die Anzahl der falschen Intents.
 In Abbildung ~\ref{fig:histogram_0} ist ein Histogramm für 0\% Exklusion zu sehen und bei Abbildung ~\ref{fig:histogram_75} wurde 75\% Exklusion genutzt.
-Es ist zu erkennen, dass bei mehr Exklusion auch mehr Intents ~\ref{subsec:Intents} falsch vorhergesagt werden und die Zuversichtlichkeit, also die Confidence, des Modells dabei immer höher wird.
+Es ist dabei zu erkennen, dass bei mehr Exklusion auch mehr Intents ~\ref{subsec:Intents} falsch vorhergesagt werden und die Zuversichtlichkeit, also die Confidence, des Modells dabei immer höher wird.
 
 \begin{figure}[hbt!]
     \centering
@@ -353,7 +355,7 @@ In Abbildung ~\ref{fig:confusion_matrix} kann man beispielsweise ablesen, dass z
 
 Ein WhitespaceTokenizer ist eine sehr einfache Art eines Tokenizers.
 Hierbei wird, wie der Name bereits vermuten lässt, der Satz aufgeteilt in verschiedene Tokens.
-Ein Token kann zum Beispiel also ein Wort sein und beim WhitespaceTokenizer wird der Satz pro Whitespace, also pro Leerzeichen, aufgeteilt.\cite{whitespaceTokenizer, rasaMasterclassWhitespaceTokenizer, pipelineComponentsYoutube}
+Ein Token kann beispielsweise ein Wort sein und beim WhitespaceTokenizer wird der Satz pro Whitespace, also pro Leerzeichen, aufgeteilt.\cite{whitespaceTokenizer, rasaMasterclassWhitespaceTokenizer, pipelineComponentsYoutube}
 
 \begin{figure}[hbt!]
     \centering
@@ -363,7 +365,7 @@ Ein Token kann zum Beispiel also ein Wort sein und beim WhitespaceTokenizer wird
 \end{figure}
 
 Es gibt auch komplexere Tokenizer und Tokenizer, die speziell an Sprachen angepasst sind und die besonderen Regeln, die in diesen Sprachen gelten, beachten.
-Außerdem besteht die Möglichkeit, einen Tokenizer selbst zu implementieren.\cite{whitespaceTokenizer, rasaMasterclassWhitespaceTokenizer, pipelineComponentsYoutube}
+Außerdem kann ein Tokenizer auch selber implementiert werden.\cite{whitespaceTokenizer, rasaMasterclassWhitespaceTokenizer, pipelineComponentsYoutube}
 Tokenizer sollten generell weit am Anfang einer Pipeline ~\ref{sec:pipeline}, wenn nicht sogar die erste Komponente, sein.
 
 \subsection{RegexFeaturizer}\label{subsec:regex-featurizer}
@@ -406,7 +408,7 @@ CRF steht hierbei für Conditional Random Field.
 Dieses Modell lernt, welche Komponenten eines Satzes Entities sind und welche Entities diese sind.\cite{crfEntityExtractor, pipelineComponentsYoutube, regexFeaturizerCrf}
 
 Dies macht der CRFEntityExtractor, indem er die Sequenzen der Tokens beobachtet.
-Es wird also ein Token aus dem Satz herausgepickt, und anschließend wird geschaut, ob die Wörter danach und davor zum Kontext des Worts beitragen, um zu erkennen, ob es sich hierbei um eine Entity handelt.
+Es wird also ein Token aus dem Satz ausgewählt, und anschließend wird geschaut, ob die Wörter danach und davor zum Kontext des Wortes beitragen, um zu erkennen, ob es sich hierbei um eine Entity handelt.
 Dabei schaut der Extractor auf Eigenschaften, wie beispielsweise, ob das Wort groß- oder kleingeschrieben ist, ob es einen Prefix hat, ob es eine Zahl ist oder ob es ein speziell definiertes Wort für die Entities ist.
 Dies wird auch mit den Wörtern davor und danach gemacht.\cite{crfEntityExtractor, pipelineComponentsYoutube, regexFeaturizerCrf}
 
@@ -614,7 +616,8 @@ pipeline:
 \section{Welche Rolle spielen neuronale Netze in Rasa}\label{sec:neural-networks}
 \setauthor{Lukas Starka}
 
-Rasa selbst definiert 5 Stufen von AI, wie in Abbildung ~\ref{fig:5_levels_of_ai} zu sehen ist\@.\cite{ai5Levels}
+Rasa selbst definiert hierbei 5 Stufen von AI.
+Diese sind in Abbildung ~\ref{fig:5_levels_of_ai} zu sehen\@.\cite{ai5Levels}
 
 \begin{figure}[hbt!]
     \centering
@@ -868,7 +871,7 @@ Buche einen Flug von [Linz](city) nach [London](city).
 
 In dem Fall von ~\ref{lst:entity-roles-example} sind sowohl Linz als auch London zwar richtig gekennzeichnet als Entity mit dem Namen \texttt{city}, allerdings reicht diese Information noch nicht aus, damit der Chatbot richtig reagieren kann.
 Hierbei wäre es praktisch, wenn noch angegeben wird, welche dieser zwei Städte das Ziel und welche der Abflugort ist.
-Dies wird mit Entity Roles erreicht.\cite{entityRolesGroups}
+Mithilfe von Entity Rules kann dies erzielt werden.\cite{entityRolesGroups}
 
 \subsubsection{Entity Groups}\label{subsubsec:entity-groups}
 
@@ -1000,7 +1003,7 @@ Dieses Modell wird basierend auf den Demodaten, die von jedem neu erstellten Ras
     \label{fig:rasa_init}
 \end{figure}
 
-Nachdem dieser Befehl ausgeführt wurde, wird eine Struktur, wie in Abbildung ~\ref{fig:file_tree} erzeugt.
+Danach wird eine Struktur, wie in Abbildung ~\ref{fig:file_tree} erzeugt.
 
 \begin{figure}[hbt!]
     \centering

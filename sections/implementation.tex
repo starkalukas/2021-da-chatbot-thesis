@@ -43,7 +43,7 @@ Bei den beiden \texttt{conversations} Endpoints muss man sich zunächst authenti
 \subsection{GET /api/conversations}
 Der Endpoint ruft zuerst die getAuth() Funktion auf, um den Bearer Token zu erhalten.
 
-Danach wird der Rasa X GET Endpoint ``/api/conversations'', mit dem Bearer Token im Header aufgerufen.
+Anschließend wird der Rasa X GET Endpoint ``/api/conversations'', mit dem Bearer Token im Header aufgerufen.
 Von diesem Endpoint wird ein JSON Objekt zurückgegeben, das die Konversationen enthält, aber zusätzlich noch viele andere irrelevante Daten.
 Deshalb filtert sich das Backend wirklich nur ID des Senders, die Zeit und die Anzahl von Nachrichten der Unterhaltungen heraus und gibt diese zurück.
 
@@ -217,7 +217,7 @@ Diese Unterhaltungen werden schließlich alle gespeichert.
 \setauthor{Felix Dumfarth}
 
 Das Überprüfen stellt den zweiten Schritt des Leobot Conversation Cycles dar.
-In diesem Schritt wird vom Schulpersonal oder Verantwortlichen überprüft, ob der Bot die Fragen richtig erkannt und beantwortet hat oder ob Verbesserungspotenzial besteht.
+Hierbei wird vom Schulpersonal oder Verantwortlichen überprüft, ob der Bot die Fragen richtig erkannt und beantwortet hat oder ob Verbesserungspotenzial besteht.
 
 \subsubsection{Verbessern}
 \setauthor{Felix Dumfarth}
@@ -427,7 +427,7 @@ Die genutzten Argumente dabei sind:
 %\end{center}
 
 \begin{itemize}
-    \item actions\_directory: Der Ordner in dem sich die Actions befinden.
+    \item actions\_directory: Der Ordner mit den Actions
     \item docker\_registry: Das Docker Registry, wohin der Action Server hochgeladen werden soll.
     \item requirements\_file: Der Pfad zur requirements.txt Datei.
     \item docker\_image\_name: Der Name des Docker Images.
@@ -453,8 +453,8 @@ depends_on:
 Dabei bekommt das Image den Namen ``leobot'' und den Tag ``leon''.
 
 \subsubsection{Backend}
-Das Backend wird mithilfe von GitHub Actions automatisiert gebaut.
-Der Workflow baut das .jar file und dieses wird dann über SSH auf die virtuelle Maschine geladen.
+Mithilfe von GitHub Actions wird das Backend automatisiert gebaut.
+Der Workflow baut das .jar-File und dieses wird dann über SSH auf die virtuelle Maschine geladen.
 
 \begin{lstlisting}[language=yaml,label={lst:ciyml},caption={ci.yml}]{ci.yml}
 name: Quarkus Codestart CI
@@ -654,12 +654,12 @@ Diese Action trainiert das Modell und testet dieses dann direkt.
 Nachdem das Model trainiert und getestet wurde, wird das Model mit dem Job ``upload-artifact'' in die Artefakte hochgeladen.
 
 Nun wird im \texttt{deploy} Job zuerst das Modell heruntergeladen.
-Danach wird mit der Action ``garygrossgarten/github-action-scp@release'' das Modell über SSH auf die virtuelle Maschine geladen.
+Anschließend wird mit der Action ``garygrossgarten/github-action-scp@release'' das Modell über SSH auf die virtuelle Maschine geladen.
 Mit dem ``remote'' Argument wird der Pfad auf die VM angegeben.
 Hierbei ist dieser ``/home/chatadm/leobot/models''.
 Außerdem werden Secret Variablen ``SSH\_HOST'', ``SSH\_USER'' und ``SSH\_KEY'' definiert.
 Diese werden mit ``secrets.SSH\_HOST'', ``secrets.SSH\_USER'' und ``secrets.SSH\_KEY'' angegeben.
-Danach wird der Host ``staging'' mit dem User ``chatadm'' und der Private Key ``staging.key''angelegt.
+Dann wird der Host ``staging'' mit dem User ``chatadm'' und der Private Key ``staging.key''angelegt.
 Mit diesem Host wird dann in dem Step ``Copy model to Rasa X'' wird in den /home/chatadm/leobot/models Ordner gewechselt, wo zuvor das Model hochgeladen wurde.
 Dann wird das Shell-Skript ``upload-latest-model.sh'' ausgeführt.
 Dieses Shell-Skript beinhaltet eine veränderte Version des Befehls, der das Modell über die API \footnote{API Token zur Sicherheit im Kapitel entfernt} auf Rasa X lädt.
