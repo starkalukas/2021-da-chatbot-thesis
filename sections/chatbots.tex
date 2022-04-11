@@ -15,9 +15,9 @@ Rasa Core bezieht sich auf die Hauptkomponente, die die Nachrichten erhält und 
 
 Der Rasa Core hält für jede Session, also für jeden User, einen Tracker.
 Dieser Tracker enthält den momentanen Zustand der Konversationen der jeweiligen User.
-Wenn der Bot nun eine Nachricht bekommt, wird zuerst der Interpreter durchlaufen, welcher den Originaltext als Eingabe bekommt und die Eingabe, den Intent und die extrahierten Entities zurückgibt.
+Wenn der Bot nun eine Nachricht bekommt, wird zuerst der Interpreter durchlaufen, welcher den Originaltext als Eingabe bekommt und die Eingabe den Intent und die extrahierten Entities zurückgibt.
 Zusammen mit dem aktuellen Zustand des Trackers entscheidet die Policy ~\ref{subsec:policies} Komponente nun, welche Action ~\ref{subsec:actions}, also Antwort des Bots, als Nächstes ausgeführt werden soll.
-Diese Entscheidung wird nicht durch einfache Regeln getroffen, sondern genauso wie bei Intents ~\ref{subsec:Intents} oder Entities ~\ref{subsection:entities}, auf der Grundlage von einem, mit Machine Learning, trainierten Modell.\cite{rasaCore, rasaCoreBook}
+Diese Entscheidung wird nicht durch einfache Regeln getroffen, sondern genauso wie bei Intents ~\ref{subsec:Intents} oder Entities ~\ref{subsection:entities}, auf der Grundlage von einem mit Machine Learning trainierten Modell.\cite{rasaCore, rasaCoreBook}
 
 \begin{figure}[hbt!]
     \centering
@@ -58,7 +58,7 @@ Dabei gibt das NLU alle zugehörigen Intents ~\ref{subsec:Intents} geordnet nach
 Dieser Score gibt an, wie sicher sich das Modell ist, dass die jeweilige Antwort die richtige Antwort für den Text der Benutzerin oder des Benutzers ist.
 Rasa verfügt demnach über ein \textbf{Multi Intent Matching}.\cite{rasanlu, pretrainedVsSupervised}
 
-Außerdem gibt es noch die Entity Recognition, die dafür zuständig ist Entities ~\ref{subsection:entities}, also wichtige Informationen, aus natürlicher Sprache zu extrahieren.\cite{rasanlu}
+Außerdem gibt es noch die Entity Recognition, die dafür zuständig ist Entities ~\ref{subsection:entities}, also wichtige Informationen aus natürlicher Sprache zu extrahieren.\cite{rasanlu}
 
 Der Aufbau des NLU ist vollständig konfigurierbar mithilfe der sogenannten Pipeline ~\ref{sec:pipeline}.\cite{howToChooseAPipeline}
 
@@ -74,7 +74,7 @@ In der Abbildung ~\ref{fig:component_lifecycle} werden die Komponenten und ihre 
 
 \begin{figure}[hbt!]
     \centering
-    \includegraphics[scale=0.25]{pics/component-lifecycle}
+    \includegraphics[scale=0.4]{pics/component-lifecycle}
     \caption{Component Lifecycle~\cite{componentLifecycle}}
     \label{fig:component_lifecycle}
 \end{figure}
@@ -107,7 +107,7 @@ Somit weiß das Modell beispielsweise, dass Äpfel und Birnen ähnlich sind, ohn
 
 Die Vorteile hierbei sind also, dass das Modell weniger Trainingsdaten benötigt, um eine gute Leistung zu erzielen.
 Außerdem ist der Trainingsprozess in der Regel schneller und die Zeit, die benötigt wird, um die Trainingsdaten zu durchlaufen, ist kürzer als bei Modellen ohne Pretrained Word Vectors.\cite{differenceStackOverflow, pretrainedVsSupervised, rasaMasterclassPreConfiguredPipelines}
-Ein Beispiel für eine Pipeline mit vortrainierten Vektoren ist die \texttt{spacy\_sklearn} Pipeline, die man in der \texttt{config.yml} Datei, wie in Listing ~\ref{lst:spacy-sklearn-pipeline} definiert.
+Ein Beispiel für eine Pipeline mit vortrainierten Vektoren ist die \texttt{spacy\_sklearn} Pipeline, die man in der \texttt{config.yml} Datei wie in Listing ~\ref{lst:spacy-sklearn-pipeline} definiert.
 
 \begin{lstlisting}[label={lst:spacy-sklearn-pipeline},caption={SpaCy Sklearn Pipeline}]{SpaCy Sklearn Pipeline}
 language: "de"
@@ -170,7 +170,7 @@ In der Grafik ~\ref{fig:pre_trained_vs_supervised} ist ein Flussdiagramm abgebil
 
 \begin{figure}[hbt!]
     \centering
-    \includegraphics[scale=0.5]{pics/pre-trained-vs-supervised}
+    \includegraphics[scale=0.7]{pics/pre-trained-vs-supervised}
     \caption{Pretrained oder Supervised Embeddings~\cite{pretrainedVsSupervised, rasaMasterclassPreConfiguredPipelines}}
     \label{fig:pre_trained_vs_supervised}
 \end{figure}
@@ -267,9 +267,9 @@ pipeline:
 \subsection{Pipelines vergleichen}\label{subsec:comparing-pipelines}
 \setauthor{Lukas Starka}
 
-Um die beste Leistung für definierte Trainingsdaten zu erzielen, gibt es die Möglichkeit zwei verschieden Pipelines miteinander zu vergleichen.
+Um die beste Leistung für definierte Trainingsdaten zu erzielen, gibt es die Möglichkeit, zwei verschieden Pipelines miteinander zu vergleichen.
 Dafür wird der \texttt{rasa test} Befehl verwendet, der dabei eine Reihe von verschiedenen Schritten ausführt, wie in Listing ~\ref{lst:comparing-pipelines} zu sehen ist.
-
+gibt es
 \begin{enumerate}
     \item Zunächst werden 80 \% der Daten von der \texttt{data/nlu.yml} Datei trainiert und 20 \% getestet.
     \item Danach wird eine gewisse Prozentzahl von Daten ausgelassen.
@@ -281,12 +281,12 @@ Der zweite Schritt wird dabei standardmäßig dreimal für jede übergebene Pipe
 Dabei werden immer wieder neue Prozentzahlen gewählt.
 Um diese zu verändern, gibt es die \texttt{--runs} Flag, die in Listing ~\ref{lst:comparing-pipelines-custom} zu sehen ist.\cite{comparingNLUPipelines}
 
-\begin{lstlisting}[label={lst:comparing-pipelines},caption={Unsere Pipeline}]{Unsere Pipeline}
+\begin{lstlisting}[label={lst:comparing-pipelines},caption={NLU Daten testen}]{NLU Daten testen}
 rasa test nlu --nlu data/nlu.yml
    --config config_1.yml config_2.yml
 \end{lstlisting}
 
-\begin{lstlisting}[label={lst:comparing-pipelines-custom},caption={Unsere Pipeline}]{Unsere Pipeline}
+\begin{lstlisting}[label={lst:comparing-pipelines-custom},caption={Zwei Pipelines vergleichen}]{Zwei Pipelines vergleichen}
 rasa test nlu --nlu data/nlu.yml
   --config config_1.yml config_2.yml
   --runs 4 --percentages 0 25 50 70 90
@@ -325,20 +325,20 @@ Es ist dabei zu erkennen, dass bei mehr Exklusion auch mehr Intents ~\ref{subsec
 
 \begin{figure}[hbt!]
     \centering
-    \includegraphics[scale=0.5]{pics/intent_histogram_0}
+    \includegraphics[scale=0.6]{pics/intent_histogram_0}
     \caption{Histogramm für 0\% Exklusion}
     \label{fig:histogram_0}
 \end{figure}
 
 \begin{figure}[hbt!]
     \centering
-    \includegraphics[scale=0.5]{pics/intent_histogram_75}
+    \includegraphics[scale=0.6]{pics/intent_histogram_75}
     \caption{Histogramm für 75\% Exklusion}
     \label{fig:histogram_75}
 \end{figure}
 
 Die Konfusionsmatrix hilft dabei festzustellen, wie viele Intents richtig und falsch erkannt wurden.
-Dabei wird auf einer Achse aufgetragen, welcher Intent vorhergesagt wurde, und welcher Intent tatsächlich erkannt hätte werden sollen.
+Dabei wird auf einer Achse aufgetragen, welcher Intent vorhergesagt wurde und welcher Intent tatsächlich erkannt hätte werden sollen.
 Im Optimalfall liegt bei der Konfusionsmatrix also eine Diagonale durch die Matrix vor.
 Bei der Konfusionsmatrix ist anschaulich zu erkennen, welche Intents noch überarbeitet werden sollten, weil zu viele Intents falsch als dieser vorhergesagt wurden.
 In Abbildung ~\ref{fig:confusion_matrix} kann man beispielsweise ablesen, dass zwei Intents, die eigentlich \texttt{chitchat/insult} sein sollten fälschlicherweise als \texttt{chitchat/ask\_creator} erkannt wurden.
@@ -366,7 +366,7 @@ Ein Token kann beispielsweise ein Wort sein und beim WhitespaceTokenizer wird de
 
 Es gibt auch komplexere Tokenizer und Tokenizer, die speziell an Sprachen angepasst sind und die besonderen Regeln, die in diesen Sprachen gelten, beachten.
 Außerdem kann ein Tokenizer auch selber implementiert werden.\cite{whitespaceTokenizer, rasaMasterclassWhitespaceTokenizer, pipelineComponentsYoutube}
-Tokenizer sollten generell weit am Anfang einer Pipeline ~\ref{sec:pipeline}, wenn nicht sogar die erste Komponente, sein.
+Tokenizer sollten generell weit am Anfang einer Pipeline ~\ref{sec:pipeline}, wenn nicht sogar die erste Komponente sein.
 
 \subsection{RegexFeaturizer}\label{subsec:regex-featurizer}
 \setauthor{Lukas Starka}
@@ -409,7 +409,7 @@ Dieses Modell lernt, welche Komponenten eines Satzes Entities sind und welche En
 
 Dies macht der CRFEntityExtractor, indem er die Sequenzen der Tokens beobachtet.
 Es wird also ein Token aus dem Satz ausgewählt, und anschließend wird geschaut, ob die Wörter danach und davor zum Kontext des Wortes beitragen, um zu erkennen, ob es sich hierbei um eine Entity handelt.
-Dabei schaut der Extractor auf Eigenschaften, wie beispielsweise, ob das Wort groß- oder kleingeschrieben ist, ob es einen Prefix hat, ob es eine Zahl ist oder ob es ein speziell definiertes Wort für die Entities ist.
+Dabei schaut der Extractor auf Eigenschaften, wie beispielsweise, ob das Wort groß- oder kleingeschrieben ist, ob es einen Präfix hat, ob es eine Zahl ist oder ob es ein speziell definiertes Wort für die Entities ist.
 Dies wird auch mit den Wörtern davor und danach gemacht.\cite{crfEntityExtractor, pipelineComponentsYoutube, regexFeaturizerCrf}
 
 \begin{figure}[hbt!]
@@ -443,7 +443,7 @@ Dabei wird gezählt, wie oft ein bestimmtes Wort aus den Trainingsdaten in der N
 
 \begin{figure}[hbt!]
     \centering
-    \includegraphics[scale=0.25]{pics/countvectorsfeaturizer}
+    \includegraphics[scale=0.4]{pics/countvectorsfeaturizer}
     \caption{CountVectorsFeaturizer Beispiel~\cite{pipelineConfigurationVideo}}
     \label{fig:CountVectorsFeaturizer}
 \end{figure}
@@ -602,7 +602,7 @@ Der FallbackClassifier ist standardmäßig nicht in der Rasa Pipeline enthalten.
 Dieser wird verwendet, um mit Nachrichten umzugehen, bei denen nur eine sehr niedrige Confidence vorhergesagt wurde.
 In diesem Fall wird dann ein Intent mit dem Namen \texttt{nlu\_fallback} vorhergesagt, welchen man dann behandeln kann, indem man beispielsweise als Antwort immer definiert, dass der User seine Nachricht neu formulieren soll.
 Die Confidence wird hierbei auf den Wert gesetzt, welcher im \texttt{Threshold} angegeben wird.\cite{fallbackClassifier, nluFallback}
-Außerdem gibt es die Option einen sogenannten \texttt{ambiguity\_threshold} anzugeben.
+Außerdem gibt es die Option, einen sogenannten \texttt{ambiguity\_threshold} anzugeben.
 Bei diesem wird der \texttt{nlu\_fallback} Intent vorhergesagt, wenn die zwei als wahrscheinlichst empfundenen Intents sich um weniger als den ambiguity\_threshold in der Confidence unterscheiden.\cite{fallbackClassifier}
 
 \begin{lstlisting}[label={lst:fallback-classifier},caption={Fallback Classifier}]{Fallback Classifier}
@@ -621,7 +621,7 @@ Diese sind in Abbildung ~\ref{fig:5_levels_of_ai} zu sehen\@.\cite{ai5Levels}
 
 \begin{figure}[hbt!]
     \centering
-    \includegraphics[scale=0.25]{pics/5_levels_of_ai}
+    \includegraphics[scale=0.4]{pics/5_levels_of_ai}
     \caption{5 Stufen von AI~\cite{ai5LevelsVideo}}
     \label{fig:5_levels_of_ai}
 \end{figure}
@@ -796,7 +796,7 @@ Rules werden angegeben, um kleine Teile von Unterhaltungen anzugeben, die immer 
 Diese sollten allerdings nicht allzu häufig verwendet werden, weil nie alle Konversationen vorhergesagt werden können.
 Um Rules verwenden zu können, muss die \textbf{RulePolicy} in der Policy Konfiguration eingetragen sein.\cite{rules}
 
-Eine Rule wird wie in Listing ~\ref{lst:rules-example} beschrieben in der Datei \texttt{rules.yml} angegeben.
+Eine Rule wird wie in Listing ~\ref{lst:rules-example} beschrieben, in der Datei \texttt{rules.yml} angegeben.
 
 \begin{lstlisting}[label={lst:rules-example},caption={Rules Beispiel}]{Rules Beispiel}
 rules:
@@ -998,7 +998,7 @@ Dieses Modell wird basierend auf den Demodaten, die von jedem neu erstellten Ras
 
 \begin{figure}[hbt!]
     \centering
-    \includegraphics[scale=0.5]{pics/rasa_init}
+    \includegraphics[scale=0.6]{pics/rasa_init}
     \caption{Rasa Init Konsolenausgabe}
     \label{fig:rasa_init}
 \end{figure}
@@ -1062,7 +1062,7 @@ Die Ausgabe dabei sieht wie in Abbildung ~\ref{fig:rasa_shell} aus:
 
 \begin{figure}[hbt!]
     \centering
-    \includegraphics[scale=0.40]{pics/rasa_shell}
+    \includegraphics[scale=0.4]{pics/rasa_shell}
     \caption{Rasa Shell Ausgabe mit Debug Flag}
     \label{fig:rasa_shell}
 \end{figure}
