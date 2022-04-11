@@ -15,9 +15,9 @@ Rasa Core bezieht sich auf die Hauptkomponente, die die Nachrichten erhält und 
 
 Der Rasa Core hält für jede Session, also für jeden User, einen Tracker.
 Dieser enthält den momentanen Zustand der Konversationen der jeweiligen User.
-Bekommt der Bot nun eine Nachricht, wird zuerst der Interpreter durchlaufen, welcher den Originaltext als Eingabe bekommt und die Eingabe den Intent und die extrahierten Entities zurückgibt.
+Bekommt der Bot nun eine Nachricht, wird zuerst der Interpreter durchlaufen, welcher den Originaltext als Eingabe bekommt und die Eingabe, den Intent und die extrahierten Entities zurückgibt.
 Zusammen mit dem aktuellen Zustand des Trackers entscheidet die Policy ~\ref{subsec:policies} Komponente nun, welche Action ~\ref{subsec:actions}, also Antwort des Bots, als Nächstes ausgeführt werden soll.
-Diese Entscheidung wird nicht durch einfache Regeln getroffen, sondern genauso wie Intents ~\ref{subsec:Intents} oder Entities ~\ref{subsection:entities}, auf der Grundlage von einem, mit Machine Learning, trainierten Model.\cite{rasaCore, rasaCoreBook}
+Diese Entscheidung wird nicht durch einfache Regeln getroffen, sondern genauso wie bei Intents ~\ref{subsec:Intents} oder Entities ~\ref{subsection:entities}, auf der Grundlage von einem, mit Machine Learning, trainierten Modell.\cite{rasaCore, rasaCoreBook}
 
 \begin{figure}[hbt!]
     \centering
@@ -42,7 +42,7 @@ Bei den Policies gibt es unterschiedliche Priorities, die dann zum Einsatz komme
 Die TED Policy steht für Transformer Embedding Dialogue Policy und wird meistens standardmäßig verwendet.\cite{tedPolicy}
 
 Bei jedem Dialog bekommt die TED Policy drei Informationen als Input.
-Die Nachricht des Users, die vorherige Action ~\ref{subsec:actions} die vorhergesagt wurde und Slots ~\ref{subsec:slots} und aktive Forms ~\ref{subsection:forms}.
+Die Nachricht des Users, die vorherige Action, die vorhergesagt wurde und Slots ~\ref{subsec:slots} und aktive Forms ~\ref{subsection:forms}.
 Danach wird die Ähnlichkeit zwischen den System Actions und dem eingegebenen Text berechnet und zum Schluss werden noch CRF ~\ref{subsec:crfentityextractor} Algorithmen verwendet, um Entities ~\ref{subsection:entities} zu erkennen.\cite{tedPolicy}
 
 \subsection{Rasa NLU}\label{subsec:rasa-nlu}
@@ -53,22 +53,22 @@ Rasa NLU hat grundsätzlich zwei Hauptaufgaben.
 Zum einen wäre da die Intent Recognition und die Entity Recognition.\cite{rasanlu, pretrainedVsSupervised}
 
 Die Intent Recognition, ist die Erkennung der Nutzer-Absichten.
-Dazu muss die NLU mit ausreichend Utterances, also Responses ~\ref{subsec:Responses} trainiert werden.
-Dabei gibt die NLU alle zugehörigen Intents ~\ref{subsec:Intents} geordnet nach dem Confidence Score zurück.
+Dazu muss das NLU mit ausreichend Utterances, also Responses ~\ref{subsec:Responses} trainiert werden.
+Dabei gibt das NLU alle zugehörigen Intents ~\ref{subsec:Intents} geordnet nach dem Confidence Score zurück.
 Dieser Score gibt an, wie sicher sich das Modell ist, dass die jeweilige Antwort die richtige Antwort für den Text der Benutzerin oder des Benutzers ist.
 Rasa verfügt demnach über ein \textbf{Multi Intent Matching}.\cite{rasanlu, pretrainedVsSupervised}
 
 Außerdem gibt es noch die Entity Recognition, die dafür zuständig ist Entities ~\ref{subsection:entities}, also wichtige Informationen, aus natürlicher Sprache zu extrahieren.\cite{rasanlu}
 
-Der Aufbau der NLU ist vollständig konfigurierbar mithilfe der sogenannten Pipeline ~\ref{sec:pipeline}.\cite{howToChooseAPipeline}
+Der Aufbau des NLU ist vollständig konfigurierbar mithilfe der sogenannten Pipeline ~\ref{sec:pipeline}.\cite{howToChooseAPipeline}
 
 \section{Pipeline}\label{sec:pipeline}
 \setauthor{Lukas Starka}
 
-Rasa Open Source bietet bei der Initialisierung ~\ref{section:initialize} des Projekts eine Standard-NLU-Konfiguration.\cite{tuningYourModel}
+Rasa Open Source bietet bei der Initialisierung ~\ref{section:initialize} des Projekts eine Standard-NLU-Konfiguration an.\cite{tuningYourModel}
 
 In Rasa Open Source werden eingehende Nachrichten von einer Reihe von Komponenten ~\ref{sec:components} verarbeitet.
-Diese Komponenten werden nacheinander in einer sogenannten Processing Pipeline ausgeführt, die im \texttt{config.yml} File definiert ist.\cite{howToChooseAPipeline}
+Diese Komponenten werden nacheinander in einer sogenannten Processing Pipeline ausgeführt, die in der \texttt{config.yml} Datei definiert ist.\cite{howToChooseAPipeline}
 
 In der Abbildung ~\ref{fig:component_lifecycle} werden die Komponenten und ihre Lifecycle abgebildet.
 
@@ -82,7 +82,8 @@ In der Abbildung ~\ref{fig:component_lifecycle} werden die Komponenten und ihre 
 Bevor die erste Komponente mit der Create-Funktion erstellt wird, wird ein sogenannter Kontext erstellt.
 Dieser ist ein Python Dictionary, also ein Key-Value-Paar und er wird verwendet, um Informationen zwischen den Komponenten zu übergeben.\cite{componentLifecycle, componentLifecycleDoc}
 
-Zunächst wird der Kontext mit allen Konfigurationswerten gefüllt, die Pfeile im Bild ~\ref{fig:pipeline_image} zeigen die Aufrufreihenfolge und visualisieren den Pfad des übergebenen Kontexts.\cite{componentLifecycle, componentLifecycleDoc}
+Zunächst wird der Kontext mit allen Konfigurationswerten gefüllt.
+Die Pfeile im Bild ~\ref{fig:pipeline_image} zeigen die Aufrufreihenfolge und visualisieren den Pfad des übergebenen Kontexts.\cite{componentLifecycle, componentLifecycleDoc}
 Dies ist in der Grafik ~\ref{fig:pipeline_image} zu erkennen.
 
 \begin{figure}[hbt!]
@@ -101,10 +102,10 @@ Grundsätzlich ist zwischen Pipelines mit oder ohne Pretrained Word Vectors zu u
 
 \subsubsection{Beispiele für Pipelines mit Pretrained Word Vectors}
 
-Der Vorteil von Pipelines, die Pretrained Word Vectors verwenden sind, dass diese bereits aus der jeweiligen Sprache Vektoren für die Wörter ~\ref{subsubsec:word-vectors} besitzen.
-Somit weiß das Model beispielsweise, dass Äpfel und Birnen ähnlich sind, ohne dass dies in den Intents irgendwo spezifiziert werden muss, weil es bereits aus den Wordvektoren hervorgeht.\cite{differenceStackOverflow, rasaMasterclassPreConfiguredPipelines}
+Der Vorteil von Pipelines, die Pretrained Word Vectors verwenden ist, dass diese bereits aus der jeweiligen Sprache Vektoren für die Wörter besitzen.
+Somit weiß das Modell beispielsweise, dass Äpfel und Birnen ähnlich sind, ohne dass dies in den Intents irgendwo spezifiziert werden muss, weil es bereits aus den Wordvektoren hervorgeht.\cite{differenceStackOverflow, rasaMasterclassPreConfiguredPipelines}
 
-Die Vorteile hierbei sind also, dass das Model weniger Trainingsdaten benötigt, um eine gute Performance zu besitzen.
+Die Vorteile hierbei sind also, dass das Modell weniger Trainingsdaten benötigt, um eine gute Performance zu besitzen.
 Außerdem geht der ganze Trainingsprozess in der Regel schneller und die Zeit, die benötigt wird, um die Trainingsdaten zu durchlaufen, ist kürzer als bei Modellen ohne Pretrained Word Vectors.\cite{differenceStackOverflow, pretrainedVsSupervised, rasaMasterclassPreConfiguredPipelines}
 Ein Beispiel für eine Pipeline mit vortrainierten Vektoren ist die \texttt{spacy\_sklearn} Pipeline, die man in der \texttt{config.yml} Datei, wie in Listing ~\ref{lst:spacy-sklearn-pipeline} definiert.
 
@@ -118,8 +119,8 @@ Die SpaCy Pipeline verwendet Pretrained Word Vectors von GloVe oder fastText.
 Dies sind Algorithmen, die einen Textkorpus ~\ref{subsec:corpus} einer gewissen Sprache in Form von Vektoren einarbeiten.\cite{spacySklearnPipeline, spacyNLP, rasaMasterclassPreConfiguredPipelines}
 
 Es gibt außerdem auch noch Pipelines von MITIE.
-Diese verwenden MITIE als Source für die Word Vectors ~\ref{subsubsec:word-vectors}.
-Ein Vorteil von MITIE ist, dass man hier auch seine eigenen Word Vectors ~\ref{subsubsec:word-vectors} trainieren kann, indem man einen Korpus ~\ref{subsec:corpus} von Wikipedia oder ähnlichen Seiten verwendet.
+Diese verwenden MITIE als Source für die Word Vectors.
+Ein Vorteil von MITIE ist, dass man hier auch seine eigenen Word Vectors trainieren kann, indem man einen Korpus ~\ref{subsec:corpus} von Wikipedia oder ähnlichen Seiten verwendet.
 Allerdings wird MITIE meistens nicht empfohlen und es könnte auch sein, dass MITIE demnächst deprecated sein wird.
 Die MITIE Pipeline kann man wie in Listing ~\ref{lst:mitie-sklearn-pipeline} definieren.\cite{mitieNLP, mitieDeprecated}
 
@@ -136,9 +137,9 @@ Der Vorteil von Pipelines ohne Pretrained Word Vectors ist, dass diese speziell 
 Als Beispiel kann man die Wörter \texttt{balance} und \texttt{symmetry} aus dem Englischen sehen.
 Diese Wörter sind eng miteinander verwandt.
 Allerdings kann im Kontext von Banken das Wort \texttt{balance} auch mit \texttt{cash} verwandt sein.
-Bei einem vortrainierten Modell würden diese Wortvektoren nicht nah aneinander liegen, aber wenn ein Chatbot nur Intents besitzt, die mit Banken und Rechnungswesen zu tun haben, werden diese zwei Wörter \texttt{balance} und \texttt{cash} ohne Pretrained Word Vectors als ähnlich erkannt werden.\cite{tensorFlowEmbedding}
+Bei einem vortrainierten Modell würden diese Wortvektoren nicht nah aneinander liegen, aber wenn ein Chatbot nur Intents besitzt, die mit Banken und Rechnungswesen zu tun haben, werden diese zwei Wörter \texttt{balance} und \texttt{cash} ohne Pretrained Word Vectors auch als ähnlich erkannt werden.\cite{tensorFlowEmbedding}
 
-Außerdem benutzen diese Pipelines kein sprach-spezifisches Modell und somit kann man sie in allen Sprachen verwenden, die tokenisiert ~\ref{lst:tokenization} werden können.
+Außerdem benutzen diese Pipelines kein sprach-spezifisches Modell und somit kann man sie in allen Sprachen verwenden, die tokenisiert werden können.
 Eine solche Pipeline kann man wie in Listing ~\ref{lst:tensorflow-embedding-pipeline} definieren.\cite{tensorFlowEmbedding}
 
 \begin{lstlisting}[label={lst:tensorflow-embedding-pipeline},caption={Tensorflow Embedding Pipeline}]{Tensorflow Embedding Pipeline}
@@ -151,8 +152,9 @@ Ein Problem von diesem Ansatz ist jedoch, dass er oftmals keine fachspezifischen
 Außerdem ist das Problem bei Pretrained Word Vectors, dass Zehntausende Vektoren gespeichert werden, die vermutlich nie verwendet werden.\cite{tensorFlowEmbedding, choosingPipeline}
 
 Das Tensorflow-Embedding ist das genaue Pendant dazu.
-Diese Pipeline verwendet keine vortrainierten Vektoren, kann mit jeder Sprache verwendet werden.
-Sie lernt dabei Embeddings für die Intents ~\ref{subsec:Intents} und für die Wörter und die Embeddings werden verwendet um die Ähnlichkeit zwischen dem Input und den Intents ~\ref{subsec:Intents} zu ermitteln.\cite{tensorFlowEmbedding, choosingPipeline}
+Diese Pipeline verwendet keine vortrainierten Vektoren und kann mit jeder Sprache verwendet werden.
+Sie lernt dabei Embeddings für die Intents ~\ref{subsec:Intents} und für die Wörter einer Sprache.
+Diese Embeddings werden verwendet, um die Ähnlichkeit zwischen dem Input und den Intents ~\ref{subsec:Intents} zu ermitteln.\cite{tensorFlowEmbedding, choosingPipeline}
 
 Eine solche Pipeline wird wie in Listing ~\ref{lst:supervised-embedding} definiert.
 
@@ -204,9 +206,9 @@ pipeline:
 
 \end{lstlisting}
 
-Wenn man sich dafür entscheidet, keine vortrainierten Word Embeddings zu nutzen und somit sein Modell spezifischer auf den eigenen Anwendungsfall anpassen möchte, verwendet man die Standard Rasa Pipeline.
+Wenn man sich dafür entscheidet, keine vortrainierten Word Embeddings zu nutzen und somit sein Modell spezifischer auf den eigenen Anwendungsfall anpassen möchte, verwendet man die vordefinierte Rasa Pipeline.
 Diese verwendet den CountVectorsFeaturizer, bei dem nur die Trainingsdaten, die zur Verfügung gestellt werden, trainiert werden.\cite{startingPipelines, allComponents, nluExamples}
-In der \texttt{config.yml} Datei würde die Pipeline ~\ref{sec:pipeline} somit wie in Listing ~\ref{lst:default-pipeline} aussehen.
+In der \texttt{config.yml} Datei würde die Pipeline somit wie in Listing ~\ref{lst:default-pipeline} aussehen.
 
 \begin{lstlisting}[label={lst:default-pipeline},caption={Default Pipeline}]{Default Pipeline}
 language: "de"  # Code für die Sprache
@@ -232,7 +234,7 @@ pipeline:
 \setauthor{Lukas Starka}
 
 Die für die Umsetzung des Chatbots verwendete Pipeline aus Listing ~\ref{lst:our-pipeline} beruht dabei auf dieser Standard-Pipeline.
-Die jeweiligen Komponenten davon werden in den folgenden Kapiteln ~\ref{sec:components} genauer erläutert.
+Die jeweiligen Komponenten davon werden in den folgenden Kapiteln genauer erläutert.
 
 \begin{lstlisting}[label={lst:our-pipeline},caption={Unsere Pipeline}]{Unsere Pipeline}
 language: de
@@ -264,7 +266,7 @@ pipeline:
 \subsection{Pipelines vergleichen}\label{subsec:comparing-pipelines}
 \setauthor{Lukas Starka}
 
-Um die beste Leistung für definierte Trainingsdaten zu erzielen, gibt es die Möglichkeit zwei verschieden Pipelines miteinander vergleichen.
+Um die beste Leistung für definierte Trainingsdaten zu erzielen, gibt es die Möglichkeit zwei verschieden Pipelines miteinander zu vergleichen.
 Dafür wird der \texttt{rasa test} Befehl verwendet, der dabei eine Reihe von verschiedenen Schritten ausführt, wie in Listing ~\ref{lst:comparing-pipelines} zu sehen ist.
 
 \begin{enumerate}
@@ -292,10 +294,10 @@ rasa test nlu --nlu data/nlu.yml
 \subsubsection{Evaluation der Ergebnisse}\label{subsubsec:evaluation-results}
 \setauthor{Lukas Starka}
 
-Nachdem nun ein ausführlicher Test aller NLU Daten durchgeführt wurde, wird das Ergebnis in einem \texttt{results/} Ordner gespeichert.\cite{interpretingTheOutput}
+Nachdem nun ein ausführlicher Test aller NLU-Daten durchgeführt wurde, wird das Ergebnis in einem \texttt{results/} Ordner gespeichert.\cite{interpretingTheOutput}
 
-Dort befindet sich nun direkt im Ordner ein File mit den Ergebnissen der verglichenen Pipelines.
-In der Abbildung ~\ref{fig:comparision_graph} ist zu erkennen, dass hierbei nur 1 Konfigurationsfile genutzt wurde, bei dem es sich um die im Zuge der Arbeit gewählte Pipeline ~\ref{lst:our-pipeline} handelt.
+Dort befindet sich nun direkt im Ordner eine Datei mit den Ergebnissen der verglichenen Pipelines.
+In der Abbildung ~\ref{fig:comparision_graph} ist zu erkennen, dass hierbei nur ein Konfigurationsfile genutzt wurde, bei dem es sich um die im Zuge der Arbeit gewählte Pipeline handelt.
 Auf der x-Achse befindet sich die Anzahl der Trainingsphrasen, die beim Training dabei waren.
 Hier ist zu sehen, dass je höher die Anzahl ist, desto genauer auch der F1-Score ~\ref{subsec:F-Score} ist.
 Vor allem aber sind die Abweichungen bei diesem Score viel kleiner, wenn mehr Trainingsphrasen gegeben sind.
@@ -333,7 +335,7 @@ Es ist zu erkennen, dass bei mehr Exklusion auch mehr Intents ~\ref{subsec:Inten
     \label{fig:histogram_75}
 \end{figure}
 
-Die Konfusionsmatrix hilft dabei festzustellen, wie viele Intents ~\ref{subsec:Intents} richtig und falsch erkannt wurden.
+Die Konfusionsmatrix hilft dabei festzustellen, wie viele Intents richtig und falsch erkannt wurden.
 Dabei wird auf einer Achse aufgetragen, welcher Intent vorhergesagt wurde, und welcher Intent tatsächlich erkannt hätte werden sollen.
 Im Optimalfall liegt bei der Konfusionsmatrix also eine Diagonale durch die Matrix vor.
 Bei der Konfusionsmatrix ist anschaulich zu erkennen, welche Intents noch überarbeitet werden sollten, weil zu viele Intents falsch als dieser vorhergesagt wurden.
@@ -349,7 +351,7 @@ In Abbildung ~\ref{fig:confusion_matrix} kann man beispielsweise ablesen, dass z
 \subsection{WhitespaceTokenizer}\label{subsec:whitespace-tokenizer}
 \setauthor{Lukas Starka}
 
-Ein WhitespaceTokenizer ist eine sehr einfache Art eines Tokenizers ~\ref{lst:tokenization}.
+Ein WhitespaceTokenizer ist eine sehr einfache Art eines Tokenizers.
 Hierbei wird, wie der Name bereits vermuten lässt, der Satz aufgeteilt in verschiedene Tokens.
 Ein Token kann zum Beispiel also ein Wort sein und beim WhitespaceTokenizer wird der Satz pro Whitespace, also pro Leerzeichen, aufgeteilt.\cite{whitespaceTokenizer, rasaMasterclassWhitespaceTokenizer, pipelineComponentsYoutube}
 
@@ -401,9 +403,9 @@ Der RegexFeaturizer muss vor dem EntityExtractor in der Pipeline platziert werde
 Eine Möglichkeit, um Entities ~\ref{subsection:entities} aus der Nachricht des Benutzers zu extrahieren ist über den CRFEntityExtractor.\cite{crfEntityExtractor}
 
 CRF steht hierbei für Conditional Random Field.
-Dieses Modell lernt, welche Komponenten eines Satzes Entities ~\ref{subsection:entities} sind und welche Entities ~\ref{subsection:entities} diese sind.\cite{crfEntityExtractor, pipelineComponentsYoutube, regexFeaturizerCrf}
+Dieses Modell lernt, welche Komponenten eines Satzes Entities sind und welche Entities diese sind.\cite{crfEntityExtractor, pipelineComponentsYoutube, regexFeaturizerCrf}
 
-Dies macht der CRFEntityExtractor, indem er die Sequenzen der Tokens ~\ref{lst:tokenization} beobachtet.
+Dies macht der CRFEntityExtractor, indem er die Sequenzen der Tokens beobachtet.
 Es wird also ein Token aus dem Satz herausgepickt, und anschließend wird geschaut, ob die Wörter danach und davor zum Kontext des Worts beitragen, um zu erkennen, ob es sich hierbei um eine Entity handelt.
 Dabei schaut der Extractor auf Eigenschaften, wie beispielsweise, ob das Wort groß- oder kleingeschrieben ist, ob es einen Prefix hat, ob es eine Zahl ist oder ob es ein speziell definiertes Wort für die Entities ist.
 Dies wird auch mit den Wörtern davor und danach gemacht.\cite{crfEntityExtractor, pipelineComponentsYoutube, regexFeaturizerCrf}
@@ -459,7 +461,7 @@ pipeline:
 \setauthor{Lukas Starka}
 
 DIET steht für \textbf{Dual Intent and Entity Transformer} und kann somit sowohl Intents ~\ref{subsec:Intents} als auch Entities ~\ref{subsection:entities} klassifizieren und erkennen.
-Bei der Klassifizierung wird die Eingabe des Users hergenommen und dabei der passende Intent aus dem NLU.yml File gefunden.
+Bei der Klassifizierung wird die Eingabe des Users hergenommen und dabei der passende Intent aus der \texttt{nlu.yml} Datei gefunden.
 Ohne DIET würde zusätzlich zur Intent-Klassifizierung auch noch eine Komponente benötigt werden, die Entities extrahiert, wie beispielsweise den CRFEntityExtractor ~\ref{subsec:crfentityextractor}.
 Der Parameter \texttt{epochs} gibt dabei an, wie oft die Trainingsdaten durchgegangen werden sollen.
 Standardmäßig ist dieser auf den Wert 300 gesetzt.
@@ -535,7 +537,7 @@ Wenn also beispielsweise in einem Satz des Benutzers New York City oder NYC vork
 \subsection{ResponseSelector}\label{subsec:response-selector}
 \setauthor{Lukas Starka}
 
-Ein Selector sagt die korrekte Response ~\ref{subsec:Responses} voraus aus einer Menge von möglichen Responses.
+Ein Selector sagt die korrekte Response ~\ref{subsec:Responses} aus einer Menge von möglichen Responses voraus.
 Beim ResponseSelector wird als Ausgabe ein Key-Value Paar ausgegeben.
 Als Key wird hierbei der Retrieval Intent ausgegeben und das Value ist die vorhergesagte Response und die Confidence, mit der diese vorhergesagt wurde.\cite{responseSelector}
 
@@ -577,7 +579,7 @@ Als Key wird hierbei der Retrieval Intent ausgegeben und das Value ist die vorhe
 
 Bei einem Retrieval Intent handelt es sich um einen speziellen Intent, der weiter aufgeteilt werden kann in sogenannte Sub-Intents.
 Dies kann man zum Beispiel nutzen, wenn man einen Retrieval Intent für FAQ und für Chitchat hat, bei denen dann jede individuelle Frage einen Sub-Intent darstellt.\cite{retrievalIntent}
-Verwendet wird dies, wenn der Bot zum Beispiel bei FAQ oder Chitchat sowieso immer mit derselben Antwort auf die Frage antworten soll, unabhängig von dem, was vorher geschrieben wurde.\cite{chitchatAndFaqs}
+Verwendet wird dies, wenn der Bot zum Beispiel bei FAQs oder Chitchat sowieso immer mit derselben Antwort auf die Frage antworten soll, unabhängig von dem, was vorher geschrieben wurde.\cite{chitchatAndFaqs}
 
 Bei der Arbeit wurde dieser Ansatz ebenfalls gewählt, wie in ~\ref{lst:response-selector-2} zu sehen ist.
 
@@ -612,7 +614,7 @@ pipeline:
 \section{Welche Rolle spielen neuronale Netze in Rasa}\label{sec:neural-networks}
 \setauthor{Lukas Starka}
 
-Rasa selbst definiert 5 Stufen von AI, wie in Abbildung ~\ref{fig:5_levels_of_ai} zu sehen ist.\@.\cite{ai5Levels}
+Rasa selbst definiert 5 Stufen von AI, wie in Abbildung ~\ref{fig:5_levels_of_ai} zu sehen ist\@.\cite{ai5Levels}
 
 \begin{figure}[hbt!]
     \centering
@@ -652,7 +654,7 @@ Diese ganzen Informationen befinden sich in der \textbf{domain.yml} Datei.\cite{
 Intents sind die Absichten hinter der Nachricht des Benutzers.
 Als Intents werden also alle möglichen Beispielsätze definiert, die ein Benutzer sagen könnte, um eine bestimmte Absicht auszudrücken.\cite{intents}
 
-Intents werden in dem \textbf{nlu.yml} File wie in Listing ~\ref{lst:intent-example} angegeben:
+Intents werden in der \textbf{nlu.yml} Datei wie in Listing ~\ref{lst:intent-example} angegeben:
 
 \begin{lstlisting}[label={lst:intent-example},caption={Intents Beispiel}]{Intents Beispiel}
 ## intent:<name des intents>
@@ -704,7 +706,7 @@ Stories können dabei genutzt werden, um Modelle zu trainieren, bei denen auch u
 Bei einer Story wird also die Unterhaltung zwischen einem Benutzer und dem Bot dargestellt.
 Dabei wird die Eingabe des Benutzers als Intent ~\ref{subsec:Intents} angegeben und die Antwort, mit der der Bot antworten soll, als Name der Action ~\ref{subsec:actions}.\cite{stories}
 
-Stories können wie in ~\ref{lst:stories-example} aufgezeigt aussehen und sind im \textbf{stories.yml} File anzugeben:
+Stories können wie in Listing ~\ref{lst:stories-example} aufgezeigt aussehen und sind in der \textbf{stories.yml} Datei anzugeben:
 
 \begin{lstlisting}[label={lst:stories-example},caption={Stories Beispiel}]{Stories Beispiel}
 stories:
@@ -849,7 +851,7 @@ entities:
 \end{lstlisting}
 
 Diese Entities müssen dann noch in den Intents angegeben werden, in denen sie vorkommen sollen.
-Dies wird dadurch erreicht, dass folgende Syntax von Listing ~\ref{lst:entities-nlu-example} bei den Trainingssätzen im \textbf{nlu.yml} File ergänzt wird.
+Dies wird dadurch erreicht, dass folgende Syntax von Listing ~\ref{lst:entities-nlu-example} bei den Trainingssätzen in der \textbf{nlu.yml} Datei ergänzt wird.
 
 \begin{lstlisting}[label={lst:entities-nlu-example},caption={Entities Beispiel}]{Entities Beispiel}
 Hallo mein Name ist [Lukas](name).
@@ -895,7 +897,7 @@ Diese sind die einzigen Entity Extraktoren, die Role und Group Labels erkennen k
 Um mehrere Informationen von einem Benutzer zu bekommen, eignen sich Forms.
 Um Forms zu verwenden, muss die \textbf{RulePolicy} in der Policy Konfiguration eingetragen sein.\cite{forms}
 
-Wenn ein Formular hinzugefügt werden soll, muss dies in der forms Sektion in dem \textbf{domain.yml} File angegeben sein.
+Wenn ein Formular hinzugefügt werden soll, muss dies in der forms Sektion in der \textbf{domain.yml} Datei angegeben sein.
 
 \begin{lstlisting}[label={lst:forms-example},caption={Forms Beispiel}]{Forms Beispiel}
 forms:
@@ -915,7 +917,7 @@ forms:
 Mithilfe von Synonymen können extrahierten Entities einen anderen Wert annehmen, als sie eigentlich vorher hatten, wenn diese in der Bedeutung gleich sind.
 Wenn also mit verschiedenen Wörtern dasselbe gemeint ist, können Synonyme zur Hilfe genommen werden.\cite{synonyms}
 
-Ein Beispiel dafür wäre ~\ref{lst:synonym-example} im \textbf{nlu.yml} File.
+Ein Beispiel dafür wäre ~\ref{lst:synonym-example} in der \textbf{nlu.yml} Datei.
 
 \begin{lstlisting}[label={lst:synonym-example},caption={Synonym Beispiel}]{Synonym Beispiel}
 - synonym: Medientechnik
@@ -1019,7 +1021,7 @@ Dabei werden nur die Komponenten (Core ~\ref{subsec:rasa-core} oder NLU ~\ref{su
 Es kann aber auch selbstständig angeben werden, dass nur \texttt{core} oder \texttt{nlu} trainieren werden soll.
 Nach dem Trainieren wird das Modell in den Pfad gespeichert, der beim \texttt{--out} definiert wurde und standardmäßig \texttt{/models} ist.
 Dabei wird als Modellname der aktuelle Zeitstempel gewählt, außer es wird die \texttt{--fixed-model-name} Flag verwendet.
-Wenn andere Pipelines oder Policies verwendet werden sollen, kann auch ein anderes config-File angegeben werden, in dem diese gespeichert sind.
+Wenn andere Pipelines oder Policies verwendet werden sollen, kann auch eine andere config-Datei angegeben werden, in dem diese gespeichert sind.
 Dies wird mit \texttt{-c} erreicht.
 Ab Rasa 2.2 gibt es außerdem die Möglichkeit eine Feinabstimmung an einem bereits bestehenden Modell vorzunehmen.
 Dies macht man, wenn man neue Trainingsdaten bei bereits bestehenden Intents hinzugefügt hat.
@@ -1068,7 +1070,7 @@ Die Ausgabe dabei sieht wie in Abbildung ~\ref{fig:rasa_shell} aus:
 Um eine interaktive Session mit dem Bot zu starten, kann der Befehl \texttt{rasa interactive} genutzt werden.
 Dabei wird zunächst ein Modell trainiert und anschließend startet eine interaktive Shell Session.
 Dabei hat die Benutzerin oder der Benutzer die Möglichkeit, alle vorhergesagten Aktionen vom Assistant zu korrigieren.
-Wenn nur das Core Model getestet werden soll, kann dies spezifiziert werden.
+Wenn nur das Core Modell getestet werden soll, kann dies spezifiziert werden.
 
 \begin{lstlisting}[language=bash,label={lst:interactive-command},caption={Interaktive Trainingssession starten}]{Rasa Interactive}
 rasa interactive
