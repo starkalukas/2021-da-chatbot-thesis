@@ -42,7 +42,7 @@ Bei den Policies gibt es unterschiedliche Priorities, die dann zum Einsatz komme
 Die TED Policy steht für Transformer Embedding Dialogue Policy und wird meistens standardmäßig verwendet.\cite{tedPolicy}
 
 Bei jedem Dialog bekommt die TED Policy drei Informationen als Input.
-Die Nachricht des Users, die vorherige Action, die vorhergesagt wurde und Slots ~\ref{subsec:slots} und aktive Forms ~\ref{subsection:forms}.
+Die Nachricht des Users, welche Antwort zuletzt vorhergesagt wurde und Slots ~\ref{subsec:slots} und aktive Forms ~\ref{subsection:forms}.
 Danach wird die Ähnlichkeit zwischen den System Actions und dem eingegebenen Text berechnet und zum Schluss werden noch CRF ~\ref{subsec:crfentityextractor} Algorithmen verwendet, um Entities ~\ref{subsection:entities} zu erkennen.\cite{tedPolicy}
 
 \subsection{Rasa NLU}\label{subsec:rasa-nlu}

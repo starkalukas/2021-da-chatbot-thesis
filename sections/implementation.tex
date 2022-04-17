@@ -267,7 +267,10 @@ Der Regelkreis wird oft bei der Regelung von Heizungen eingesetzt ~\ref{fig:heiz
 
 Ein Regelkreis wird dabei entweder durch eine Änderung der Sollgröße oder durch Auftreten einer Störung ausgelöst.
 Beim Leobot Conversation Cycle wird der Regelkreis demzufolge ausgelöst, wenn eine Interaktion mit einem User stattfand, bei der der Bot eine falsche Antwort gegeben hat.
-Die Messeinrichtung ist dabei das Dashboard ~\ref{sec:dashboard}, das alle Unterhaltungen auflistet und diese grafisch veranschaulicht.
+Die Messeinrichtung ist dabei die Betreuerin oder der Betreuer des Chatbots.
+Die Betreuer können mithilfe des Dashboards beurteilen, ob die Konversation gelungen ist.
+Dieses Dashboard listet alle Unterhaltungen auf und veranschaulicht diese grafisch.
+Außerdem kann durch Nutzer des Chatbots eine Sternebewertung mit einem Freitext abgegeben werden.
 Durch den eingebauten Editor ist die Möglichkeit gegeben, dass die Files direkt bearbeitet werden, sodass der Bot in Zukunft auch auf diese Fragestellung die richtige Antwort parat hat.
 Der Sollwert wird also in den Regler eingegeben und anschließend wird das Modell basierend auf den neuen Dateien neu trainiert.
 Dies stellt dabei die Stelleinrichtung des Regelkreises dar und der Kreislauf kann von vorne beginnen, sollte erneut eine Störgröße auftreten oder die Sollgröße verändert werden.
@@ -386,7 +389,7 @@ jobs:
     name: Build Action Server image and upgrade Rasa X deployment
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v2
+      uses: actions/checkout@v2bear
 
     - id: action_server
       name: Build an action server with a custom actions
